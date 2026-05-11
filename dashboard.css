@@ -1,0 +1,546 @@
+/* ==================== DASHBOARD STYLES ==================== */
+
+/* CSS Variables */
+:root {
+    --bg-primary: #0b0f19;
+    --bg-secondary: #111827;
+    --glass-bg: rgba(17, 24, 39, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent-purple: #7c3aed;
+    --accent-blue: #2563eb;
+    --gradient-primary: linear-gradient(135deg, #7c3aed, #2563eb);
+    --gradient-glow: radial-gradient(circle, rgba(124, 58, 237, 0.3), transparent);
+    --text-white: #ffffff;
+    --text-light: #e5e7eb;
+    --text-gray: #9ca3af;
+    --success-color: #27ca40;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+}
+
+/* ==================== DASHBOARD NAVBAR ==================== */
+.dashboard-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+    padding: 15px 0;
+}
+
+.dashboard-navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-navbar .logo a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.dashboard-navbar .logo a:hover {
+    opacity: 0.8;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: var(--bg-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+}
+
+.user-name {
+    font-weight: 600;
+    color: var(--text-white);
+    font-size: 0.95rem;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+}
+
+.btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    color: var(--error-color);
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.btn-logout:hover {
+    background: rgba(239, 68, 68, 0.2);
+    transform: translateY(-2px);
+}
+
+.mobile-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-white);
+    cursor: pointer;
+}
+
+/* ==================== DASHBOARD MAIN ==================== */
+.dashboard-main {
+    margin-top: 80px;
+    padding: 40px 0 80px;
+    min-height: 100vh;
+    background: var(--bg-primary);
+    position: relative;
+}
+
+.dashboard-main::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 1000px;
+    background: var(--gradient-glow);
+    filter: blur(200px);
+    z-index: -1;
+}
+
+/* ==================== WELCOME SECTION ==================== */
+.welcome-section {
+    margin-bottom: 40px;
+}
+
+.welcome-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: var(--gradient-glow);
+    opacity: 0.1;
+    animation: float 20s ease-in-out infinite;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.welcome-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ==================== USER INFO SECTION ==================== */
+.user-info-section {
+    margin-bottom: 40px;
+}
+
+.info-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-bottom: 25px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    padding: 20px;
+    background: var(--bg-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: var(--text-white);
+    font-weight: 600;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-badge.active {
+    background: rgba(39, 202, 64, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(39, 202, 64, 0.3);
+}
+
+/* ==================== COURSE SECTION ==================== */
+.course-section {
+    margin-bottom: 40px;
+}
+
+.course-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.course-content {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+    align-items: flex-start;
+}
+
+.course-image {
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-primary);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    flex-shrink: 0;
+}
+
+.course-details h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-white);
+    margin-bottom: 10px;
+}
+
+.course-details p {
+    font-size: 0.95rem;
+    color: var(--text-gray);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.course-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.feature-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(124, 58, 237, 0.1);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--accent-purple);
+    font-weight: 500;
+}
+
+/* Course Status */
+.course-status {
+    text-align: center;
+    padding: 20px;
+    background: var(--bg-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+}
+
+.btn-buy-course {
+    display: inline-block;
+    padding: 14px 40px;
+    background: var(--gradient-primary);
+    color: var(--text-white);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+}
+
+.btn-buy-course:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.6);
+}
+
+.course-purchased {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.course-purchased svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ==================== ERROR & LOADING STATES ==================== */
+.error-card {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.error-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    background: rgba(239, 68, 68, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--error-color);
+}
+
+.error-card h3 {
+    font-size: 1.5rem;
+    color: var(--text-white);
+    margin-bottom: 10px;
+}
+
+.error-card p {
+    color: var(--text-gray);
+    margin-bottom: 20px;
+}
+
+.btn-retry {
+    padding: 12px 30px;
+    background: var(--gradient-primary);
+    color: var(--text-white);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-retry:hover {
+    transform: translateY(-2px);
+}
+
+.loading-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--glass-border);
+    border-top: 3px solid var(--accent-purple);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+}
+
+.loading-state p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes float {
+    0%, 100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 768px) {
+    .dashboard-navbar .container {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .user-section {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .mobile-toggle {
+        display: block;
+        order: 2;
+    }
+    
+    .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .welcome-stats {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .course-features {
+        justify-content: center;
+    }
+    
+    .dashboard-main {
+        padding: 30px 0 60px;
+    }
+    
+    .welcome-card,
+    .info-card,
+    .course-card {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-title {
+        font-size: 1.5rem;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.3rem;
+    }
+}

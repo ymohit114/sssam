@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SSSAM Academy</title>
+    
+    <!-- Google Font Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    
+    <!-- ==================== DASHBOARD NAVBAR ==================== -->
+    <nav class="dashboard-navbar">
+        <div class="container">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="index.html">SSSAM Academy</a>
+            </div>
+            
+            <!-- User Section -->
+            <div class="user-section">
+                <div class="user-info">
+                    <span class="user-name" id="navbarUserName">Loading...</span>
+                    <div class="user-avatar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                </div>
+                <button class="btn-logout" id="logoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <div class="mobile-toggle" id="mobileToggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ==================== DASHBOARD MAIN ==================== -->
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-card">
+                    <h1 class="welcome-title">
+                        Welcome, <span id="welcomeUserName">Loading...</span> 👋
+                    </h1>
+                    <p class="welcome-subtitle">
+                        Your learning journey starts here! Track your progress and access your courses.
+                    </p>
+                    <div class="welcome-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="coursesCount">0</div>
+                            <div class="stat-label">Courses Enrolled</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="progressPercent">0%</div>
+                            <div class="stat-label">Progress</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="daysActive">0</div>
+                            <div class="stat-label">Days Active</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- User Info Section -->
+            <section class="user-info-section">
+                <div class="info-card">
+                    <h2 class="card-title">Profile Information</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Email Address</div>
+                            <div class="info-value" id="userEmail">Loading...</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Member Since</div>
+                            <div class="info-value" id="memberSince">Loading...</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Account Status</div>
+                            <div class="info-value">
+                                <span class="status-badge active" id="accountStatus">Active</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Last Login</div>
+                            <div class="info-value" id="lastLogin">Just now</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Course Section -->
+            <section class="course-section">
+                <div class="course-card" id="courseCard">
+                    <h2 class="card-title">Full Stack + AI Course</h2>
+                    <div class="course-content">
+                        <div class="course-image">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                        <div class="course-details">
+                            <h3>Complete Web Development with AI Integration</h3>
+                            <p>Master modern web development and AI technologies with real-world projects.</p>
+                            <div class="course-features">
+                                <span class="feature-tag">75+ Video Lessons</span>
+                                <span class="feature-tag">10+ Projects</span>
+                                <span class="feature-tag">Certificate</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Status -->
+                    <div class="course-status" id="courseStatus">
+                        <!-- Content will be dynamically inserted based on purchase status -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Error Message (Hidden by default) -->
+            <div class="error-card" id="errorCard" style="display: none;">
+                <div class="error-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                <h3>Something went wrong</h3>
+                <p id="errorMessage">Unable to load your dashboard data. Please try again later.</p>
+                <button class="btn-retry" id="retryBtn">Retry</button>
+            </div>
+            
+            <!-- Loading State -->
+            <div class="loading-state" id="loadingState">
+                <div class="loading-spinner"></div>
+                <p>Loading your dashboard...</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- ==================== SUCCESS MODAL ==================== -->
+    <div class="success-modal-overlay" id="successModal">
+        <div class="success-modal-container">
+            <div class="success-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h2 class="success-modal-title" id="successModalTitle">Success!</h2>
+            <p class="success-modal-message" id="successModalMessage">Redirecting...</p>
+            <div class="success-modal-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

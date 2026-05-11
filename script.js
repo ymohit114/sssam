@@ -298,10 +298,42 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// ==================== AUTHENTICATION CHECK ====================
+
+// Check if user is authenticated
+function checkAuth() {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    if (!token || !user) {
+        // Only redirect to login if not on login page
+        if (!window.location.pathname.includes('index.html')) {
+            window.location.href = 'index.html';
+        }
+        return false;
+    }
+    
+    return { token, user: JSON.parse(user) };
+}
+
+// Logout function
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = 'index.html';
+}
+
 // ==================== INITIALIZATION ====================
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+    // Check authentication for protected pages
+    if (window.location.pathname.includes('payment.html') || 
+        window.location.pathname.includes('success.html') ||
+        window.location.pathname.includes('dashboard.html')) {
+        checkAuth();
+    }
+    
     // Update active link on load
     updateActiveNavLink();
     
@@ -400,26 +432,186 @@ switchAuth.addEventListener('click', (e) => {
     isLoginMode = !isLoginMode;
 });
 
-// Handle login form submission (static demo)
-loginForm.addEventListener('submit', (e) => {
+// ==================== API CONFIGURATION ====================
+const API_BASE_URL = 'http://localhost:5000';
+
+// ==================== API HELPER FUNCTIONS ====================
+
+// Generic API request function
+async function apiRequest(url, options = {}) {
+    const defaultOptions = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    // Add auth token if available
+    const token = localStorage.getItem('token');
+    if (token) {
+        defaultOptions.headers.Authorization = `Bearer ${token}`;
+    }
+
+    const requestOptions = {
+        ...defaultOptions,
+        ...options,
+        headers: {
+            ...defaultOptions.headers,
+            ...options.headers,
+        },
+    };
+
+    try {
+        const response = await fetch(`${API_BASE_URL}${url}`, requestOptions);
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message || 'Request failed');
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
+    }
+}
+
+// ==================== SUCCESS MODAL FUNCTION ====================
+
+// Show success modal with custom title and message
+function showSuccessModal(title, message, redirectUrl, delay = 2000) {
+    const successModal = document.getElementById('successModal');
+    const successModalTitle = document.getElementById('successModalTitle');
+    const successModalMessage = document.getElementById('successModalMessage');
+    const loaderBar = document.querySelector('.loader-bar');
+    
+    // Set custom title and message
+    if (title) successModalTitle.textContent = title;
+    if (message) successModalMessage.textContent = message;
+    
+    // Show modal
+    successModal.classList.add('active');
+    
+    // Reset loader animation
+    loaderBar.style.animation = 'none';
+    loaderBar.offsetHeight; // Trigger reflow
+    loaderBar.style.animation = 'loadProgress 2s ease forwards';
+    
+    // Auto redirect after delay
+    setTimeout(() => {
+        // Fade out modal
+        successModal.style.opacity = '0';
+        successModal.style.transition = 'opacity 0.3s ease';
+        
+        setTimeout(() => {
+            // Redirect
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+            } else {
+                // Just hide modal if no redirect
+                successModal.classList.remove('active');
+                successModal.style.opacity = '';
+                successModal.style.transition = '';
+            }
+        }, 300);
+    }, delay);
+}
+
+// Show error modal (reusing success modal with error styling)
+function showErrorModal(title, message) {
+    const successModal = document.getElementById('successModal');
+    const successModalTitle = document.getElementById('successModalTitle');
+    const successModalMessage = document.getElementById('successModalMessage');
+    const successIcon = document.querySelector('.success-icon');
+    const loaderBar = document.querySelector('.loader-bar');
+    
+    // Set error title and message
+    if (title) successModalTitle.textContent = title;
+    if (message) successModalMessage.textContent = message;
+    
+    // Change icon to error (red)
+    successIcon.style.color = '#ef4444';
+    successIcon.style.borderColor = '#ef4444';
+    successIcon.style.background = 'rgba(239, 68, 68, 0.1)';
+    successIcon.innerHTML = `
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    `;
+    
+    // Hide loader
+    loaderBar.style.display = 'none';
+    
+    // Show modal
+    successModal.classList.add('active');
+    
+    // Auto close after 3 seconds
+    setTimeout(() => {
+        successModal.classList.remove('active');
+        
+        // Reset to success state
+        setTimeout(() => {
+            successIcon.style.color = '#22c55e';
+            successIcon.style.borderColor = '#22c55e';
+            successIcon.style.background = 'rgba(34, 197, 94, 0.1)';
+            successIcon.innerHTML = `
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            `;
+            loaderBar.style.display = 'block';
+        }, 300);
+    }, 3000);
+}
+
+// ==================== AUTHENTICATION FUNCTIONS ====================
+
+// Handle login form submission
+loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // In a real app, this would send data to backend
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     
-    console.log('Login attempt:', { email, password });
+    // Show loading state
+    const submitBtn = loginForm.querySelector('.btn-auth');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Logging in...';
+    submitBtn.disabled = true;
     
-    // Simulate successful login and redirect to payment
-    alert('Login successful! Redirecting to payment...');
-    window.location.href = 'payment.html';
+    try {
+        const response = await apiRequest('/api/auth/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+        });
+        
+        if (response.success) {
+            // Store JWT token in localStorage
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            
+            // Close auth modal
+            closeModalFunc();
+            
+            // Show success modal and redirect
+            showSuccessModal('Login Successful 🎉', 'Redirecting to your dashboard...', 'dashboard.html');
+        } else {
+            throw new Error('Login failed');
+        }
+    } catch (error) {
+        // Show error modal
+        showErrorModal('Login Failed', error.message || 'Unable to login. Please try again.');
+        
+        // Reset button state
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
 });
 
-// Handle signup form submission (static demo)
-signupForm.addEventListener('submit', (e) => {
+// Handle signup form submission
+signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // In a real app, this would send data to backend
     const name = document.getElementById('signupName').value;
     const email = document.getElementById('signupEmail').value;
     const password = document.getElementById('signupPassword').value;
@@ -427,13 +619,41 @@ signupForm.addEventListener('submit', (e) => {
     
     // Validate password match
     if (password !== confirmPassword) {
-        alert('Passwords do not match!');
+        showErrorModal('Validation Error', 'Passwords do not match!');
         return;
     }
     
-    console.log('Signup attempt:', { name, email, password });
+    // Show loading state
+    const submitBtn = signupForm.querySelector('.btn-auth');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Creating account...';
+    submitBtn.disabled = true;
     
-    // Simulate successful signup and redirect to payment
-    alert('Account created successfully! Redirecting to payment...');
-    window.location.href = 'payment.html';
+    try {
+        const response = await apiRequest('/api/auth/signup', {
+            method: 'POST',
+            body: JSON.stringify({ name, email, password }),
+        });
+        
+        if (response.success) {
+            // Store JWT token in localStorage
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            
+            // Close auth modal
+            closeModalFunc();
+            
+            // Show success modal and redirect
+            showSuccessModal('Account Created 🎉', 'Redirecting to your dashboard...', 'dashboard.html');
+        } else {
+            throw new Error('Signup failed');
+        }
+    } catch (error) {
+        // Show error modal
+        showErrorModal('Signup Failed', error.message || 'Unable to create account. Please try again.');
+        
+        // Reset button state
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
 });

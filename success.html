@@ -102,13 +102,200 @@
         </div>
     </section>
     
+    <!-- ==================== SUCCESS MODAL ==================== -->
+    <div class="success-modal-overlay" id="successModal">
+        <div class="success-modal-container">
+            <div class="success-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h2 class="success-modal-title" id="successModalTitle">Success!</h2>
+            <p class="success-modal-message" id="successModalMessage">Redirecting...</p>
+            <div class="success-modal-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
     <script>
+        // API Base URL
+        const API_BASE_URL = 'http://localhost:5000';
+        
+        // ==================== SUCCESS MODAL FUNCTIONS ====================
+        
+        // Show success modal with custom title and message
+        function showSuccessModal(title, message, redirectUrl, delay = 2000) {
+            const successModal = document.getElementById('successModal');
+            const successModalTitle = document.getElementById('successModalTitle');
+            const successModalMessage = document.getElementById('successModalMessage');
+            const loaderBar = document.querySelector('.loader-bar');
+            
+            // Set custom title and message
+            if (title) successModalTitle.textContent = title;
+            if (message) successModalMessage.textContent = message;
+            
+            // Show modal
+            successModal.classList.add('active');
+            
+            // Reset loader animation
+            loaderBar.style.animation = 'none';
+            loaderBar.offsetHeight; // Trigger reflow
+            loaderBar.style.animation = 'loadProgress 2s ease forwards';
+            
+            // Auto redirect after delay
+            setTimeout(() => {
+                // Fade out modal
+                successModal.style.opacity = '0';
+                successModal.style.transition = 'opacity 0.3s ease';
+                
+                setTimeout(() => {
+                    // Redirect
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Just hide modal if no redirect
+                        successModal.classList.remove('active');
+                        successModal.style.opacity = '';
+                        successModal.style.transition = '';
+                    }
+                }, 300);
+            }, delay);
+        }
+        
+        // Show error modal (reusing success modal with error styling)
+        function showErrorModal(title, message) {
+            const successModal = document.getElementById('successModal');
+            const successModalTitle = document.getElementById('successModalTitle');
+            const successModalMessage = document.getElementById('successModalMessage');
+            const successIcon = document.querySelector('.success-icon');
+            const loaderBar = document.querySelector('.loader-bar');
+            
+            // Set error title and message
+            if (title) successModalTitle.textContent = title;
+            if (message) successModalMessage.textContent = message;
+            
+            // Change icon to error (red)
+            successIcon.style.color = '#ef4444';
+            successIcon.style.borderColor = '#ef4444';
+            successIcon.style.background = 'rgba(239, 68, 68, 0.1)';
+            successIcon.innerHTML = `
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            `;
+            
+            // Hide loader
+            loaderBar.style.display = 'none';
+            
+            // Show modal
+            successModal.classList.add('active');
+            
+            // Auto close after 3 seconds
+            setTimeout(() => {
+                successModal.classList.remove('active');
+                
+                // Reset to success state
+                setTimeout(() => {
+                    successIcon.style.color = '#22c55e';
+                    successIcon.style.borderColor = '#22c55e';
+                    successIcon.style.background = 'rgba(34, 197, 94, 0.1)';
+                    successIcon.innerHTML = `
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    `;
+                    loaderBar.style.display = 'block';
+                }, 300);
+            }, 3000);
+        }
+        
+        // Check if user is authenticated
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (!token || !user) {
+                // Redirect to login page
+                window.location.href = 'index.html';
+                return false;
+            }
+            
+            return { token, user: JSON.parse(user) };
+        }
+        
+        // Generic API request function
+        async function apiRequest(url, options = {}) {
+            const defaultOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            // Add auth token
+            const token = localStorage.getItem('token');
+            if (token) {
+                defaultOptions.headers.Authorization = `Bearer ${token}`;
+            }
+
+            const requestOptions = {
+                ...defaultOptions,
+                ...options,
+                headers: {
+                    ...defaultOptions.headers,
+                    ...options.headers,
+                },
+            };
+
+            try {
+                const response = await fetch(`${API_BASE_URL}${url}`, requestOptions);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Request failed');
+                }
+                
+                return data;
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+        
         // Set current date
         const date = new Date();
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('paymentDate').textContent = date.toLocaleDateString('en-IN', options);
+        
+        // Update dashboard link to go to actual dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            const dashboardBtn = document.querySelector('.success-buttons .btn-primary');
+            if (dashboardBtn) {
+                dashboardBtn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    
+                    try {
+                        // Check if user has access to dashboard
+                        const response = await apiRequest('/api/dashboard');
+                        
+                        if (response.success) {
+                            // Redirect to actual dashboard URL (would be dashboard.html in real implementation)
+                            showSuccessModal('Dashboard Access Confirmed ✅', 'Redirecting to your dashboard...', 'dashboard.html');
+                        } else {
+                            throw new Error('No course access found');
+                        }
+                    } catch (error) {
+                        showErrorModal('Dashboard Access Failed', error.message || 'Unable to access dashboard. Please try again.');
+                    }
+                });
+            }
+            
+            // Check authentication on page load
+            checkAuth();
+        });
     </script>
 </body>
 </html>

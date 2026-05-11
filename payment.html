@@ -12,6 +12,9 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Razorpay Script -->
+    <script src="https://checkout.razorpay.com/v1/razorpay.js"></script>
 </head>
 <body>
     
@@ -166,22 +169,253 @@
         </div>
     </section>
     
+    <!-- ==================== SUCCESS MODAL ==================== -->
+    <div class="success-modal-overlay" id="successModal">
+        <div class="success-modal-container">
+            <div class="success-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h2 class="success-modal-title" id="successModalTitle">Success!</h2>
+            <p class="success-modal-message" id="successModalMessage">Redirecting...</p>
+            <div class="success-modal-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
     <script>
+        // API Base URL
+        const API_BASE_URL = 'http://localhost:5000';
+        
+        // ==================== SUCCESS MODAL FUNCTIONS ====================
+        
+        // Show success modal with custom title and message
+        function showSuccessModal(title, message, redirectUrl, delay = 2000) {
+            const successModal = document.getElementById('successModal');
+            const successModalTitle = document.getElementById('successModalTitle');
+            const successModalMessage = document.getElementById('successModalMessage');
+            const loaderBar = document.querySelector('.loader-bar');
+            
+            // Set custom title and message
+            if (title) successModalTitle.textContent = title;
+            if (message) successModalMessage.textContent = message;
+            
+            // Show modal
+            successModal.classList.add('active');
+            
+            // Reset loader animation
+            loaderBar.style.animation = 'none';
+            loaderBar.offsetHeight; // Trigger reflow
+            loaderBar.style.animation = 'loadProgress 2s ease forwards';
+            
+            // Auto redirect after delay
+            setTimeout(() => {
+                // Fade out modal
+                successModal.style.opacity = '0';
+                successModal.style.transition = 'opacity 0.3s ease';
+                
+                setTimeout(() => {
+                    // Redirect
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Just hide modal if no redirect
+                        successModal.classList.remove('active');
+                        successModal.style.opacity = '';
+                        successModal.style.transition = '';
+                    }
+                }, 300);
+            }, delay);
+        }
+        
+        // Show error modal (reusing success modal with error styling)
+        function showErrorModal(title, message) {
+            const successModal = document.getElementById('successModal');
+            const successModalTitle = document.getElementById('successModalTitle');
+            const successModalMessage = document.getElementById('successModalMessage');
+            const successIcon = document.querySelector('.success-icon');
+            const loaderBar = document.querySelector('.loader-bar');
+            
+            // Set error title and message
+            if (title) successModalTitle.textContent = title;
+            if (message) successModalMessage.textContent = message;
+            
+            // Change icon to error (red)
+            successIcon.style.color = '#ef4444';
+            successIcon.style.borderColor = '#ef4444';
+            successIcon.style.background = 'rgba(239, 68, 68, 0.1)';
+            successIcon.innerHTML = `
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            `;
+            
+            // Hide loader
+            loaderBar.style.display = 'none';
+            
+            // Show modal
+            successModal.classList.add('active');
+            
+            // Auto close after 3 seconds
+            setTimeout(() => {
+                successModal.classList.remove('active');
+                
+                // Reset to success state
+                setTimeout(() => {
+                    successIcon.style.color = '#22c55e';
+                    successIcon.style.borderColor = '#22c55e';
+                    successIcon.style.background = 'rgba(34, 197, 94, 0.1)';
+                    successIcon.innerHTML = `
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    `;
+                    loaderBar.style.display = 'block';
+                }, 300);
+            }, 3000);
+        }
+        
+        // Check if user is authenticated
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (!token || !user) {
+                // Redirect to login page
+                window.location.href = 'index.html';
+                return false;
+            }
+            
+            return { token, user: JSON.parse(user) };
+        }
+        
+        // Generic API request function
+        async function apiRequest(url, options = {}) {
+            const defaultOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            // Add auth token
+            const token = localStorage.getItem('token');
+            if (token) {
+                defaultOptions.headers.Authorization = `Bearer ${token}`;
+            }
+
+            const requestOptions = {
+                ...defaultOptions,
+                ...options,
+                headers: {
+                    ...defaultOptions.headers,
+                    ...options.headers,
+                },
+            };
+
+            try {
+                const response = await fetch(`${API_BASE_URL}${url}`, requestOptions);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Request failed');
+                }
+                
+                return data;
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+        
+        // Initialize Razorpay
+        function initRazorpay(orderData) {
+            const options = {
+                key: 'rzp_test_1234567890abcdef', // Test key - replace with actual key
+                amount: orderData.amount,
+                currency: 'INR',
+                name: 'SSSAM Academy',
+                description: 'Full Stack + AI Course',
+                order_id: orderData.orderId,
+                handler: async function (response) {
+                    // Payment successful - verify with backend
+                    await verifyPayment(response);
+                },
+                prefill: {
+                    name: JSON.parse(localStorage.getItem('user')).name,
+                    email: JSON.parse(localStorage.getItem('user')).email,
+                },
+                theme: {
+                    color: '#7c3aed'
+                }
+            };
+            
+            const rzp = new Razorpay(options);
+            rzp.open();
+        }
+        
+        // Verify payment with backend
+        async function verifyPayment(paymentResponse) {
+            try {
+                const response = await apiRequest('/api/payment/verify-payment', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        razorpay_order_id: paymentResponse.razorpay_order_id,
+                        razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                        razorpay_signature: paymentResponse.razorpay_signature,
+                    }),
+                });
+                
+                if (response.success) {
+                    // Payment verified successfully
+                    showSuccessModal('Payment Successful! 🎉', 'Redirecting to your dashboard...', 'success.html');
+                } else {
+                    throw new Error('Payment verification failed');
+                }
+            } catch (error) {
+                showErrorModal('Payment Failed', error.message || 'Unable to verify payment. Please try again.');
+                // Reset button state
+                const btn = document.querySelector('.btn-pay');
+                btn.textContent = 'Pay ₹9';
+                btn.disabled = false;
+            }
+        }
+        
         // Payment form submission handler
-        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Simulate payment processing
             const btn = document.querySelector('.btn-pay');
-            btn.textContent = 'Processing...';
+            const originalText = btn.textContent;
+            btn.textContent = 'Creating order...';
             btn.disabled = true;
             
-            setTimeout(() => {
-                // Redirect to success page
-                window.location.href = 'success.html';
-            }, 2000);
+            try {
+                // Create order with backend
+                const response = await apiRequest('/api/payment/create-order', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        amount: 900, // ₹9 in paise
+                        currency: 'INR',
+                    }),
+                });
+                
+                if (response.success) {
+                    // Initialize Razorpay payment
+                    btn.textContent = 'Opening payment...';
+                    initRazorpay(response.data);
+                } else {
+                    throw new Error('Failed to create order');
+                }
+            } catch (error) {
+                showErrorModal('Payment Failed', error.message || 'Unable to create order. Please try again.');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
         });
         
         // Payment option selection
@@ -192,6 +426,11 @@
                 });
                 this.closest('.payment-option').classList.add('active');
             });
+        });
+        
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
         });
     </script>
 </body>
