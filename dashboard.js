@@ -1,7 +1,39 @@
 // ==================== DASHBOARD JAVASCRIPT ====================
 
-// API Configuration
-const API_BASE_URL = 'http://localhost:5000';
+// Note: API_BASE_URL is already defined in script.js
+
+// ==================== SIDEBAR FUNCTIONALITY ====================
+
+// Get sidebar elements
+const sidebar = document.getElementById('sidebar');
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarClose = document.getElementById('sidebarClose');
+
+// Toggle sidebar
+if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : 'auto';
+    });
+}
+
+// Close sidebar
+if (sidebarClose && sidebar) {
+    sidebarClose.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+}
+
+// Close sidebar when clicking outside
+document.addEventListener('click', (e) => {
+    if (sidebar && sidebar.classList.contains('active')) {
+        if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            sidebar.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+});
 
 // ==================== SUCCESS MODAL FUNCTIONS ====================
 
@@ -183,22 +215,27 @@ async function fetchDashboardData() {
 
 // Update UI with user data
 function updateUI(userData) {
+    console.log('Dashboard: Updating UI with user data...', userData);
+    
     // Update user name in navbar
     const navbarUserName = document.getElementById('navbarUserName');
     if (navbarUserName) {
         navbarUserName.textContent = userData.user.name;
+        console.log('Dashboard: Navbar username updated');
     }
     
     // Update welcome message
     const welcomeUserName = document.getElementById('welcomeUserName');
     if (welcomeUserName) {
         welcomeUserName.textContent = userData.user.name;
+        console.log('Dashboard: Welcome username updated');
     }
     
     // Update user info
     const userEmail = document.getElementById('userEmail');
     if (userEmail) {
         userEmail.textContent = userData.user.email;
+        console.log('Dashboard: User email updated');
     }
     
     // Update member since date
@@ -210,12 +247,14 @@ function updateUI(userData) {
             month: 'long',
             day: 'numeric'
         });
+        console.log('Dashboard: Member since date updated');
     }
     
     // Update last login
     const lastLogin = document.getElementById('lastLogin');
     if (lastLogin) {
         lastLogin.textContent = 'Just now';
+        console.log('Dashboard: Last login updated');
     }
     
     // Update stats
@@ -227,16 +266,19 @@ function updateUI(userData) {
 
 // Update dashboard statistics
 function updateStats(userData) {
+    console.log('Dashboard: Updating statistics...');
     const coursesCount = document.getElementById('coursesCount');
     const progressPercent = document.getElementById('progressPercent');
     const daysActive = document.getElementById('daysActive');
     
     if (coursesCount) {
         coursesCount.textContent = userData.purchasedCourse ? '1' : '0';
+        console.log('Dashboard: Courses count updated to', userData.purchasedCourse ? '1' : '0');
     }
     
     if (progressPercent) {
         progressPercent.textContent = userData.purchasedCourse ? '0%' : 'N/A';
+        console.log('Dashboard: Progress updated to', userData.purchasedCourse ? '0%' : 'N/A');
     }
     
     if (daysActive) {
@@ -245,17 +287,23 @@ function updateStats(userData) {
         const today = new Date();
         const daysDiff = Math.floor((today - createdDate) / (1000 * 60 * 60 * 24));
         daysActive.textContent = daysDiff > 0 ? daysDiff : 1;
+        console.log('Dashboard: Days active calculated as', daysDiff > 0 ? daysDiff : 1);
     }
 }
 
 // Update course status based on purchase
 function updateCourseStatus(userData) {
+    console.log('Dashboard: Updating course status...');
     const courseStatus = document.getElementById('courseStatus');
     
-    if (!courseStatus) return;
+    if (!courseStatus) {
+        console.warn('Dashboard: Course status element not found');
+        return;
+    }
     
     if (userData.purchasedCourse) {
         // User has purchased the course
+        console.log('Dashboard: Course purchased - showing purchased status');
         courseStatus.innerHTML = `
             <div class="course-purchased">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -266,6 +314,7 @@ function updateCourseStatus(userData) {
         `;
     } else {
         // User has not purchased the course
+        console.log('Dashboard: Course not purchased - showing buy button');
         courseStatus.innerHTML = `
             <div class="course-info">
                 <div class="course-price">
@@ -336,6 +385,7 @@ function hideLoading() {
 
 // Initialize dashboard
 async function initializeDashboard() {
+    console.log('Dashboard: Initializing dashboard...');
     try {
         // Check authentication first
         const auth = checkAuth();
@@ -353,6 +403,7 @@ async function initializeDashboard() {
         // Update UI with user data
         updateUI(userData);
         
+        console.log('Dashboard: Initialization completed successfully');
     } catch (error) {
         console.error('Dashboard initialization error:', error);
         
@@ -366,19 +417,25 @@ async function initializeDashboard() {
 
 // ==================== EVENT LISTENERS ====================
 
+// ==================== LOGOUT FUNCTION ====================
+
+// Reusable logout function
+function logoutUser() {
+    // Clear all auth data from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Show logout success modal
+    showSuccessModal('Logged Out Successfully 👋', 'Redirecting to homepage...', 'index.html#home', 1500);
+}
+
 // Logout button
 document.addEventListener('DOMContentLoaded', function() {
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function() {
-            // For logout, we'll just show a success modal and logout
-            showSuccessModal('Logging Out...', 'Redirecting to home page...', 'index.html', 1500);
-            
-            // Clear localStorage after short delay
-            setTimeout(() => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-            }, 1000);
+            // Call the reusable logout function
+            logoutUser();
         });
     }
     

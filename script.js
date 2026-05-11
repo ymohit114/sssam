@@ -9,11 +9,85 @@ const hamburger = document.getElementById('hamburger');
 // Get navigation menu
 const navMenu = document.querySelector('.nav-menu');
 
+// Get mobile menu
+const mobileMenu = document.querySelector('.mobile-menu');
+
 // Get all navigation links
 const navLinks = document.querySelectorAll('.nav-link');
 
 // Get all sections for scroll animations
 const sections = document.querySelectorAll('section');
+
+// Get sticky banner
+const topOfferBanner = document.querySelector('.top-offer-banner');
+
+// Get banner close button
+const bannerClose = document.querySelector('.banner-close');
+
+// Get auth buttons
+const navAuth = document.querySelector('.nav-auth');
+const navUser = document.querySelector('.nav-user');
+const btnLogin = document.querySelector('.btn-login');
+const btnEnroll = document.querySelector('.btn-enroll');
+const btnDashboard = document.querySelector('.btn-dashboard');
+const btnLogoutNav = document.querySelector('.btn-logout-nav');
+
+// ==================== STICKY BANNER CLOSE ====================
+
+// Close sticky banner when close button is clicked
+if (bannerClose && topOfferBanner) {
+    bannerClose.addEventListener('click', () => {
+        topOfferBanner.classList.add('hidden');
+        navbar.classList.add('no-banner');
+        
+        // Save banner state to localStorage
+        localStorage.setItem('bannerClosed', 'true');
+    });
+}
+
+// Check if banner was previously closed
+if (topOfferBanner && localStorage.getItem('bannerClosed') === 'true') {
+    topOfferBanner.classList.add('hidden');
+    navbar.classList.add('no-banner');
+}
+
+// ==================== AUTH-AWARE NAVBAR ====================
+
+// Check if user is logged in
+function checkAuthStatus() {
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    
+    if (token && user) {
+        // User is logged in
+        if (navAuth) navAuth.style.display = 'none';
+        if (navUser) navUser.style.display = 'flex';
+    } else {
+        // User is not logged in
+        if (navAuth) navAuth.style.display = 'flex';
+        if (navUser) navUser.style.display = 'none';
+    }
+}
+
+// Run auth check on page load
+checkAuthStatus();
+
+// Logout functionality
+if (btnLogoutNav) {
+    btnLogoutNav.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Clear local storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        
+        // Update navbar
+        checkAuthStatus();
+        
+        // Show success message
+        showSuccessModal('Logged out successfully!');
+    });
+}
 
 // ==================== STICKY NAVBAR WITH BLUR EFFECT ====================
 
@@ -33,25 +107,28 @@ window.addEventListener('scroll', () => {
 // ==================== MOBILE MENU TOGGLE ====================
 
 // Toggle mobile menu when hamburger is clicked
-hamburger.addEventListener('click', () => {
-    // Toggle active class on hamburger
-    hamburger.classList.toggle('active');
-    
-    // Toggle active class on navigation menu
-    navMenu.classList.toggle('active');
-    
-    // Prevent body scroll when menu is open
-    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
-});
+if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+        // Toggle active class on hamburger
+        hamburger.classList.toggle('active');
+        
+        // Toggle active class on mobile menu
+        mobileMenu.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+}
 
 // Close mobile menu when a navigation link is clicked
-navLinks.forEach(link => {
+const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+mobileNavLinks.forEach(link => {
     link.addEventListener('click', () => {
         // Remove active class from hamburger
         hamburger.classList.remove('active');
         
-        // Remove active class from navigation menu
-        navMenu.classList.remove('active');
+        // Remove active class from mobile menu
+        mobileMenu.classList.remove('active');
         
         // Enable body scroll
         document.body.style.overflow = 'auto';
@@ -77,7 +154,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         // Scroll to target section with smooth behavior
         if (targetSection) {
             const navbarHeight = navbar.offsetHeight;
-            const targetPosition = targetSection.offsetTop - navbarHeight;
+            const bannerHeight = topOfferBanner && !topOfferBanner.classList.contains('hidden') ? topOfferBanner.offsetHeight : 0;
+            const targetPosition = targetSection.offsetTop - navbarHeight - bannerHeight;
             
             window.scrollTo({
                 top: targetPosition,
@@ -320,7 +398,25 @@ function checkAuth() {
 function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    window.location.href = 'index.html';
+    window.location.href = 'index.html#home';
+}
+
+// ==================== SMOOTH SCROLL HANDLING ====================
+
+// Handle smooth scroll to anchor on page load
+function handleSmoothScroll() {
+    const hash = window.location.hash;
+    if (hash === '#home') {
+        setTimeout(() => {
+            const heroSection = document.getElementById('home');
+            if (heroSection) {
+                heroSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }, 100);
+    }
 }
 
 // ==================== INITIALIZATION ====================
@@ -333,6 +429,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.pathname.includes('dashboard.html')) {
         checkAuth();
     }
+    
+    // Handle smooth scroll for anchor links
+    handleSmoothScroll();
     
     // Update active link on load
     updateActiveNavLink();

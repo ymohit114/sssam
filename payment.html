@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment - SSSAM Academy</title>
+    <title>Checkout - SSSAM Academy</title>
     
-    <!-- Google Font Poppins -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
@@ -18,23 +18,23 @@
 </head>
 <body>
     
-    <!-- ==================== NAVBAR SECTION ==================== -->
+    <!-- ==================== NAVBAR ==================== -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html">SSSAM Academy</a>
+                <a href="index.html">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">SSSAM Academy</span>
+                </a>
             </div>
             
             <!-- Navigation Menu -->
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="index.html#course" class="nav-link">Course</a></li>
-                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="index.html#curriculum" class="nav-link">Curriculum</a></li>
+                <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
             </ul>
-            
-            <!-- Enroll Button -->
-            <a href="index.html#pricing" class="btn-enroll">Enroll Now</a>
             
             <!-- Mobile Menu Toggle -->
             <div class="hamburger" id="hamburger">
@@ -45,99 +45,105 @@
         </div>
     </nav>
     
-    <!-- ==================== PAYMENT SECTION ==================== -->
-    <section class="payment-section">
-        <div class="container">
-            <div class="payment-container">
-                <!-- Order Summary -->
-                <div class="order-summary">
-                    <h2 class="section-title">Order Summary</h2>
-                    
-                    <div class="course-info">
-                        <div class="course-image">
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                                <path d="M2 17l10 5 10-5"></path>
-                                <path d="M2 12l10 5 10-5"></path>
-                            </svg>
-                        </div>
-                        <div class="course-details">
-                            <h3>Full Stack + AI Course</h3>
-                            <p>Complete Web Development with AI Integration</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pricing-breakdown">
-                        <div class="price-item">
-                            <span>Original Price</span>
-                            <span class="old-price">₹1999</span>
-                        </div>
-                        <div class="price-item">
-                            <span>Launch Discount</span>
-                            <span class="discount">-₹1990</span>
-                        </div>
-                        <div class="price-item total">
-                            <span>Total Amount</span>
-                            <span class="final-price">₹9</span>
-                        </div>
-                    </div>
-                    
-                    <div class="features-summary">
-                        <h4>What You'll Get:</h4>
-                        <ul>
-                            <li>✓ Lifetime Access</li>
-                            <li>✓ 75+ Video Lessons</li>
-                            <li>✓ 10+ Real Projects</li>
-                            <li>✓ Certificate of Completion</li>
-                            <li>✓ Community Support</li>
-                        </ul>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+                <li><a href="index.html#curriculum" class="mobile-nav-link">Curriculum</a></li>
+                <li><a href="index.html#pricing" class="mobile-nav-link">Pricing</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- ==================== CHECKOUT SECTION ==================== -->
+    <section class="checkout-section">
+        <div class="checkout-container">
+            
+            <!-- Left Column - Order Summary -->
+            <div class="order-summary">
+                <div class="summary-header">
+                    <h2>Order Summary</h2>
+                    <div class="course-badge">Full Stack + AI</div>
+                </div>
+                
+                <div class="course-preview-card">
+                    <div class="course-icon">📚</div>
+                    <div class="course-details">
+                        <h3>Complete Web Development with AI Integration</h3>
+                        <p>Master modern web development and AI technologies</p>
                     </div>
                 </div>
                 
-                <!-- Payment Form -->
-                <div class="payment-form">
-                    <h2 class="section-title">Complete Payment</h2>
-                    
-                    <div class="payment-methods">
-                        <h3>Select Payment Method</h3>
-                        <div class="payment-options">
-                            <label class="payment-option active">
-                                <input type="radio" name="payment" value="razorpay" checked>
-                                <div class="option-content">
-                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-                                        <line x1="2" y1="10" x2="22" y2="10"></line>
-                                    </svg>
-                                    <span>Razorpay</span>
-                                </div>
-                            </label>
-                            <label class="payment-option">
-                                <input type="radio" name="payment" value="upi">
-                                <div class="option-content">
-                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                                        <path d="M2 17l10 5 10-5"></path>
-                                        <path d="M2 12l10 5 10-5"></path>
-                                    </svg>
-                                    <span>UPI</span>
-                                </div>
-                            </label>
-                            <label class="payment-option">
-                                <input type="radio" name="payment" value="card">
-                                <div class="option-content">
-                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                        <line x1="1" y1="10" x2="23" y2="10"></line>
-                                    </svg>
-                                    <span>Credit/Debit Card</span>
-                                </div>
-                            </label>
-                        </div>
+                <div class="pricing-breakdown">
+                    <div class="price-row">
+                        <span class="label">Original Price</span>
+                        <span class="value original">₹1,999</span>
+                    </div>
+                    <div class="price-row discount">
+                        <span class="label">Launch Discount</span>
+                        <span class="value">-₹1,990</span>
+                    </div>
+                    <div class="price-row total">
+                        <span class="label">Total</span>
+                        <span class="value final">₹9</span>
+                    </div>
+                </div>
+                
+                <div class="features-list">
+                    <h4>What's Included:</h4>
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Lifetime Access</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>75+ Video Lessons</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>10+ Real Projects</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Certificate of Completion</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Community Support</span>
+                    </div>
+                </div>
+                
+                <div class="guarantee-badge">
+                    <div class="guarantee-icon">🛡️</div>
+                    <div class="guarantee-text">
+                        <strong>30-Day Money Back Guarantee</strong>
+                        <span>No questions asked refund policy</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Payment Form -->
+            <div class="payment-form-container">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h2>Complete Payment</h2>
+                        <p>Fill in your details to proceed</p>
                     </div>
                     
-                    <div class="user-details">
-                        <h3>Billing Details</h3>
-                        <form id="paymentForm">
+                    <form id="paymentForm">
+                        <div class="form-section">
+                            <h3>Billing Details</h3>
                             <div class="form-group">
                                 <label for="fullName">Full Name</label>
                                 <input type="text" id="fullName" placeholder="Enter your full name" required>
@@ -150,20 +156,40 @@
                                 <label for="phone">Phone Number</label>
                                 <input type="tel" id="phone" placeholder="Enter your phone number" required>
                             </div>
-                        </form>
-                    </div>
-                    
-                    <div class="secure-badge">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                        <span>100% Secure Payment powered by Razorpay</span>
-                    </div>
-                    
-                    <button type="submit" form="paymentForm" class="btn-pay">Pay ₹9</button>
-                    
-                    <p class="refund-policy">30-Day Money Back Guarantee</p>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Payment Method</h3>
+                            <div class="payment-methods">
+                                <label class="payment-method active">
+                                    <input type="radio" name="payment" value="razorpay" checked>
+                                    <div class="method-content">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                                            <line x1="2" y1="10" x2="22" y2="10"></line>
+                                        </svg>
+                                        <span>Razorpay</span>
+                                    </div>
+                                    <div class="check-indicator"></div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="secure-payment">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <span>100% Secure Payment</span>
+                        </div>
+                        
+                        <button type="submit" class="btn-pay">
+                            Pay ₹9
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -280,19 +306,25 @@
             }, 3000);
         }
         
+        // ==================== AUTHENTICATION ====================
+        
         // Check if user is authenticated
         function checkAuth() {
+            console.log('Checking authentication...');
             const token = localStorage.getItem('token');
             const user = localStorage.getItem('user');
             
             if (!token || !user) {
-                // Redirect to login page
+                console.log('Authentication failed - redirecting to login');
                 window.location.href = 'index.html';
                 return false;
             }
             
+            console.log('Authentication successful');
             return { token, user: JSON.parse(user) };
         }
+        
+        // ==================== API HELPER ====================
         
         // Generic API request function
         async function apiRequest(url, options = {}) {
@@ -318,8 +350,20 @@
             };
 
             try {
+                console.log(`API Request: ${options.method || 'GET'} ${API_BASE_URL}${url}`);
                 const response = await fetch(`${API_BASE_URL}${url}`, requestOptions);
                 const data = await response.json();
+                
+                console.log('API Response:', data);
+                
+                // Handle 401 Unauthorized
+                if (response.status === 401) {
+                    console.error('Unauthorized - clearing token');
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = 'index.html';
+                    throw new Error('Session expired. Please login again.');
+                }
                 
                 if (!response.ok) {
                     throw new Error(data.message || 'Request failed');
@@ -332,34 +376,70 @@
             }
         }
         
-        // Initialize Razorpay
+        // ==================== RAZORPAY INTEGRATION ====================
+        
+        // Initialize Razorpay with order data
         function initRazorpay(orderData) {
+            console.log('Initializing Razorpay with order data:', orderData);
+            
+            const user = JSON.parse(localStorage.getItem('user'));
+            
             const options = {
-                key: 'rzp_test_1234567890abcdef', // Test key - replace with actual key
-                amount: orderData.amount,
-                currency: 'INR',
+                key: orderData.key || 'rzp_test_placeholder',
+                amount: orderData.order.amount,
+                currency: orderData.order.currency,
                 name: 'SSSAM Academy',
-                description: 'Full Stack + AI Course',
-                order_id: orderData.orderId,
+                description: 'AI Powered Full Stack Web Development Training',
+                order_id: orderData.order.id,
+                image: '', // Add logo URL if available
                 handler: async function (response) {
+                    console.log('Razorpay payment success:', response);
                     // Payment successful - verify with backend
                     await verifyPayment(response);
                 },
                 prefill: {
-                    name: JSON.parse(localStorage.getItem('user')).name,
-                    email: JSON.parse(localStorage.getItem('user')).email,
+                    name: user.name || '',
+                    email: user.email || '',
+                    contact: '' // Add phone if available
+                },
+                notes: {
+                    userId: user._id || ''
                 },
                 theme: {
-                    color: '#7c3aed'
+                    color: '#7c3aed',
+                    backdrop_color: '#0b0f19'
+                },
+                modal: {
+                    ondismiss: function() {
+                        console.log('Razorpay modal dismissed');
+                        // Reset button state
+                        const btn = document.querySelector('.btn-pay');
+                        btn.textContent = 'Pay ₹9';
+                        btn.disabled = false;
+                    }
                 }
             };
             
+            console.log('Opening Razorpay checkout...');
             const rzp = new Razorpay(options);
             rzp.open();
+            
+            // Handle Razorpay errors
+            rzp.on('payment.failed', function (response) {
+                console.error('Razorpay payment failed:', response);
+                showErrorModal('Payment Failed', response.error.description || 'Payment failed. Please try again.');
+                
+                // Reset button state
+                const btn = document.querySelector('.btn-pay');
+                btn.textContent = 'Pay ₹9';
+                btn.disabled = false;
+            });
         }
         
         // Verify payment with backend
         async function verifyPayment(paymentResponse) {
+            console.log('Verifying payment with backend...');
+            
             try {
                 const response = await apiRequest('/api/payment/verify-payment', {
                     method: 'POST',
@@ -370,14 +450,19 @@
                     }),
                 });
                 
+                console.log('Payment verification response:', response);
+                
                 if (response.success) {
+                    console.log('Payment verified successfully');
                     // Payment verified successfully
                     showSuccessModal('Payment Successful! 🎉', 'Redirecting to your dashboard...', 'success.html');
                 } else {
                     throw new Error('Payment verification failed');
                 }
             } catch (error) {
-                showErrorModal('Payment Failed', error.message || 'Unable to verify payment. Please try again.');
+                console.error('Payment verification error:', error);
+                showErrorModal('Payment Verification Failed', error.message || 'Unable to verify payment. Please try again.');
+                
                 // Reset button state
                 const btn = document.querySelector('.btn-pay');
                 btn.textContent = 'Pay ₹9';
@@ -385,17 +470,11 @@
             }
         }
         
-        // Payment form submission handler
-        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const btn = document.querySelector('.btn-pay');
-            const originalText = btn.textContent;
-            btn.textContent = 'Creating order...';
-            btn.disabled = true;
+        // Create order with backend
+        async function createOrder() {
+            console.log('Creating order with backend...');
             
             try {
-                // Create order with backend
                 const response = await apiRequest('/api/payment/create-order', {
                     method: 'POST',
                     body: JSON.stringify({
@@ -404,19 +483,61 @@
                     }),
                 });
                 
+                console.log('Order created:', response);
+                
                 if (response.success) {
-                    // Initialize Razorpay payment
-                    btn.textContent = 'Opening payment...';
-                    initRazorpay(response.data);
+                    console.log('Order created successfully, initializing Razorpay');
+                    return response.data;
                 } else {
                     throw new Error('Failed to create order');
                 }
             } catch (error) {
+                console.error('Order creation error:', error);
+                throw error;
+            }
+        }
+        
+        // ==================== PAYMENT FORM HANDLER ====================
+        
+        // Payment form submission handler
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('Payment form submitted');
+            
+            const btn = document.querySelector('.btn-pay');
+            const originalText = btn.textContent;
+            
+            // Validate form
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            if (!fullName || !email || !phone) {
+                showErrorModal('Validation Error', 'Please fill in all required fields.');
+                return;
+            }
+            
+            // Show loading state
+            btn.textContent = 'Creating order...';
+            btn.disabled = true;
+            
+            try {
+                // Create order with backend
+                const orderData = await createOrder();
+                
+                // Initialize Razorpay payment
+                btn.textContent = 'Opening payment...';
+                initRazorpay(orderData);
+                
+            } catch (error) {
+                console.error('Payment flow error:', error);
                 showErrorModal('Payment Failed', error.message || 'Unable to create order. Please try again.');
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
         });
+        
+        // ==================== UI ENHANCEMENTS ====================
         
         // Payment option selection
         document.querySelectorAll('.payment-option input').forEach(input => {
@@ -428,9 +549,27 @@
             });
         });
         
-        // Check authentication on page load
+        // ==================== INITIALIZATION ====================
+        
+        // Check authentication and populate user data on page load
         document.addEventListener('DOMContentLoaded', function() {
-            checkAuth();
+            console.log('Payment page loaded');
+            
+            // Check authentication
+            const auth = checkAuth();
+            if (!auth) return;
+            
+            // Populate form with user data if available
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (user) {
+                    console.log('Populating form with user data');
+                    document.getElementById('fullName').value = user.name || '';
+                    document.getElementById('email').value = user.email || '';
+                }
+            } catch (error) {
+                console.error('Error populating user data:', error);
+            }
         });
     </script>
 </body>

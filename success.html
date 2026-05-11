@@ -5,59 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Successful - SSSAM Academy</title>
     
-    <!-- Google Font Poppins -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+    
     <!-- ==================== SUCCESS SECTION ==================== -->
     <section class="success-section">
         <div class="container">
             <div class="success-container">
                 <!-- Success Icon -->
-                <div class="success-icon">
-                    <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
+                <div class="success-icon-wrapper">
+                    <div class="success-icon">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
                 </div>
                 
                 <!-- Success Message -->
                 <h1 class="success-title">Payment Successful!</h1>
-                <p class="success-subtitle">Thank you for enrolling in SSSAM Academy</p>
+                <p class="success-subtitle">Welcome to SSSAM Academy 🎉</p>
                 
-                <!-- Order Details -->
-                <div class="order-details">
-                    <div class="detail-item">
-                        <span class="detail-label">Order ID</span>
-                        <span class="detail-value">#SSSAM12345</span>
+                <!-- Order Details Card -->
+                <div class="order-details-card">
+                    <div class="card-header">
+                        <h3>Order Details</h3>
+                        <div class="success-badge">Paid</div>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Amount Paid</span>
-                        <span class="detail-value">₹9</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Course</span>
-                        <span class="detail-value">Full Stack + AI Course</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Payment Date</span>
-                        <span class="detail-value" id="paymentDate"></span>
+                    <div class="order-details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Order ID</span>
+                            <span class="detail-value">#SSSAM12345</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Amount</span>
+                            <span class="detail-value highlight">₹9</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Course</span>
+                            <span class="detail-value">Full Stack + AI</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Date</span>
+                            <span class="detail-value" id="paymentDate"></span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Email Sent Notice -->
+                <!-- Email Notice -->
                 <div class="email-notice">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                    <span>A confirmation email has been sent to your registered email address with login credentials.</span>
+                    <div class="notice-icon">📧</div>
+                    <div class="notice-content">
+                        <strong>Confirmation Sent</strong>
+                        <span>A confirmation email has been sent with your login credentials</span>
+                    </div>
                 </div>
                 
                 <!-- Next Steps -->
@@ -68,21 +79,21 @@
                             <div class="step-number">1</div>
                             <div class="step-content">
                                 <h4>Check Your Email</h4>
-                                <p>Login credentials have been sent to your email</p>
+                                <p>Find your login credentials in your inbox</p>
                             </div>
                         </div>
                         <div class="step-item">
                             <div class="step-number">2</div>
                             <div class="step-content">
                                 <h4>Login to Dashboard</h4>
-                                <p>Access your course dashboard with provided credentials</p>
+                                <p>Access your learning dashboard</p>
                             </div>
                         </div>
                         <div class="step-item">
                             <div class="step-number">3</div>
                             <div class="step-content">
                                 <h4>Start Learning</h4>
-                                <p>Begin your journey to becoming a Full Stack + AI developer</p>
+                                <p>Begin your Full Stack + AI journey</p>
                             </div>
                         </div>
                     </div>
@@ -90,13 +101,18 @@
                 
                 <!-- CTA Buttons -->
                 <div class="success-buttons">
-                    <a href="#" class="btn-primary">Go to Dashboard</a>
+                    <a href="#" class="btn-primary" id="dashboardBtn">
+                        Go to Dashboard
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </a>
                     <a href="index.html" class="btn-secondary">Back to Home</a>
                 </div>
                 
                 <!-- Support Info -->
                 <div class="support-info">
-                    <p>Need help? Contact us at <a href="mailto:contact@sssamacademy.com">contact@sssamacademy.com</a></p>
+                    <p>Need help? <a href="mailto:contact@sssamacademy.com">contact@sssamacademy.com</a></p>
                 </div>
             </div>
         </div>
@@ -121,7 +137,85 @@
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
     <script>
-        // API Base URL
+        // ==================== CONFETTI ANIMATION ====================
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const confetti = [];
+        const confettiCount = 150;
+        const gravity = 0.5;
+        const terminalVelocity = 5;
+        const drag = 0.075;
+        const colors = [
+            { front: '#7c3aed', back: '#5b21b6' },
+            { front: '#2563eb', back: '#1d4ed8' },
+            { front: '#ec4899', back: '#db2777' },
+            { front: '#22c55e', back: '#16a34a' },
+            { front: '#f59e0b', back: '#d97706' }
+        ];
+        
+        resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        
+        window.addEventListener('resize', resizeCanvas);
+        
+        randomRange = (min, max) => Math.random() * (max - min) + min;
+        
+        initConfetti = () => {
+            for (let i = 0; i < confettiCount; i++) {
+                confetti.push({
+                    color: colors[Math.floor(randomRange(0, colors.length))],
+                    dimensions: { x: randomRange(10, 20), y: randomRange(10, 30) },
+                    position: { x: randomRange(0, canvas.width), y: canvas.height - 1 },
+                    rotation: randomRange(0, 2 * Math.PI),
+                    scale: { x: 1, y: 1 },
+                    velocity: { x: randomRange(-25, 25), y: randomRange(0, -50) }
+                });
+            }
+        };
+        
+        render = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            confetti.forEach((confetto, index) => {
+                let width = confetto.dimensions.x * confetto.scale.x;
+                let height = confetto.dimensions.y * confetto.scale.y;
+                
+                ctx.translate(confetto.position.x, confetto.position.y);
+                ctx.rotate(confetto.rotation);
+                
+                confetto.velocity.x -= confetto.velocity.x * drag;
+                confetto.velocity.y = Math.min(confetto.velocity.y + gravity, terminalVelocity);
+                confetto.velocity.x += Math.random() > 0.5 ? Math.random() : -Math.random();
+                
+                confetto.position.x += confetto.velocity.x;
+                confetto.position.y += confetto.velocity.y;
+                
+                if (confetto.position.y >= canvas.height) confetti.splice(index, 1);
+                
+                if (confetto.position.x > canvas.width) confetto.position.x = 0;
+                if (confetto.position.x < 0) confetto.position.x = canvas.width;
+                
+                confetto.scale.y = Math.cos(confetto.position.y * 0.1);
+                ctx.fillStyle = confetto.scale.y > 0 ? confetto.color.front : confetto.color.back;
+                
+                ctx.fillRect(-width / 2, -height / 2, width, height);
+                
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+            });
+            
+            if (confetti.length > 0) window.requestAnimationFrame(render);
+        };
+        
+        initConfetti();
+        render();
+        
+        // ==================== API Base URL ====================
         const API_BASE_URL = 'http://localhost:5000';
         
         // ==================== SUCCESS MODAL FUNCTIONS ====================
@@ -215,15 +309,17 @@
         
         // Check if user is authenticated
         function checkAuth() {
+            console.log('Success page: Checking authentication...');
             const token = localStorage.getItem('token');
             const user = localStorage.getItem('user');
             
             if (!token || !user) {
-                // Redirect to login page
+                console.log('Success page: Authentication failed - redirecting to login');
                 window.location.href = 'index.html';
                 return false;
             }
             
+            console.log('Success page: Authentication successful');
             return { token, user: JSON.parse(user) };
         }
         
@@ -251,8 +347,20 @@
             };
 
             try {
+                console.log(`Success page API Request: ${options.method || 'GET'} ${API_BASE_URL}${url}`);
                 const response = await fetch(`${API_BASE_URL}${url}`, requestOptions);
                 const data = await response.json();
+                
+                console.log('Success page API Response:', data);
+                
+                // Handle 401 Unauthorized
+                if (response.status === 401) {
+                    console.error('Success page: Unauthorized - clearing token');
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = 'index.html';
+                    throw new Error('Session expired. Please login again.');
+                }
                 
                 if (!response.ok) {
                     throw new Error(data.message || 'Request failed');
@@ -260,8 +368,27 @@
                 
                 return data;
             } catch (error) {
-                console.error('API Error:', error);
+                console.error('Success page API Error:', error);
                 throw error;
+            }
+        }
+        
+        // Fetch dashboard data to verify purchase status
+        async function fetchDashboardData() {
+            console.log('Success page: Fetching dashboard data...');
+            try {
+                const response = await apiRequest('/api/dashboard');
+                
+                if (response.success && response.data.purchasedCourse) {
+                    console.log('Success page: Course purchase verified');
+                    return response.data;
+                } else {
+                    console.warn('Success page: Course purchase not found');
+                    return null;
+                }
+            } catch (error) {
+                console.error('Success page: Error fetching dashboard data:', error);
+                return null;
             }
         }
         

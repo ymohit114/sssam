@@ -3,35 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSSAM Academy - Learn Full Stack + AI</title>
+    <title>SSSAM Academy - AI Powered Full Stack Web Development Training</title>
     
-    <!-- Google Font Poppins -->
+    <!-- Google Font Poppins & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
+    <!-- ==================== STICKY TOP OFFER BANNER ==================== -->
+    <div class="top-offer-banner" id="topOfferBanner">
+        <div class="banner-content">
+            <span class="banner-icon">🚀</span>
+            <span class="banner-text">Summer Offer — ₹999 Course at ₹9 Only</span>
+            <span class="banner-badge">99% OFF</span>
+        </div>
+        <button class="banner-close" id="closeBanner">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+    
     <!-- ==================== NAVBAR SECTION ==================== -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <!-- Logo -->
             <div class="logo">
-                <a href="#">SSSAM Academy</a>
+                <a href="#">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">SSSAM Academy</span>
+                </a>
             </div>
             
             <!-- Navigation Menu -->
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#course" class="nav-link">Course</a></li>
+                <li><a href="#curriculum" class="nav-link">Curriculum</a></li>
+                <li><a href="#tech-stack" class="nav-link">Tech Stack</a></li>
+                <li><a href="#comparison" class="nav-link">Compare</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             
-            <!-- Enroll Button -->
-            <a href="#pricing" class="btn-enroll">Enroll Now</a>
+            <!-- Auth Buttons -->
+            <div class="nav-auth" id="navAuth">
+                <a href="#" class="btn-login" id="btnLogin">Login</a>
+                <a href="#pricing" class="btn-enroll" id="btnEnroll">Enroll Now</a>
+            </div>
+            
+            <!-- Authenticated User Menu (Hidden by default) -->
+            <div class="nav-user" id="navUser" style="display: none;">
+                <a href="dashboard.html" class="btn-dashboard">Dashboard</a>
+                <button class="btn-logout-nav" id="btnLogoutNav">Logout</button>
+            </div>
             
             <!-- Mobile Menu Toggle -->
             <div class="hamburger" id="hamburger">
@@ -40,127 +69,197 @@
                 <span></span>
             </div>
         </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <ul class="mobile-nav-links">
+                    <li><a href="#home" class="mobile-nav-link">Home</a></li>
+                    <li><a href="#curriculum" class="mobile-nav-link">Curriculum</a></li>
+                    <li><a href="#tech-stack" class="mobile-nav-link">Tech Stack</a></li>
+                    <li><a href="#comparison" class="mobile-nav-link">Compare</a></li>
+                    <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+                </ul>
+                <div class="mobile-auth-buttons" id="mobileAuthButtons">
+                    <a href="#" class="btn-login-mobile" id="btnLoginMobile">Login</a>
+                    <a href="#pricing" class="btn-enroll-mobile" id="btnEnrollMobile">Enroll Now</a>
+                </div>
+                <div class="mobile-user-buttons" id="mobileUserButtons" style="display: none;">
+                    <a href="dashboard.html" class="btn-dashboard-mobile">Dashboard</a>
+                    <button class="btn-logout-mobile" id="btnLogoutMobile">Logout</button>
+                </div>
+            </div>
+        </div>
     </nav>
     
     <!-- ==================== HERO SECTION ==================== -->
     <section class="hero" id="home">
-        <!-- Background Gradient Glow -->
-        <div class="hero-glow"></div>
+        <!-- Animated Background -->
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+            <div class="grid-pattern"></div>
+        </div>
         
         <div class="container">
             <div class="hero-content">
                 <!-- Left Side - Text Content -->
                 <div class="hero-left">
-                    <h1 class="hero-title">
-                        Learn Full Stack + AI
-                    </h1>
-                    <h2 class="hero-subtitle">
-                        Master Modern Web Development<br>
-                        with Real Projects
-                    </h2>
-                    
-                    <!-- Launch Offer -->
-                    <div class="launch-offer">
-                        <span class="offer-label">Launch Offer</span>
-                        <span class="offer-price">₹9 Only</span>
+                    <div class="hero-badge">
+                        <span class="badge-icon">🎯</span>
+                        <span class="badge-text">AI-Powered Training</span>
                     </div>
                     
-                    <!-- Features Checklist -->
-                    <div class="hero-features">
-                        <div class="feature-item">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Beginner Friendly
+                    <h1 class="hero-title">
+                        AI Powered Full Stack
+                        <span class="gradient-text">Web Development Training</span>
+                    </h1>
+                    
+                    <h2 class="hero-subtitle">
+                        Build Real Websites with AI in Just 30 Days
+                    </h2>
+                    
+                    <!-- Scholarship Offer -->
+                    <div class="scholarship-offer">
+                        <div class="offer-card">
+                            <span class="offer-label">Scholarship Offer</span>
+                            <div class="price-display">
+                                <span class="original-price">₹999</span>
+                                <span class="arrow">→</span>
+                                <span class="discounted-price">₹9 Only</span>
+                            </div>
+                            <div class="discount-badge">99% Scholarship</div>
                         </div>
-                        <div class="feature-item">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Hindi Language
+                    </div>
+                    
+                    <!-- Trust Badges -->
+                    <div class="trust-badges">
+                        <div class="trust-item">
+                            <div class="trust-icon">✓</div>
+                            <span>Beginner Friendly</span>
                         </div>
-                        <div class="feature-item">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Real Projects
+                        <div class="trust-item">
+                            <div class="trust-icon">✓</div>
+                            <span>Real Projects</span>
                         </div>
-                        <div class="feature-item">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Lifetime Access
+                        <div class="trust-item">
+                            <div class="trust-icon">✓</div>
+                            <span>AI Assisted Coding</span>
+                        </div>
+                        <div class="trust-item">
+                            <div class="trust-icon">✓</div>
+                            <span>Certificate Included</span>
                         </div>
                     </div>
                     
                     <!-- CTA Buttons -->
                     <div class="hero-buttons">
-                        <a href="#pricing" class="btn-primary">Enroll Now</a>
+                        <a href="#pricing" class="btn-primary">
+                            <span class="btn-text">Enroll Now</span>
+                            <span class="btn-icon">→</span>
+                        </a>
                         <a href="#preview" class="btn-secondary">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
                             </svg>
-                            Watch Preview
+                            <span>Watch Preview</span>
                         </a>
+                    </div>
+                    
+                    <!-- Social Proof -->
+                    <div class="social-proof">
+                        <div class="proof-text">
+                            <span class="proof-number">5,000+</span>
+                            <span class="proof-label">Students Enrolled</span>
+                        </div>
+                        <div class="proof-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">4.9/5 Rating</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Right Side - Laptop Mockup with Floating Icons -->
+                <!-- Right Side - Premium Laptop Mockup -->
                 <div class="hero-right">
                     <div class="laptop-mockup">
                         <div class="laptop-screen">
                             <div class="laptop-content">
-                                <!-- Code Editor Preview -->
-                                <div class="code-editor">
-                                    <div class="editor-header">
-                                        <span class="dot red"></span>
-                                        <span class="dot yellow"></span>
-                                        <span class="dot green"></span>
+                                <!-- VS Code Style Editor -->
+                                <div class="vscode-editor">
+                                    <div class="editor-sidebar">
+                                        <div class="sidebar-item active"></div>
+                                        <div class="sidebar-item"></div>
+                                        <div class="sidebar-item"></div>
                                     </div>
-                                    <div class="editor-body">
-                                        <pre><code><span class="keyword">const</span> <span class="variable">app</span> = <span class="keyword">async</span> () => {
-  <span class="comment">// Build amazing projects</span>
-  <span class="keyword">await</span> learn(<span class="string">'Full Stack'</span>);
-  <span class="keyword">await</span> master(<span class="string">'AI Tools'</span>);
-  <span class="keyword">return</span> <span class="string">'Success'</span>;
-};</code></pre>
+                                    <div class="editor-main">
+                                        <div class="editor-tabs">
+                                            <div class="tab active">App.js</div>
+                                            <div class="tab">index.html</div>
+                                            <div class="tab">style.css</div>
+                                        </div>
+                                        <div class="editor-code">
+                                            <div class="code-line"><span class="line-number">1</span><span class="code"><span class="keyword">const</span> <span class="variable">buildWebApp</span> = <span class="keyword">async</span> () => {</span></div>
+                                            <div class="code-line"><span class="line-number">2</span><span class="code">  <span class="comment">// AI-Powered Development</span></span></div>
+                                            <div class="code-line"><span class="line-number">3</span><span class="code">  <span class="keyword">await</span> <span class="variable">master</span>(<span class="string">'Frontend'</span>);</span></div>
+                                            <div class="code-line"><span class="line-number">4</span><span class="code">  <span class="keyword">await</span> <span class="variable">master</span>(<span class="string">'Backend'</span>);</span></div>
+                                            <div class="code-line"><span class="line-number">5</span><span class="code">  <span class="keyword">await</span> <span class="variable">integrate</span>(<span class="string">'AI Tools'</span>);</span></div>
+                                            <div class="code-line"><span class="line-number">6</span><span class="code">  <span class="keyword">return</span> <span class="string">'Job Ready'</span>;</span></div>
+                                            <div class="code-line"><span class="line-number">7</span><span class="code">};</span></div>
+                                            <div class="code-line"><span class="line-number">8</span><span class="code"></span></div>
+                                            <div class="code-line"><span class="line-number">9</span><span class="code"><span class="variable">buildWebApp</span>();</span></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="laptop-base"></div>
+                        <div class="laptop-base">
+                            <div class="base-notch"></div>
+                        </div>
                     </div>
                     
-                    <!-- Floating Tech Icons -->
+                    <!-- Floating Tech Icons with Glow -->
                     <div class="floating-icons">
                         <div class="float-icon html" style="--delay: 0s;">
+                            <div class="icon-glow"></div>
                             <div class="icon-box">
-                                <span>HTML</span>
+                                <span class="icon-emoji">📄</span>
+                                <span class="icon-text">HTML5</span>
                             </div>
                         </div>
                         <div class="float-icon css" style="--delay: 0.5s;">
+                            <div class="icon-glow"></div>
                             <div class="icon-box">
-                                <span>CSS</span>
+                                <span class="icon-emoji">🎨</span>
+                                <span class="icon-text">CSS3</span>
                             </div>
                         </div>
                         <div class="float-icon js" style="--delay: 1s;">
+                            <div class="icon-glow"></div>
                             <div class="icon-box">
-                                <span>JS</span>
+                                <span class="icon-emoji">⚡</span>
+                                <span class="icon-text">JavaScript</span>
                             </div>
                         </div>
                         <div class="float-icon node" style="--delay: 1.5s;">
+                            <div class="icon-glow"></div>
                             <div class="icon-box">
-                                <span>Node.js</span>
+                                <span class="icon-emoji">🟢</span>
+                                <span class="icon-text">Node.js</span>
                             </div>
                         </div>
                         <div class="float-icon mongo" style="--delay: 2s;">
+                            <div class="icon-glow"></div>
                             <div class="icon-box">
-                                <span>MongoDB</span>
+                                <span class="icon-emoji">🍃</span>
+                                <span class="icon-text">MongoDB</span>
                             </div>
                         </div>
                         <div class="float-icon ai" style="--delay: 2.5s;">
+                            <div class="icon-glow"></div>
                             <div class="icon-box">
-                                <span>AI</span>
+                                <span class="icon-emoji">🤖</span>
+                                <span class="icon-text">AI Tools</span>
                             </div>
                         </div>
                     </div>
@@ -169,220 +268,471 @@
         </div>
     </section>
     
-    <!-- ==================== TECHNOLOGIES SECTION ==================== -->
-    <section class="technologies" id="course">
+    <!-- ==================== CURRICULUM SECTION ==================== -->
+    <section class="curriculum-section" id="curriculum">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Technologies You'll Learn</h2>
-                <p class="section-subtitle">Master the most in-demand tech stack</p>
+                <div class="section-badge">📚 Course Curriculum</div>
+                <h2 class="section-title">What You'll Learn in 30 Days</h2>
+                <p class="section-subtitle">A structured path from beginner to job-ready developer</p>
+            </div>
+            
+            <div class="curriculum-timeline">
+                <!-- Week 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="marker-number">01</span>
+                        <div class="marker-glow"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="week-badge">Week 1</div>
+                        <h3 class="timeline-title">Frontend Mastery</h3>
+                        <p class="timeline-description">HTML5, CSS3, Responsive Design, Modern Layouts</p>
+                        <div class="timeline-topics">
+                            <span class="topic-tag">Semantic HTML</span>
+                            <span class="topic-tag">Flexbox & Grid</span>
+                            <span class="topic-tag">Animations</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Week 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="marker-number">02</span>
+                        <div class="marker-glow"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="week-badge">Week 2</div>
+                        <h3 class="timeline-title">JavaScript Deep Dive</h3>
+                        <p class="timeline-description">ES6+, DOM Manipulation, Async/Await, APIs</p>
+                        <div class="timeline-topics">
+                            <span class="topic-tag">Modern JS</span>
+                            <span class="topic-tag">Fetch API</span>
+                            <span class="topic-tag">Event Handling</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Week 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="marker-number">03</span>
+                        <div class="marker-glow"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="week-badge">Week 3</div>
+                        <h3 class="timeline-title">Backend Development</h3>
+                        <p class="timeline-description">Node.js, Express.js, REST APIs, Database</p>
+                        <div class="timeline-topics">
+                            <span class="topic-tag">Node.js</span>
+                            <span class="topic-tag">Express</span>
+                            <span class="topic-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Week 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="marker-number">04</span>
+                        <div class="marker-glow"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="week-badge">Week 4</div>
+                        <h3 class="timeline-title">AI Integration & Deployment</h3>
+                        <p class="timeline-description">AI Tools, Git, Deployment, Real Projects</p>
+                        <div class="timeline-topics">
+                            <span class="topic-tag">ChatGPT API</span>
+                            <span class="topic-tag">GitHub</span>
+                            <span class="topic-tag">Vercel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==================== TECH STACK SECTION ==================== -->
+    <section class="tech-stack-section" id="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">🛠️ Tech Stack</div>
+                <h2 class="section-title">Industry-Standard Technologies</h2>
+                <p class="section-subtitle">Master the tools used by top companies worldwide</p>
             </div>
             
             <div class="tech-grid">
-                <!-- HTML Card -->
+                <!-- HTML5 -->
                 <div class="tech-card">
-                    <div class="tech-icon">
-                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                            <path d="M2 17l10 5 10-5"></path>
-                            <path d="M2 12l10 5 10-5"></path>
-                        </svg>
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">📄</div>
+                        <div class="icon-glow"></div>
                     </div>
                     <h3>HTML5</h3>
-                    <p>Build semantic and accessible web structures with modern HTML5 elements</p>
+                    <p>Semantic markup & accessibility</p>
                 </div>
                 
-                <!-- CSS Card -->
+                <!-- CSS3 -->
                 <div class="tech-card">
-                    <div class="tech-icon">
-                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                            <path d="M2 17l10 5 10-5"></path>
-                            <path d="M2 12l10 5 10-5"></path>
-                        </svg>
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">🎨</div>
+                        <div class="icon-glow"></div>
                     </div>
                     <h3>CSS3</h3>
-                    <p>Create stunning responsive designs with Flexbox, Grid, and animations</p>
+                    <p>Modern styling & animations</p>
                 </div>
                 
-                <!-- JavaScript Card -->
+                <!-- JavaScript -->
                 <div class="tech-card">
-                    <div class="tech-icon">
-                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"></path>
-                        </svg>
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">⚡</div>
+                        <div class="icon-glow"></div>
                     </div>
                     <h3>JavaScript</h3>
-                    <p>Master modern ES6+ features, DOM manipulation, and async programming</p>
+                    <p>ES6+ & modern frameworks</p>
                 </div>
                 
-                <!-- Node.js Card -->
+                <!-- Node.js -->
                 <div class="tech-card">
-                    <div class="tech-icon">
-                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                        </svg>
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">🟢</div>
+                        <div class="icon-glow"></div>
                     </div>
                     <h3>Node.js</h3>
-                    <p>Build powerful backend APIs and server-side applications</p>
+                    <p>Server-side JavaScript</p>
                 </div>
                 
-                <!-- MongoDB Card -->
+                <!-- MongoDB -->
                 <div class="tech-card">
-                    <div class="tech-icon">
-                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                        </svg>
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">🍃</div>
+                        <div class="icon-glow"></div>
                     </div>
                     <h3>MongoDB</h3>
-                    <p>Learn NoSQL database design and data modeling</p>
+                    <p>NoSQL database design</p>
                 </div>
                 
-                <!-- AI Tools Card -->
+                <!-- Express.js -->
                 <div class="tech-card">
-                    <div class="tech-icon">
-                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
-                            <path d="M12 6v6l4 2"></path>
-                        </svg>
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">🚂</div>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <h3>Express.js</h3>
+                    <p>Backend API framework</p>
+                </div>
+                
+                <!-- GitHub -->
+                <div class="tech-card">
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">🐙</div>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <h3>GitHub</h3>
+                    <p>Version control & collaboration</p>
+                </div>
+                
+                <!-- ChatGPT -->
+                <div class="tech-card">
+                    <div class="tech-icon-wrapper">
+                        <div class="tech-icon">🤖</div>
+                        <div class="icon-glow"></div>
                     </div>
                     <h3>AI Tools</h3>
-                    <p>Integrate AI-powered features and automation into your projects</p>
+                    <p>ChatGPT & AI integration</p>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- ==================== WHY JOIN SECTION ==================== -->
-    <section class="why-join">
+    <section class="why-join-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Why Join SSSAM Academy?</h2>
-                <p class="section-subtitle">What makes us different from others</p>
+                <div class="section-badge">✨ Why Choose Us</div>
+                <h2 class="section-title">What Makes SSSAM Academy Different</h2>
+                <p class="section-subtitle">Learn faster, better, and get job-ready with our unique approach</p>
             </div>
             
             <div class="features-grid">
-                <!-- Beginner Friendly -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Beginner Friendly</h3>
-                    <p>Start from zero and become a pro. No prior coding experience needed.</p>
-                </div>
-                
-                <!-- Hindi Language -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </div>
-                    <h3>Hindi Language</h3>
-                    <p>Learn in your preferred language. All content in Hindi for better understanding.</p>
-                </div>
-                
                 <!-- Real Projects -->
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                        </svg>
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🚀</div>
+                        <div class="icon-pulse"></div>
                     </div>
                     <h3>Real Projects</h3>
-                    <p>Build portfolio-ready projects that you can show to potential employers.</p>
+                    <p>Build 10+ portfolio-ready projects that showcase your skills to employers</p>
                 </div>
                 
-                <!-- Lifetime Access -->
+                <!-- AI Coding -->
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🤖</div>
+                        <div class="icon-pulse"></div>
                     </div>
-                    <h3>Lifetime Access</h3>
-                    <p>One-time payment, lifetime access to all course materials and updates.</p>
+                    <h3>AI Assisted Coding</h3>
+                    <p>Learn to leverage AI tools like ChatGPT to code faster and smarter</p>
+                </div>
+                
+                <!-- Internship Guidance -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">💼</div>
+                        <div class="icon-pulse"></div>
+                    </div>
+                    <h3>Internship Guidance</h3>
+                    <p>Get guidance on landing internships and entry-level developer jobs</p>
+                </div>
+                
+                <!-- Freelancing Basics -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">💰</div>
+                        <div class="icon-pulse"></div>
+                    </div>
+                    <h3>Freelancing Basics</h3>
+                    <p>Learn how to start freelancing and earn as a developer</p>
+                </div>
+                
+                <!-- Certificate -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🎓</div>
+                        <div class="icon-pulse"></div>
+                    </div>
+                    <h3>Certificate</h3>
+                    <p>Receive an industry-recognized certificate upon course completion</p>
+                </div>
+                
+                <!-- Deployment Training -->
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <div class="feature-icon">🌐</div>
+                        <div class="icon-pulse"></div>
+                    </div>
+                    <h3>Deployment Training</h3>
+                    <p>Learn to deploy your projects to the cloud like a pro</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==================== TRAINERS SECTION ==================== -->
+    <section class="trainers-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">👨‍🏫 Expert Mentors</div>
+                <h2 class="section-title">Learn from Industry Experts</h2>
+                <p class="section-subtitle">Our instructors have years of real-world experience</p>
+            </div>
+            
+            <div class="trainers-grid">
+                <!-- Trainer 1 -->
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <div class="avatar-placeholder">👨‍💻</div>
+                        <div class="experience-badge">5+ Years</div>
+                    </div>
+                    <div class="trainer-info">
+                        <h3>Rahul Sharma</h3>
+                        <p class="trainer-role">Full Stack Developer</p>
+                        <p class="trainer-specialization">React, Node.js, Cloud Architecture</p>
+                        <div class="trainer-social">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trainer 2 -->
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <div class="avatar-placeholder">👩‍💻</div>
+                        <div class="experience-badge">4+ Years</div>
+                    </div>
+                    <div class="trainer-info">
+                        <h3>Priya Patel</h3>
+                        <p class="trainer-role">AI/ML Engineer</p>
+                        <p class="trainer-specialization">Python, Machine Learning, NLP</p>
+                        <div class="trainer-social">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trainer 3 -->
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <div class="avatar-placeholder">👨‍🔬</div>
+                        <div class="experience-badge">6+ Years</div>
+                    </div>
+                    <div class="trainer-info">
+                        <h3>Amit Kumar</h3>
+                        <p class="trainer-role">Senior Developer</p>
+                        <p class="trainer-specialization">System Design, Microservices</p>
+                        <div class="trainer-social">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==================== COMPARISON SECTION ==================== -->
+    <section class="comparison-section" id="comparison">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">⚖️ Comparison</div>
+                <h2 class="section-title">Why SSSAM Academy Wins</h2>
+                <p class="section-subtitle">See how we compare to traditional institutes</p>
+            </div>
+            
+            <div class="comparison-container">
+                <div class="comparison-table">
+                    <div class="comparison-header">
+                        <div class="header-cell traditional">
+                            <h3>Traditional Institutes</h3>
+                        </div>
+                        <div class="header-cell sssam">
+                            <h3>SSSAM Academy</h3>
+                            <div class="recommended-badge">Recommended</div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-body">
+                        <div class="comparison-row">
+                            <div class="row-cell traditional">
+                                <span class="feature-name">Teaching Method</span>
+                                <span class="feature-value traditional-value">❌ Old Theory-Based</span>
+                            </div>
+                            <div class="row-cell sssam">
+                                <span class="feature-name">Teaching Method</span>
+                                <span class="feature-value sssam-value">✅ Practical Projects</span>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="row-cell traditional">
+                                <span class="feature-name">AI Integration</span>
+                                <span class="feature-value traditional-value">❌ No AI Tools</span>
+                            </div>
+                            <div class="row-cell sssam">
+                                <span class="feature-name">AI Integration</span>
+                                <span class="feature-value sssam-value">✅ AI-Assisted Coding</span>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="row-cell traditional">
+                                <span class="feature-name">Learning Speed</span>
+                                <span class="feature-value traditional-value">❌ Slow (6-12 Months)</span>
+                            </div>
+                            <div class="row-cell sssam">
+                                <span class="feature-name">Learning Speed</span>
+                                <span class="feature-value sssam-value">✅ Fast (30 Days)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="row-cell traditional">
+                                <span class="feature-name">Job Support</span>
+                                <span class="feature-value traditional-value">❌ Limited</span>
+                            </div>
+                            <div class="row-cell sssam">
+                                <span class="feature-name">Job Support</span>
+                                <span class="feature-value sssam-value">✅ Interview Prep & Job Referrals</span>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="row-cell traditional">
+                                <span class="feature-name">Price</span>
+                                <span class="feature-value traditional-value">❌ ₹15,000 - ₹50,000</span>
+                            </div>
+                            <div class="row-cell sssam">
+                                <span class="feature-name">Price</span>
+                                <span class="feature-value sssam-value">✅ ₹9 (99% Scholarship)</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- ==================== COURSE PREVIEW SECTION ==================== -->
-    <section class="course-preview" id="preview">
+    <section class="course-preview-section" id="preview">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Course Preview</h2>
-                <p class="section-subtitle">Get a sneak peek of what you'll learn</p>
+                <div class="section-badge">🎬 Preview</div>
+                <h2 class="section-title">See What You'll Learn</h2>
+                <p class="section-subtitle">Get a sneak peek into our premium course content</p>
             </div>
             
             <div class="preview-container">
-                <!-- Video Preview Placeholder -->
+                <!-- Video Preview -->
                 <div class="video-preview">
-                    <div class="video-placeholder">
-                        <div class="play-button">
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
-                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                            </svg>
+                    <div class="video-thumbnail">
+                        <div class="thumbnail-overlay"></div>
+                        <div class="play-button-wrapper">
+                            <button class="play-button">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
                         </div>
-                        <div class="video-overlay"></div>
-                        <div class="video-content">
-                            <h3>Watch Course Introduction</h3>
-                            <p>See what's inside the course</p>
+                        <div class="video-info">
+                            <h3>Course Introduction</h3>
+                            <p>Watch the full course overview</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Coding Dashboard Preview -->
-                <div class="dashboard-preview">
-                    <div class="dashboard-mockup">
-                        <div class="dashboard-header">
-                            <div class="dashboard-title">Course Dashboard</div>
-                            <div class="dashboard-progress">75% Complete</div>
+                <!-- Course Modules Preview -->
+                <div class="modules-preview">
+                    <div class="modules-header">
+                        <h3>Course Modules</h3>
+                        <span class="modules-count">8 Modules</span>
+                    </div>
+                    <div class="modules-list">
+                        <div class="module-item completed">
+                            <div class="module-icon">✓</div>
+                            <div class="module-content">
+                                <h4>HTML5 Fundamentals</h4>
+                                <span>12 Lessons • 2h 30m</span>
+                            </div>
                         </div>
-                        <div class="dashboard-body">
-                            <div class="module-item active">
-                                <div class="module-check">✓</div>
-                                <div class="module-info">
-                                    <h4>HTML Fundamentals</h4>
-                                    <p>12 Lessons • 2h 30m</p>
-                                </div>
+                        <div class="module-item completed">
+                            <div class="module-icon">✓</div>
+                            <div class="module-content">
+                                <h4>CSS3 Mastery</h4>
+                                <span>15 Lessons • 3h 45m</span>
                             </div>
-                            <div class="module-item active">
-                                <div class="module-check">✓</div>
-                                <div class="module-info">
-                                    <h4>CSS Mastery</h4>
-                                    <p>15 Lessons • 3h 45m</p>
-                                </div>
+                        </div>
+                        <div class="module-item current">
+                            <div class="module-icon">▶</div>
+                            <div class="module-content">
+                                <h4>JavaScript Deep Dive</h4>
+                                <span>20 Lessons • 5h 20m</span>
                             </div>
-                            <div class="module-item current">
-                                <div class="module-check">▶</div>
-                                <div class="module-info">
-                                    <h4>JavaScript Deep Dive</h4>
-                                    <p>20 Lessons • 5h 20m</p>
-                                </div>
+                        </div>
+                        <div class="module-item">
+                            <div class="module-icon">○</div>
+                            <div class="module-content">
+                                <h4>Node.js Backend</h4>
+                                <span>18 Lessons • 4h 15m</span>
                             </div>
-                            <div class="module-item">
-                                <div class="module-check">○</div>
-                                <div class="module-info">
-                                    <h4>Node.js Backend</h4>
-                                    <p>18 Lessons • 4h 15m</p>
-                                </div>
-                            </div>
-                            <div class="module-item">
-                                <div class="module-check">○</div>
-                                <div class="module-info">
-                                    <h4>AI Integration</h4>
-                                    <p>10 Lessons • 2h 30m</p>
-                                </div>
+                        </div>
+                        <div class="module-item">
+                            <div class="module-icon">○</div>
+                            <div class="module-content">
+                                <h4>MongoDB Database</h4>
+                                <span>12 Lessons • 3h 00m</span>
                             </div>
                         </div>
                     </div>
@@ -392,73 +742,47 @@
     </section>
     
     <!-- ==================== PRICING SECTION ==================== -->
-    <section class="pricing" id="pricing">
+    <section class="pricing-section" id="pricing">
         <div class="container">
             <div class="section-header">
+                <div class="section-badge">💰 Pricing</div>
                 <h2 class="section-title">Start Learning Today</h2>
-                <p class="section-subtitle">Limited time offer - Don't miss out</p>
+                <p class="section-subtitle">Limited time scholarship offer - Don't miss out</p>
             </div>
             
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3>Full Course Access</h3>
-                    <div class="pricing-price">
-                        <span class="old-price">₹1999</span>
-                        <span class="offer-price">₹9</span>
+            <div class="pricing-container">
+                <div class="pricing-card premium">
+                    <div class="pricing-badge">🔥 Best Value</div>
+                    <div class="pricing-header">
+                        <h3>Full Stack + AI Course</h3>
+                        <p class="pricing-subtitle">Complete web development training</p>
+                        <div class="pricing-price">
+                            <span class="original-price">₹999</span>
+                            <span class="discount-price">₹9</span>
+                            <span class="discount-tag">99% OFF</span>
+                        </div>
                     </div>
-                    <div class="discount-badge">99% OFF</div>
-                </div>
-                
-                <div class="pricing-body">
-                    <ul class="features-list">
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Lifetime Access
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Beginner Friendly
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Hindi Language
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Real Projects
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Certificate of Completion
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Community Support
-                        </li>
-                        <li>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Free Updates
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="pricing-footer">
-                    <a href="#" class="btn-buy">Buy Now</a>
-                    <p class="guarantee">30-Day Money Back Guarantee</p>
+                    
+                    <div class="pricing-body">
+                        <ul class="features-list">
+                            <li><span class="check-icon">✓</span>Lifetime Access</li>
+                            <li><span class="check-icon">✓</span>75+ Video Lessons</li>
+                            <li><span class="check-icon">✓</span>10+ Real Projects</li>
+                            <li><span class="check-icon">✓</span>AI Tools Integration</li>
+                            <li><span class="check-icon">✓</span>Certificate of Completion</li>
+                            <li><span class="check-icon">✓</span>Community Support</li>
+                            <li><span class="check-icon">✓</span>Job Interview Prep</li>
+                            <li><span class="check-icon">✓</span>Free Updates</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pricing-footer">
+                        <a href="#" class="btn-buy" id="pricingBuyBtn">Buy Now for ₹9</a>
+                        <div class="trust-badges">
+                            <span class="trust-item">🔒 Secure Payment</span>
+                            <span class="trust-item">💯 Money Back Guarantee</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
