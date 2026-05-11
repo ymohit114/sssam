@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - SSSAM Academy</title>
+    
+    <!-- Google Font Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- ==================== NAVBAR SECTION ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="index.html">SSSAM Academy</a>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#course" class="nav-link">Course</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            
+            <!-- Enroll Button -->
+            <a href="index.html#pricing" class="btn-enroll">Enroll Now</a>
+            
+            <!-- Mobile Menu Toggle -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ==================== PAYMENT SECTION ==================== -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-container">
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2 class="section-title">Order Summary</h2>
+                    
+                    <div class="course-info">
+                        <div class="course-image">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                        <div class="course-details">
+                            <h3>Full Stack + AI Course</h3>
+                            <p>Complete Web Development with AI Integration</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-breakdown">
+                        <div class="price-item">
+                            <span>Original Price</span>
+                            <span class="old-price">₹1999</span>
+                        </div>
+                        <div class="price-item">
+                            <span>Launch Discount</span>
+                            <span class="discount">-₹1990</span>
+                        </div>
+                        <div class="price-item total">
+                            <span>Total Amount</span>
+                            <span class="final-price">₹9</span>
+                        </div>
+                    </div>
+                    
+                    <div class="features-summary">
+                        <h4>What You'll Get:</h4>
+                        <ul>
+                            <li>✓ Lifetime Access</li>
+                            <li>✓ 75+ Video Lessons</li>
+                            <li>✓ 10+ Real Projects</li>
+                            <li>✓ Certificate of Completion</li>
+                            <li>✓ Community Support</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Payment Form -->
+                <div class="payment-form">
+                    <h2 class="section-title">Complete Payment</h2>
+                    
+                    <div class="payment-methods">
+                        <h3>Select Payment Method</h3>
+                        <div class="payment-options">
+                            <label class="payment-option active">
+                                <input type="radio" name="payment" value="razorpay" checked>
+                                <div class="option-content">
+                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                                    </svg>
+                                    <span>Razorpay</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="upi">
+                                <div class="option-content">
+                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                        <path d="M2 17l10 5 10-5"></path>
+                                        <path d="M2 12l10 5 10-5"></path>
+                                    </svg>
+                                    <span>UPI</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="card">
+                                <div class="option-content">
+                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                                    </svg>
+                                    <span>Credit/Debit Card</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="user-details">
+                        <h3>Billing Details</h3>
+                        <form id="paymentForm">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="secure-badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <span>100% Secure Payment powered by Razorpay</span>
+                    </div>
+                    
+                    <button type="submit" form="paymentForm" class="btn-pay">Pay ₹9</button>
+                    
+                    <p class="refund-policy">30-Day Money Back Guarantee</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // Payment form submission handler
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate payment processing
+            const btn = document.querySelector('.btn-pay');
+            btn.textContent = 'Processing...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                // Redirect to success page
+                window.location.href = 'success.html';
+            }, 2000);
+        });
+        
+        // Payment option selection
+        document.querySelectorAll('.payment-option input').forEach(input => {
+            input.addEventListener('change', function() {
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.closest('.payment-option').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

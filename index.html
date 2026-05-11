@@ -55,19 +55,42 @@
                         Learn Full Stack + AI
                     </h1>
                     <h2 class="hero-subtitle">
-                        Master Modern Web Development with Real Projects
+                        Master Modern Web Development<br>
+                        with Real Projects
                     </h2>
-                    <p class="hero-description">
-                        Join our comprehensive course and become a professional developer. 
-                        Learn from industry experts and build real-world projects that will 
-                        help you land your dream job in tech.
-                    </p>
                     
-                    <!-- Price Section -->
-                    <div class="price-section">
-                        <span class="old-price">₹1999</span>
-                        <span class="offer-price">₹99</span>
-                        <span class="discount-badge">95% OFF</span>
+                    <!-- Launch Offer -->
+                    <div class="launch-offer">
+                        <span class="offer-label">Launch Offer</span>
+                        <span class="offer-price">₹9 Only</span>
+                    </div>
+                    
+                    <!-- Features Checklist -->
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Beginner Friendly
+                        </div>
+                        <div class="feature-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Hindi Language
+                        </div>
+                        <div class="feature-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Real Projects
+                        </div>
+                        <div class="feature-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Lifetime Access
+                        </div>
                     </div>
                     
                     <!-- CTA Buttons -->
@@ -381,9 +404,9 @@
                     <h3>Full Course Access</h3>
                     <div class="pricing-price">
                         <span class="old-price">₹1999</span>
-                        <span class="offer-price">₹99</span>
+                        <span class="offer-price">₹9</span>
                     </div>
-                    <div class="discount-badge">95% OFF</div>
+                    <div class="discount-badge">99% OFF</div>
                 </div>
                 
                 <div class="pricing-body">
@@ -511,6 +534,71 @@
             </div>
         </div>
     </footer>
+    
+    <!-- ==================== LOGIN/SIGNUP MODAL ==================== -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">Login to Your Account</h2>
+                <button class="modal-close" id="closeModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn-auth">Login</button>
+                </form>
+                
+                <!-- Signup Form -->
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn-auth">Create Account</button>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <p class="switch-auth">
+                    <span id="switchText">Don't have an account?</span>
+                    <a href="#" class="switch-link" id="switchAuth">Sign Up</a>
+                </p>
+            </div>
+        </div>
+    </div>
     
     <!-- Custom JavaScript -->
     <script src="script.js"></script>

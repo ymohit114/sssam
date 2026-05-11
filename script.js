@@ -319,3 +319,121 @@ document.addEventListener('DOMContentLoaded', () => {
 // Log welcome message to console
 console.log('%c SSSAM Academy Landing Page ', 'background: linear-gradient(135deg, #7c3aed, #2563eb); color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: bold;');
 console.log('%c Built with HTML, CSS, and Vanilla JavaScript ', 'color: #9ca3af; font-size: 12px;');
+
+// ==================== AUTH MODAL FUNCTIONALITY ====================
+
+// Get modal elements
+const authModal = document.getElementById('authModal');
+const closeModal = document.getElementById('closeModal');
+const switchAuth = document.getElementById('switchAuth');
+const switchText = document.getElementById('switchText');
+const modalTitle = document.getElementById('modalTitle');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+
+// Get enroll buttons to open modal
+const enrollButtons = document.querySelectorAll('.btn-primary, .btn-enroll, .btn-buy');
+
+// Open modal when enroll button is clicked
+enrollButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        // Check if the link is to #pricing (stay on landing page)
+        const href = button.getAttribute('href');
+        if (href === '#pricing' || href === '#') {
+            e.preventDefault();
+            openModal();
+        }
+    });
+});
+
+// Function to open modal
+function openModal() {
+    authModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Function to close modal
+function closeModalFunc() {
+    authModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when close button is clicked
+closeModal.addEventListener('click', closeModalFunc);
+
+// Close modal when clicking outside the modal container
+authModal.addEventListener('click', (e) => {
+    if (e.target === authModal) {
+        closeModalFunc();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && authModal.classList.contains('active')) {
+        closeModalFunc();
+    }
+});
+
+// Switch between login and signup forms
+let isLoginMode = true;
+
+switchAuth.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    if (isLoginMode) {
+        // Switch to signup
+        loginForm.classList.remove('active');
+        signupForm.classList.add('active');
+        modalTitle.textContent = 'Create Your Account';
+        switchText.textContent = 'Already have an account?';
+        switchAuth.textContent = 'Login';
+    } else {
+        // Switch to login
+        signupForm.classList.remove('active');
+        loginForm.classList.add('active');
+        modalTitle.textContent = 'Login to Your Account';
+        switchText.textContent = "Don't have an account?";
+        switchAuth.textContent = 'Sign Up';
+    }
+    
+    isLoginMode = !isLoginMode;
+});
+
+// Handle login form submission (static demo)
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // In a real app, this would send data to backend
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    console.log('Login attempt:', { email, password });
+    
+    // Simulate successful login and redirect to payment
+    alert('Login successful! Redirecting to payment...');
+    window.location.href = 'payment.html';
+});
+
+// Handle signup form submission (static demo)
+signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // In a real app, this would send data to backend
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('signupConfirmPassword').value;
+    
+    // Validate password match
+    if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+    }
+    
+    console.log('Signup attempt:', { name, email, password });
+    
+    // Simulate successful signup and redirect to payment
+    alert('Account created successfully! Redirecting to payment...');
+    window.location.href = 'payment.html';
+});

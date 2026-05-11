@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - SSSAM Academy</title>
+    
+    <!-- Google Font Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- ==================== SUCCESS SECTION ==================== -->
+    <section class="success-section">
+        <div class="container">
+            <div class="success-container">
+                <!-- Success Icon -->
+                <div class="success-icon">
+                    <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                
+                <!-- Success Message -->
+                <h1 class="success-title">Payment Successful!</h1>
+                <p class="success-subtitle">Thank you for enrolling in SSSAM Academy</p>
+                
+                <!-- Order Details -->
+                <div class="order-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Order ID</span>
+                        <span class="detail-value">#SSSAM12345</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Amount Paid</span>
+                        <span class="detail-value">₹9</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Course</span>
+                        <span class="detail-value">Full Stack + AI Course</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Payment Date</span>
+                        <span class="detail-value" id="paymentDate"></span>
+                    </div>
+                </div>
+                
+                <!-- Email Sent Notice -->
+                <div class="email-notice">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>A confirmation email has been sent to your registered email address with login credentials.</span>
+                </div>
+                
+                <!-- Next Steps -->
+                <div class="next-steps">
+                    <h3>What's Next?</h3>
+                    <div class="steps-list">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Check Your Email</h4>
+                                <p>Login credentials have been sent to your email</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Login to Dashboard</h4>
+                                <p>Access your course dashboard with provided credentials</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Start Learning</h4>
+                                <p>Begin your journey to becoming a Full Stack + AI developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="success-buttons">
+                    <a href="#" class="btn-primary">Go to Dashboard</a>
+                    <a href="index.html" class="btn-secondary">Back to Home</a>
+                </div>
+                
+                <!-- Support Info -->
+                <div class="support-info">
+                    <p>Need help? Contact us at <a href="mailto:contact@sssamacademy.com">contact@sssamacademy.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // Set current date
+        const date = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('paymentDate').textContent = date.toLocaleDateString('en-IN', options);
+    </script>
+</body>
+</html>
