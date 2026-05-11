@@ -183,6 +183,14 @@ async function apiRequest(url, options = {}) {
 function initRazorpay(orderData) {
     console.log('Cart: Initializing Razorpay with order data:', orderData);
     
+    // Verify Razorpay is loaded
+    if (typeof Razorpay === 'undefined') {
+        console.error('Cart: Razorpay is not defined');
+        throw new Error('Razorpay failed to load. Please refresh the page and try again.');
+    }
+    
+    console.log('Cart: Window Razorpay:', window.Razorpay);
+    
     const user = JSON.parse(localStorage.getItem('user'));
     
     const options = {
@@ -212,23 +220,34 @@ function initRazorpay(orderData) {
         },
         modal: {
             ondismiss: function() {
-                console.log('Cart: Razorpay modal dismissed');
-                // Reset button state
+                console.log('Cart: Razorpay modal dismissed by user');
+                // Reset button state - user cancelled, not an error
                 resetButtonState();
             }
         }
     };
     
-    console.log('Cart: Opening Razorpay checkout...');
-    const rzp = new Razorpay(options);
-    rzp.open();
+    console.log('Cart: Razorpay options:', options);
     
-    // Handle Razorpay errors
-    rzp.on('payment.failed', function (response) {
-        console.error('Cart: Razorpay payment failed:', response);
-        showErrorModal('Payment Failed', response.error.description || 'Payment failed. Please try again.');
-        resetButtonState();
-    });
+    try {
+        console.log('Cart: Creating Razorpay instance...');
+        const rzp = new Razorpay(options);
+        console.log('Cart: Razorpay instance created successfully');
+        
+        console.log('Cart: Opening Razorpay popup...');
+        rzp.open();
+        console.log('Cart: Razorpay popup opened');
+        
+        // Handle Razorpay errors
+        rzp.on('payment.failed', function (response) {
+            console.error('Cart: Razorpay payment failed:', response);
+            showErrorModal('Payment Failed', response.error.description || 'Payment failed. Please try again.');
+            resetButtonState();
+        });
+    } catch (error) {
+        console.error('Cart: Razorpay initialization error:', error);
+        throw new Error('Failed to initialize payment gateway. Please try again.');
+    }
 }
 
 // Verify payment with backend
@@ -276,15 +295,25 @@ async function createOrder() {
         
         console.log('Cart: Order created response:', response);
         
-        if (response.success && response.order) {
-            console.log('Cart: Order created successfully, initializing Razorpay');
-            return {
-                order: response.order,
-                key: RAZORPAY_KEY_ID
-            };
+        // Handle different response formats
+        let orderData;
+        if (response.success && response.data && response.data.order) {
+            // Format: { success: true, data: { order: {...} } }
+            orderData = response.data;
+        } else if (response.success && response.order) {
+            // Format: { success: true, order: {...} }
+            orderData = response;
         } else {
-            throw new Error(response.message || 'Failed to create order');
+            throw new Error(response.message || 'Invalid order response format');
         }
+        
+        console.log('Cart: Order data extracted:', orderData);
+        console.log('Cart: Order created successfully, initializing Razorpay');
+        
+        return {
+            order: orderData.order,
+            key: RAZORPAY_KEY_ID
+        };
     } catch (error) {
         console.error('Cart: Order creation error:', error);
         throw error;
@@ -324,26 +353,58 @@ function showLoadingState() {
 // ==================== PROCEED BUTTON HANDLER ====================
 
 // Proceed to payment button handler
-document.getElementById('proceedBtn').addEventListener('click', async function(e) {
-    e.preventDefault();
-    console.log('Cart: Proceed to payment clicked');
+function initProceedButton() {
+    const proceedBtn = document.getElementById('proceedBtn');
     
-    try {
-        // Show loading state
-        showLoadingState();
-        
-        // Create order with backend
-        const orderData = await createOrder();
-        
-        // Initialize Razorpay payment
-        initRazorpay(orderData);
-        
-    } catch (error) {
-        console.error('Cart: Payment flow error:', error);
-        showErrorModal('Payment Failed', error.message || 'Unable to create order. Please try again.');
-        resetButtonState();
+    if (!proceedBtn) {
+        console.error('Cart: Proceed button not found');
+        return;
     }
-});
+    
+    console.log('Cart: Proceed button found, attaching event listener');
+    
+    proceedBtn.addEventListener('click', async function(e) {
+        e.preventDefault();
+        console.log('Cart: Proceed to payment clicked');
+        
+        // Check if Razorpay is loaded
+        if (typeof Razorpay === 'undefined') {
+            console.error('Cart: Razorpay not loaded');
+            showErrorModal('Payment Error', 'Razorpay failed to load. Please refresh the page and try again.');
+            return;
+        }
+        
+        try {
+            // Show loading state
+            showLoadingState();
+            
+            // Check authentication
+            const auth = checkAuth();
+            if (!auth) {
+                console.error('Cart: Authentication failed');
+                showErrorModal('Authentication Required', 'Please login to continue with payment.');
+                resetButtonState();
+                return;
+            }
+            
+            console.log('Cart: Token:', auth.token.substring(0, 10) + '...');
+            
+            // Create order with backend
+            console.log('Cart: Creating order...');
+            const orderData = await createOrder();
+            console.log('Cart: Order data received:', orderData);
+            
+            // Initialize Razorpay payment
+            console.log('Cart: Initializing Razorpay...');
+            initRazorpay(orderData);
+            
+        } catch (error) {
+            console.error('Cart: Payment flow error:', error);
+            showErrorModal('Payment Failed', error.message || 'Unable to create order. Please try again.');
+            resetButtonState();
+        }
+    });
+}
 
 // ==================== INITIALIZATION ====================
 
@@ -355,5 +416,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const auth = checkAuth();
     if (!auth) return;
     
+    // Initialize proceed button
+    initProceedButton();
+    
     console.log('Cart: Initialization completed successfully');
+    console.log('Cart: Razorpay loaded:', typeof Razorpay !== 'undefined');
 });

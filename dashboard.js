@@ -411,37 +411,71 @@ function updateStats(userData) {
 // Update course status based on purchase
 function updateCourseStatus(userData) {
     console.log('Dashboard: Updating course status...');
-    const courseStatus = document.getElementById('courseStatus');
+    console.log('Dashboard: Purchased Course Status:', userData.purchasedCourse);
     
-    if (!courseStatus) {
-        console.warn('Dashboard: Course status element not found');
+    const courseCard = document.getElementById('courseCard');
+    const emptyCourseState = document.getElementById('emptyCourseState');
+    
+    if (!courseCard || !emptyCourseState) {
+        console.warn('Dashboard: Course card elements not found');
         return;
     }
     
     if (userData.purchasedCourse) {
-        // User has purchased the course
-        console.log('Dashboard: Course purchased - showing purchased status');
-        courseStatus.innerHTML = `
-            <div class="course-purchased">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                Course Purchased ✅
+        // User has purchased the course - show enrolled course card
+        console.log('Dashboard: Course purchased - showing enrolled course card');
+        courseCard.style.display = 'block';
+        emptyCourseState.style.display = 'none';
+        
+        courseCard.innerHTML = `
+            <div class="course-header">
+                <div class="course-badge">Full Stack + AI</div>
+                <div class="course-status-badge enrolled">Enrolled ✅</div>
             </div>
-        `;
-    } else {
-        // User has not purchased the course
-        console.log('Dashboard: Course not purchased - showing buy button');
-        courseStatus.innerHTML = `
-            <div class="course-info">
-                <div class="course-price">
-                    <span class="old-price">₹1999</span>
-                    <span class="offer-price">₹9 Only</span>
+            <div class="course-body">
+                <h3 class="course-title">Complete Web Development with AI Integration</h3>
+                <p class="course-description">Master modern web development and AI technologies with real-world projects.</p>
+                <div class="course-features">
+                    <span class="feature-tag">75+ Video Lessons</span>
+                    <span class="feature-tag">10+ Projects</span>
+                    <span class="feature-tag">Certificate</span>
                 </div>
-                <p class="launch-offer-text">🔥 Launch Offer - Limited Time!</p>
-                <a href="cart.html" class="btn-buy-course">Buy Course</a>
+            </div>
+            <div class="course-footer">
+                <div class="course-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0% Complete</span>
+                </div>
+                <a href="#" class="btn-continue" id="btnContinue">
+                    Continue Learning
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
             </div>
         `;
+        
+        // Initialize progress bar for enrolled course
+        updateCourseProgress(25); // Placeholder progress percentage
+    } else {
+        // User has not purchased the course - show empty state
+        console.log('Dashboard: Course not purchased - showing empty state');
+        courseCard.style.display = 'none';
+        emptyCourseState.style.display = 'block';
+    }
+}
+
+// Update course progress (for enrolled users)
+function updateCourseProgress(progress) {
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    
+    if (progressFill && progressText) {
+        progressFill.style.width = `${progress}%`;
+        progressText.textContent = `${progress}% Complete`;
+        console.log(`Dashboard: Course progress updated to ${progress}%`);
     }
 }
 

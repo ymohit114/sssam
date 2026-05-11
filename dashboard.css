@@ -796,6 +796,51 @@ body {
     box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
 }
 
+/* Empty Course State */
+.empty-course-state {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: 60px 40px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.empty-course-state h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-bottom: 12px;
+}
+
+.empty-course-state p {
+    color: var(--text-gray);
+    margin-bottom: 24px;
+    font-size: 1rem;
+}
+
+.btn-buy-course {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--gradient-primary);
+    color: var(--text-white);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.btn-buy-course:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+}
+
 /* ==================== PROFILE SECTION ==================== */
 .profile-section {
     margin-bottom: 40px;
@@ -1113,6 +1158,28 @@ body {
     
     .section-title {
         font-size: 1.5rem;
+    }
+    
+    /* Empty Course State Mobile */
+    .empty-course-state {
+        padding: 40px 24px;
+    }
+    
+    .empty-icon {
+        font-size: 3rem;
+    }
+    
+    .empty-course-state h3 {
+        font-size: 1.2rem;
+    }
+    
+    .empty-course-state p {
+        font-size: 0.9rem;
+    }
+    
+    .btn-buy-course {
+        width: 100%;
+        padding: 12px 24px;
     }
 }
 

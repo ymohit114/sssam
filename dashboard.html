@@ -189,42 +189,17 @@
                             <h2 class="section-title">My Courses</h2>
                         </div>
                         <div class="course-section">
+                            <!-- Course Card (Dynamic) -->
                             <div class="course-card" id="courseCard">
-                                <div class="course-header">
-                                    <div class="course-badge">Full Stack + AI</div>
-                                    <div class="course-status-badge" id="courseStatusBadge">Enrolled</div>
-                                </div>
-                                <div class="course-body">
-                                    <h3 class="course-title">Complete Web Development with AI Integration</h3>
-                                    <p class="course-description">Master modern web development and AI technologies with real-world projects.</p>
-                                    <div class="course-features">
-                                        <span class="feature-tag">75+ Video Lessons</span>
-                                        <span class="feature-tag">10+ Projects</span>
-                                        <span class="feature-tag">Certificate</span>
-                                    </div>
-                                </div>
-                                <div class="course-footer">
-                                    <div class="course-progress">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                                        </div>
-                                        <span class="progress-text" id="progressText">0% Complete</span>
-                                    </div>
-                                    <a href="#" class="btn-continue" id="btnContinue">
-                                        Continue Learning
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <polyline points="9 18 15 12 9 6"></polyline>
-                                        </svg>
-                                    </a>
-                                </div>
+                                <!-- Content will be injected by JavaScript -->
                             </div>
                             
-                            <!-- Course Status (not enrolled) -->
-                            <div class="not-enrolled-card" id="notEnrolledCard" style="display: none;">
-                                <div class="not-enrolled-icon">📚</div>
-                                <h3>No Course Enrolled Yet</h3>
-                                <p>Enroll in our Full Stack + AI course to start your learning journey.</p>
-                                <a href="cart.html" class="btn-enroll-course">Enroll Now</a>
+                            <!-- Empty State (Dynamic) -->
+                            <div class="empty-course-state" id="emptyCourseState" style="display: none;">
+                                <div class="empty-icon">📚</div>
+                                <h3>No Course Purchased Yet</h3>
+                                <p>Start your AI Full Stack journey today 🚀</p>
+                                <a href="cart.html" class="btn-buy-course">Buy Course for ₹9</a>
                             </div>
                         </div>
                     </section>
