@@ -1,6 +1,7 @@
 // ==================== DASHBOARD JAVASCRIPT ====================
 
-// Note: API_BASE_URL is already defined in script.js
+// API Base URL
+const API_BASE_URL = 'http://localhost:5000';
 
 // ==================== SIDEBAR FUNCTIONALITY ====================
 
@@ -8,6 +9,7 @@
 const sidebar = document.getElementById('sidebar');
 const sidebarToggle = document.getElementById('sidebarToggle');
 const sidebarClose = document.getElementById('sidebarClose');
+const sidebarLinks = document.querySelectorAll('.sidebar-link');
 
 // Toggle sidebar
 if (sidebarToggle && sidebar) {
@@ -33,6 +35,49 @@ document.addEventListener('click', (e) => {
             document.body.style.overflow = 'auto';
         }
     }
+});
+
+// ==================== SECTION SWITCHING ====================
+
+// Show specific section
+function showSection(sectionName) {
+    console.log(`Dashboard: Switching to ${sectionName} section`);
+    
+    // Hide all sections
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show target section
+    const targetSection = document.getElementById(`${sectionName}Section`);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+    
+    // Update sidebar active state
+    sidebarLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-section') === sectionName) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Close sidebar on mobile after selection
+    if (window.innerWidth <= 768) {
+        sidebar.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Add event listeners to sidebar links
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const sectionName = link.getAttribute('data-section');
+        if (sectionName) {
+            showSection(sectionName);
+        }
+    });
 });
 
 // ==================== SUCCESS MODAL FUNCTIONS ====================
@@ -217,31 +262,63 @@ async function fetchDashboardData() {
 function updateUI(userData) {
     console.log('Dashboard: Updating UI with user data...', userData);
     
+    const user = userData.user;
+    
     // Update user name in navbar
     const navbarUserName = document.getElementById('navbarUserName');
     if (navbarUserName) {
-        navbarUserName.textContent = userData.user.name;
+        navbarUserName.textContent = user.name;
         console.log('Dashboard: Navbar username updated');
     }
     
     // Update welcome message
     const welcomeUserName = document.getElementById('welcomeUserName');
     if (welcomeUserName) {
-        welcomeUserName.textContent = userData.user.name;
+        welcomeUserName.textContent = user.name;
         console.log('Dashboard: Welcome username updated');
+    }
+    
+    // Update sidebar user info
+    const sidebarUserName = document.getElementById('sidebarUserName');
+    const sidebarUserEmail = document.getElementById('sidebarUserEmail');
+    const sidebarUserInitial = document.getElementById('sidebarUserInitial');
+    
+    if (sidebarUserName) {
+        sidebarUserName.textContent = user.name;
+    }
+    if (sidebarUserEmail) {
+        sidebarUserEmail.textContent = user.email;
+    }
+    if (sidebarUserInitial) {
+        sidebarUserInitial.textContent = user.name.charAt(0).toUpperCase();
+    }
+    
+    // Update profile section
+    const profileName = document.getElementById('profileName');
+    const profileEmail = document.getElementById('profileEmail');
+    const profileAvatarInitial = document.getElementById('profileAvatarInitial');
+    
+    if (profileName) {
+        profileName.textContent = user.name;
+    }
+    if (profileEmail) {
+        profileEmail.textContent = user.email;
+    }
+    if (profileAvatarInitial) {
+        profileAvatarInitial.textContent = user.name.charAt(0).toUpperCase();
     }
     
     // Update user info
     const userEmail = document.getElementById('userEmail');
     if (userEmail) {
-        userEmail.textContent = userData.user.email;
+        userEmail.textContent = user.email;
         console.log('Dashboard: User email updated');
     }
     
     // Update member since date
     const memberSince = document.getElementById('memberSince');
     if (memberSince) {
-        const createdDate = new Date(userData.user.createdAt);
+        const createdDate = new Date(user.createdAt);
         memberSince.textContent = createdDate.toLocaleDateString('en-IN', {
             year: 'numeric',
             month: 'long',
@@ -262,6 +339,46 @@ function updateUI(userData) {
     
     // Update course status
     updateCourseStatus(userData);
+    
+    // Update progress section
+    updateProgressSection(userData);
+}
+
+// Update progress section
+function updateProgressSection(userData) {
+    console.log('Dashboard: Updating progress section...');
+    
+    const circularProgressPercent = document.getElementById('circularProgressPercent');
+    const progressCircle = document.getElementById('progressCircle');
+    const modulesCompleted = document.getElementById('modulesCompleted');
+    const hoursLearned = document.getElementById('hoursLearned');
+    const projectsCompleted = document.getElementById('projectsCompleted');
+    
+    // Calculate progress (placeholder logic)
+    const progress = userData.purchasedCourse ? 25 : 0; // 25% for demo
+    
+    if (circularProgressPercent) {
+        circularProgressPercent.textContent = `${progress}%`;
+    }
+    
+    if (progressCircle) {
+        // Animate circular progress
+        const circumference = 565.48;
+        const offset = circumference - (progress / 100) * circumference;
+        progressCircle.style.strokeDashoffset = offset;
+    }
+    
+    if (modulesCompleted) {
+        modulesCompleted.textContent = userData.purchasedCourse ? '5' : '0';
+    }
+    
+    if (hoursLearned) {
+        hoursLearned.textContent = userData.purchasedCourse ? '12' : '0';
+    }
+    
+    if (projectsCompleted) {
+        projectsCompleted.textContent = userData.purchasedCourse ? '2' : '0';
+    }
 }
 
 // Update dashboard statistics
@@ -322,7 +439,7 @@ function updateCourseStatus(userData) {
                     <span class="offer-price">₹9 Only</span>
                 </div>
                 <p class="launch-offer-text">🔥 Launch Offer - Limited Time!</p>
-                <a href="payment.html" class="btn-buy-course">Buy Course</a>
+                <a href="cart.html" class="btn-buy-course">Buy Course</a>
             </div>
         `;
     }

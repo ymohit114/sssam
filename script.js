@@ -169,6 +169,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Function to update active navigation link based on scroll position
 function updateActiveNavLink() {
+    // Check if navbar exists
+    if (!navbar) return;
+    
     const scrollPosition = window.scrollY + navbar.offsetHeight + 100;
     
     sections.forEach(section => {
@@ -451,6 +454,39 @@ document.addEventListener('DOMContentLoaded', () => {
 console.log('%c SSSAM Academy Landing Page ', 'background: linear-gradient(135deg, #7c3aed, #2563eb); color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: bold;');
 console.log('%c Built with HTML, CSS, and Vanilla JavaScript ', 'color: #9ca3af; font-size: 12px;');
 
+// ==================== ENROLL BUTTON FLOW ====================
+
+// Handle enroll button click
+function handleEnrollClick(e) {
+    e.preventDefault();
+    console.log('Enroll button clicked');
+    
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    console.log('Auth check - Token:', !!token, 'User:', !!user);
+    
+    if (!token || !user) {
+        // User not logged in - open login modal
+        console.log('User not logged in, opening login modal');
+        if (typeof openModal === 'function') {
+            openModal();
+        }
+    } else {
+        // User already logged in - redirect to dashboard
+        console.log('User already logged in, redirecting to dashboard');
+        window.location.href = 'dashboard.html';
+    }
+}
+
+// Add event listeners to enroll buttons
+document.querySelectorAll('.btn-enroll, .btn-enroll-mobile, .pricing-card .btn-primary').forEach(btn => {
+    if (btn) {
+        btn.addEventListener('click', handleEnrollClick);
+        console.log('Enroll button event listener added');
+    }
+});
+
 // ==================== AUTH MODAL FUNCTIONALITY ====================
 
 // Get modal elements
@@ -485,23 +521,29 @@ function openModal() {
 
 // Function to close modal
 function closeModalFunc() {
-    authModal.classList.remove('active');
-    document.body.style.overflow = 'auto';
+    if (authModal) {
+        authModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
 }
 
 // Close modal when close button is clicked
-closeModal.addEventListener('click', closeModalFunc);
+if (closeModal) {
+    closeModal.addEventListener('click', closeModalFunc);
+}
 
 // Close modal when clicking outside the modal container
-authModal.addEventListener('click', (e) => {
-    if (e.target === authModal) {
-        closeModalFunc();
-    }
-});
+if (authModal) {
+    authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) {
+            closeModalFunc();
+        }
+    });
+}
 
 // Close modal with Escape key
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && authModal.classList.contains('active')) {
+    if (e.key === 'Escape' && authModal && authModal.classList.contains('active')) {
         closeModalFunc();
     }
 });
@@ -509,8 +551,9 @@ document.addEventListener('keydown', (e) => {
 // Switch between login and signup forms
 let isLoginMode = true;
 
-switchAuth.addEventListener('click', (e) => {
-    e.preventDefault();
+if (switchAuth) {
+    switchAuth.addEventListener('click', (e) => {
+        e.preventDefault();
     
     if (isLoginMode) {
         // Switch to signup
@@ -666,8 +709,9 @@ function showErrorModal(title, message) {
 // ==================== AUTHENTICATION FUNCTIONS ====================
 
 // Handle login form submission
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
     
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
@@ -705,54 +749,58 @@ loginForm.addEventListener('submit', async (e) => {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
     }
-});
+    });
+}
 
 // Handle signup form submission
-signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const name = document.getElementById('signupName').value;
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    const confirmPassword = document.getElementById('signupConfirmPassword').value;
-    
-    // Validate password match
-    if (password !== confirmPassword) {
-        showErrorModal('Validation Error', 'Passwords do not match!');
-        return;
-    }
-    
-    // Show loading state
-    const submitBtn = signupForm.querySelector('.btn-auth');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Creating account...';
-    submitBtn.disabled = true;
-    
-    try {
-        const response = await apiRequest('/api/auth/signup', {
-            method: 'POST',
-            body: JSON.stringify({ name, email, password }),
-        });
+if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
         
-        if (response.success) {
-            // Store JWT token in localStorage
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-            
-            // Close auth modal
-            closeModalFunc();
-            
-            // Show success modal and redirect
-            showSuccessModal('Account Created 🎉', 'Redirecting to your dashboard...', 'dashboard.html');
-        } else {
-            throw new Error('Signup failed');
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('signupConfirmPassword').value;
+        
+        // Validate password match
+        if (password !== confirmPassword) {
+            showErrorModal('Validation Error', 'Passwords do not match!');
+            return;
         }
-    } catch (error) {
-        // Show error modal
-        showErrorModal('Signup Failed', error.message || 'Unable to create account. Please try again.');
         
-        // Reset button state
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-});
+        // Show loading state
+        const submitBtn = signupForm.querySelector('.btn-auth');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Creating account...';
+        submitBtn.disabled = true;
+        
+        try {
+            const response = await apiRequest('/api/auth/signup', {
+                method: 'POST',
+                body: JSON.stringify({ name, email, password }),
+            });
+            
+            if (response.success) {
+                // Store JWT token in localStorage
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+                
+                // Close auth modal
+                closeModalFunc();
+                
+                // Show success modal and redirect
+                showSuccessModal('Account Created 🎉', 'Redirecting to your dashboard...', 'dashboard.html');
+            } else {
+                throw new Error('Signup failed');
+            }
+        } catch (error) {
+            // Show error modal
+            showErrorModal('Signup Failed', error.message || 'Unable to create account. Please try again.');
+            
+            // Reset button state
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+}
