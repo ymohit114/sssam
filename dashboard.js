@@ -354,8 +354,25 @@ function updateProgressSection(userData) {
     const hoursLearned = document.getElementById('hoursLearned');
     const projectsCompleted = document.getElementById('projectsCompleted');
     
-    // Calculate progress (placeholder logic)
-    const progress = userData.purchasedCourse ? 25 : 0; // 25% for demo
+    // Use stats from new dashboard API
+    const stats = userData.stats || { overallProgress: 0, totalEnrollments: 0 };
+    const enrollments = userData.enrollments || [];
+    
+    // Calculate overall progress from enrollments
+    let totalProgress = 0;
+    let totalModules = 0;
+    let totalHours = 0;
+    let totalProjects = 0;
+    
+    enrollments.forEach(enrollment => {
+        const course = enrollment.course || {};
+        totalProgress += enrollment.progress || 0;
+        totalModules += (enrollment.completedLessons || []).length;
+        totalHours += Math.floor((enrollment.progress || 0) / 10); // Estimate hours
+        totalProjects += course.projects || 0;
+    });
+    
+    const progress = enrollments.length > 0 ? Math.round(totalProgress / enrollments.length) : 0;
     
     if (circularProgressPercent) {
         circularProgressPercent.textContent = `${progress}%`;
@@ -369,15 +386,15 @@ function updateProgressSection(userData) {
     }
     
     if (modulesCompleted) {
-        modulesCompleted.textContent = userData.purchasedCourse ? '5' : '0';
+        modulesCompleted.textContent = totalModules;
     }
     
     if (hoursLearned) {
-        hoursLearned.textContent = userData.purchasedCourse ? '12' : '0';
+        hoursLearned.textContent = totalHours;
     }
     
     if (projectsCompleted) {
-        projectsCompleted.textContent = userData.purchasedCourse ? '2' : '0';
+        projectsCompleted.textContent = totalProjects;
     }
 }
 
@@ -388,14 +405,17 @@ function updateStats(userData) {
     const progressPercent = document.getElementById('progressPercent');
     const daysActive = document.getElementById('daysActive');
     
+    // Use stats from new dashboard API
+    const stats = userData.stats || { totalEnrollments: 0, overallProgress: 0 };
+    
     if (coursesCount) {
-        coursesCount.textContent = userData.purchasedCourse ? '1' : '0';
-        console.log('Dashboard: Courses count updated to', userData.purchasedCourse ? '1' : '0');
+        coursesCount.textContent = stats.totalEnrollments || 0;
+        console.log('Dashboard: Courses count updated to', stats.totalEnrollments || 0);
     }
     
     if (progressPercent) {
-        progressPercent.textContent = userData.purchasedCourse ? '0%' : 'N/A';
-        console.log('Dashboard: Progress updated to', userData.purchasedCourse ? '0%' : 'N/A');
+        progressPercent.textContent = `${stats.overallProgress || 0}%`;
+        console.log('Dashboard: Progress updated to', `${stats.overallProgress || 0}%`);
     }
     
     if (daysActive) {
@@ -408,10 +428,10 @@ function updateStats(userData) {
     }
 }
 
-// Update course status based on purchase
+// Update course status based on enrollments
 function updateCourseStatus(userData) {
     console.log('Dashboard: Updating course status...');
-    console.log('Dashboard: Purchased Course Status:', userData.purchasedCourse);
+    console.log('Dashboard: Enrollments:', userData.enrollments);
     
     const courseCard = document.getElementById('courseCard');
     const emptyCourseState = document.getElementById('emptyCourseState');
@@ -421,32 +441,38 @@ function updateCourseStatus(userData) {
         return;
     }
     
-    if (userData.purchasedCourse) {
-        // User has purchased the course - show enrolled course card
-        console.log('Dashboard: Course purchased - showing enrolled course card');
+    const enrollments = userData.enrollments || [];
+    
+    if (enrollments.length > 0) {
+        // User has enrollments - show enrolled courses
+        console.log('Dashboard: User has enrollments - showing enrolled courses');
         courseCard.style.display = 'block';
         emptyCourseState.style.display = 'none';
         
+        // Display the first enrollment (can be extended to show all)
+        const enrollment = enrollments[0];
+        const course = enrollment.course || {};
+        
         courseCard.innerHTML = `
             <div class="course-header">
-                <div class="course-badge">Full Stack + AI</div>
+                <div class="course-badge">${course.category || 'Course'}</div>
                 <div class="course-status-badge enrolled">Enrolled ✅</div>
             </div>
             <div class="course-body">
-                <h3 class="course-title">Complete Web Development with AI Integration</h3>
-                <p class="course-description">Master modern web development and AI technologies with real-world projects.</p>
+                <h3 class="course-title">${course.title || 'Course'}</h3>
+                <p class="course-description">${course.description || ''}</p>
                 <div class="course-features">
-                    <span class="feature-tag">75+ Video Lessons</span>
-                    <span class="feature-tag">10+ Projects</span>
+                    <span class="feature-tag">${course.lessons || 0}+ Lessons</span>
+                    <span class="feature-tag">${course.projects || 0}+ Projects</span>
                     <span class="feature-tag">Certificate</span>
                 </div>
             </div>
             <div class="course-footer">
                 <div class="course-progress">
                     <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        <div class="progress-fill" id="progressFill" style="width: ${enrollment.progress || 0}%"></div>
                     </div>
-                    <span class="progress-text" id="progressText">0% Complete</span>
+                    <span class="progress-text" id="progressText">${enrollment.progress || 0}% Complete</span>
                 </div>
                 <a href="#" class="btn-continue" id="btnContinue">
                     Continue Learning
@@ -458,10 +484,10 @@ function updateCourseStatus(userData) {
         `;
         
         // Initialize progress bar for enrolled course
-        updateCourseProgress(25); // Placeholder progress percentage
+        updateCourseProgress(enrollment.progress || 0);
     } else {
-        // User has not purchased the course - show empty state
-        console.log('Dashboard: Course not purchased - showing empty state');
+        // User has no enrollments - show empty state
+        console.log('Dashboard: No enrollments - showing empty state');
         courseCard.style.display = 'none';
         emptyCourseState.style.display = 'block';
     }

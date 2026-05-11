@@ -135,6 +135,39 @@ mobileNavLinks.forEach(link => {
     });
 });
 
+// Close mobile menu when clicking outside
+document.addEventListener('click', (event) => {
+    if (mobileMenu && mobileMenu.classList.contains('active')) {
+        const isClickInsideMenu = mobileMenu.contains(event.target);
+        const isClickOnHamburger = hamburger && hamburger.contains(event.target);
+        
+        if (!isClickInsideMenu && !isClickOnHamburger) {
+            // Remove active class from hamburger
+            hamburger.classList.remove('active');
+            
+            // Remove active class from mobile menu
+            mobileMenu.classList.remove('active');
+            
+            // Enable body scroll
+            document.body.style.overflow = 'auto';
+        }
+    }
+});
+
+// Close mobile menu with Escape key
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
+        // Remove active class from hamburger
+        hamburger.classList.remove('active');
+        
+        // Remove active class from mobile menu
+        mobileMenu.classList.remove('active');
+        
+        // Enable body scroll
+        document.body.style.overflow = 'auto';
+    }
+});
+
 // ==================== SMOOTH SCROLL ====================
 
 // Add smooth scroll to all anchor links
@@ -454,10 +487,35 @@ document.addEventListener('DOMContentLoaded', () => {
 console.log('%c SSSAM Academy Landing Page ', 'background: linear-gradient(135deg, #7c3aed, #2563eb); color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; font-weight: bold;');
 console.log('%c Built with HTML, CSS, and Vanilla JavaScript ', 'color: #9ca3af; font-size: 12px;');
 
+// ==================== ENROLLMENT CHECK ====================
+
+// Check if user is enrolled in a course
+async function checkEnrollment(courseSlug) {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+        return false;
+    }
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/courses/check/${courseSlug}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        const data = await response.json();
+        return data.success && data.data && data.data.isEnrolled;
+    } catch (error) {
+        console.error('Error checking enrollment:', error);
+        return false;
+    }
+}
+
 // ==================== ENROLL BUTTON FLOW ====================
 
 // Handle enroll button click
-function handleEnrollClick(e) {
+async function handleEnrollClick(e) {
     e.preventDefault();
     console.log('Enroll button clicked');
     
@@ -467,20 +525,26 @@ function handleEnrollClick(e) {
     console.log('Auth check - Token:', !!token, 'User:', !!user);
     
     if (!token || !user) {
-        // User not logged in - open login modal
+        // User not logged in - open login modal (buy option)
         console.log('User not logged in, opening login modal');
         if (typeof openModal === 'function') {
             openModal();
         }
     } else {
-        // User already logged in - redirect to dashboard
-        console.log('User already logged in, redirecting to dashboard');
-        window.location.href = 'dashboard.html';
+        // User is logged in - redirect to payment page (cart)
+        console.log('User logged in, redirecting to payment page');
+        
+        // Get course slug from button href or default
+        const href = e.target.getAttribute('href') || '#';
+        const urlParams = new URLSearchParams(href.split('?')[1]);
+        const courseSlug = urlParams.get('course') || 'full-stack-ai';
+        
+        window.location.href = `payment.html?course=${courseSlug}`;
     }
 }
 
 // Add event listeners to enroll buttons
-document.querySelectorAll('.btn-enroll, .btn-enroll-mobile, .pricing-card .btn-primary').forEach(btn => {
+document.querySelectorAll('.btn-enroll, .btn-enroll-mobile, .pricing-card .btn-primary, #heroEnrollBtn').forEach(btn => {
     if (btn) {
         btn.addEventListener('click', handleEnrollClick);
         console.log('Enroll button event listener added');

@@ -13,19 +13,42 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Custom CSS -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#7c3aed',
+                        secondary: '#2563eb',
+                        pink: '#ec4899',
+                        dark: '#0b0f19',
+                        darker: '#111827',
+                        glass: 'rgba(17, 24, 39, 0.7)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Custom CSS (minimal - only for essential base styles) -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
     <!-- ==================== STICKY TOP OFFER BANNER ==================== -->
-    <div class="top-offer-banner" id="topOfferBanner">
-        <div class="banner-content">
-            <span class="banner-icon">🚀</span>
-            <span class="banner-text">Summer Offer — ₹999 Course at ₹9 Only</span>
-            <span class="banner-badge">99% OFF</span>
+    <div class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary to-secondary text-white py-3 px-4 flex items-center justify-between" id="topOfferBanner">
+        <div class="flex items-center gap-2 md:gap-4 flex-1">
+            <span class="text-xl">🚀</span>
+            <span class="text-sm md:text-base font-medium">Summer Offer — ₹999 Course at ₹9 Only</span>
+            <span class="hidden md:inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-bold">99% OFF</span>
         </div>
-        <button class="banner-close" id="closeBanner">
+        <button class="text-white/80 hover:text-white transition-colors" id="closeBanner">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -34,135 +57,160 @@
     </div>
     
     <!-- ==================== NAVBAR SECTION ==================== -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <!-- Logo -->
-            <div class="logo">
-                <a href="#">
-                    <span class="logo-icon">⚡</span>
-                    <span class="logo-text">SSSAM Academy</span>
-                </a>
-            </div>
-            
-            <!-- Navigation Menu -->
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#curriculum" class="nav-link">Curriculum</a></li>
-                <li><a href="#tech-stack" class="nav-link">Tech Stack</a></li>
-                <li><a href="#comparison" class="nav-link">Compare</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            
-            <!-- Auth Buttons -->
-            <div class="nav-auth" id="navAuth">
-                <a href="#" class="btn-login" id="btnLogin">Login</a>
-                <a href="#pricing" class="btn-enroll" id="btnEnroll">Enroll Now</a>
-            </div>
-            
-            <!-- Authenticated User Menu (Hidden by default) -->
-            <div class="nav-user" id="navUser" style="display: none;">
-                <a href="dashboard.html" class="btn-dashboard">Dashboard</a>
-                <button class="btn-logout-nav" id="btnLogoutNav">Logout</button>
-            </div>
-            
-            <!-- Mobile Menu Toggle -->
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <nav class="fixed top-12 left-0 right-0 z-40 bg-glass backdrop-blur-xl border-b border-white/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="flex items-center gap-2">
+                        <span class="text-2xl">⚡</span>
+                        <span class="font-heading font-bold text-xl text-white">SSSAM Academy</span>
+                    </a>
+                </div>
+                
+                <!-- Navigation Menu -->
+                <ul class="hidden md:flex items-center gap-8" id="navMenu">
+                    <li><a href="#home" class="nav-link text-gray-300 hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#curriculum" class="nav-link text-gray-300 hover:text-white transition-colors">Curriculum</a></li>
+                    <li><a href="#tech-stack" class="nav-link text-gray-300 hover:text-white transition-colors">Tech Stack</a></li>
+                    <li><a href="#comparison" class="nav-link text-gray-300 hover:text-white transition-colors">Compare</a></li>
+                    <li><a href="#contact" class="nav-link text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                </ul>
+                
+                <!-- Auth Buttons -->
+                <div class="hidden md:flex items-center gap-4" id="navAuth">
+                    <a href="#" class="px-4 py-2 text-gray-300 hover:text-white transition-colors font-medium" id="btnLogin">Login</a>
+                    <a href="#pricing" class="px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-medium hover:opacity-90 transition-opacity" id="btnEnroll">Enroll Now</a>
+                </div>
+                
+                <!-- Authenticated User Menu (Hidden by default) -->
+                <div class="hidden md:flex items-center gap-4" id="navUser" style="display: none;">
+                    <a href="dashboard.html" class="px-4 py-2 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition-colors">Dashboard</a>
+                    <button class="px-4 py-2 text-red-400 hover:text-red-300 transition-colors font-medium" id="btnLogoutNav">Logout</button>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <div class="md:hidden flex items-center gap-3" id="hamburger">
+                    <button class="text-gray-300 hover:text-white transition-colors">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
         
         <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <div class="mobile-menu-content">
-                <ul class="mobile-nav-links">
-                    <li><a href="#home" class="mobile-nav-link">Home</a></li>
-                    <li><a href="#curriculum" class="mobile-nav-link">Curriculum</a></li>
-                    <li><a href="#tech-stack" class="mobile-nav-link">Tech Stack</a></li>
-                    <li><a href="#comparison" class="mobile-nav-link">Compare</a></li>
-                    <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+        <div class="hidden md:hidden bg-glass backdrop-blur-xl border-t border-white/10" id="mobileMenu">
+            <div class="px-4 py-6 space-y-4">
+                <ul class="space-y-3">
+                    <li><a href="#home" class="block text-gray-300 hover:text-white transition-colors py-2">Home</a></li>
+                    <li><a href="#curriculum" class="block text-gray-300 hover:text-white transition-colors py-2">Curriculum</a></li>
+                    <li><a href="#tech-stack" class="block text-gray-300 hover:text-white transition-colors py-2">Tech Stack</a></li>
+                    <li><a href="#comparison" class="block text-gray-300 hover:text-white transition-colors py-2">Compare</a></li>
+                    <li><a href="#contact" class="block text-gray-300 hover:text-white transition-colors py-2">Contact</a></li>
                 </ul>
-                <div class="mobile-auth-buttons" id="mobileAuthButtons">
-                    <a href="#" class="btn-login-mobile" id="btnLoginMobile">Login</a>
-                    <a href="#pricing" class="btn-enroll-mobile" id="btnEnrollMobile">Enroll Now</a>
+                <div class="space-y-3 pt-4 border-t border-white/10" id="mobileAuthButtons">
+                    <a href="#" class="block w-full text-center py-2 text-gray-300 hover:text-white transition-colors font-medium" id="btnLoginMobile">Login</a>
+                    <a href="#pricing" class="block w-full py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg font-medium hover:opacity-90 transition-opacity" id="btnEnrollMobile">Enroll Now</a>
                 </div>
-                <div class="mobile-user-buttons" id="mobileUserButtons" style="display: none;">
-                    <a href="dashboard.html" class="btn-dashboard-mobile">Dashboard</a>
-                    <button class="btn-logout-mobile" id="btnLogoutMobile">Logout</button>
+                <div class="space-y-3 pt-4 border-t border-white/10" id="mobileUserButtons" style="display: none;">
+                    <a href="dashboard.html" class="block w-full py-2 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition-colors">Dashboard</a>
+                    <button class="block w-full py-2 text-red-400 hover:text-red-300 transition-colors font-medium" id="btnLogoutMobile">Logout</button>
                 </div>
             </div>
         </div>
     </nav>
     
     <!-- ==================== HERO SECTION ==================== -->
-    <section class="hero" id="home">
+    <section class="relative min-h-screen pt-32 pb-20 px-4 md:px-6 lg:px-8 bg-dark overflow-hidden" id="home">
         <!-- Animated Background -->
-        <div class="hero-background">
-            <div class="gradient-orb orb-1"></div>
-            <div class="gradient-orb orb-2"></div>
-            <div class="gradient-orb orb-3"></div>
-            <div class="grid-pattern"></div>
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-[100px] opacity-20 animate-pulse"></div>
+            <div class="absolute top-40 right-10 w-96 h-96 bg-secondary rounded-full blur-[100px] opacity-20 animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-pink rounded-full blur-[100px] opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
         </div>
         
-        <div class="container">
-            <div class="hero-content">
+        <div class="max-w-7xl mx-auto relative">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <!-- Left Side - Text Content -->
-                <div class="hero-left">
-                    <div class="hero-badge">
-                        <span class="badge-icon">🎯</span>
-                        <span class="badge-text">AI-Powered Training</span>
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-glass backdrop-blur-xl border border-white/10 rounded-full">
+                        <span class="text-xl">🎯</span>
+                        <span class="text-sm font-medium text-white">AI-Powered Training</span>
                     </div>
                     
-                    <h1 class="hero-title">
+                    <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                         AI Powered Full Stack
-                        <span class="gradient-text">Web Development Training</span>
+                        <span class="bg-gradient-to-r from-primary via-secondary to-pink bg-clip-text text-transparent"> Web Development Training</span>
                     </h1>
                     
-                    <h2 class="hero-subtitle">
+                    <h2 class="text-xl md:text-2xl text-gray-300 font-medium">
                         Build Real Websites with AI in Just 30 Days
                     </h2>
                     
                     <!-- Scholarship Offer -->
-                    <div class="scholarship-offer">
-                        <div class="offer-card">
-                            <span class="offer-label">Scholarship Offer</span>
-                            <div class="price-display">
-                                <span class="original-price">₹999</span>
-                                <span class="arrow">→</span>
-                                <span class="discounted-price">₹9 Only</span>
+                    <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl">
+                        <div class="flex items-center justify-between flex-wrap gap-4">
+                            <div>
+                                <span class="text-sm text-gray-400">Scholarship Offer</span>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <span class="text-2xl text-gray-500 line-through">₹999</span>
+                                    <span class="text-green-500 font-bold text-xl">→</span>
+                                    <span class="text-3xl font-extrabold text-green-500">₹9 Only</span>
+                                </div>
                             </div>
-                            <div class="discount-badge">99% Scholarship</div>
+                            <div class="px-4 py-2 bg-gradient-to-r from-red-500 to-orange-400 rounded-full text-xs font-bold text-white">
+                                99% Scholarship
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Trust Badges -->
-                    <div class="trust-badges">
-                        <div class="trust-item">
-                            <div class="trust-icon">✓</div>
-                            <span>Beginner Friendly</span>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center">
+                                <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span class="text-sm text-gray-300">Beginner Friendly</span>
                         </div>
-                        <div class="trust-item">
-                            <div class="trust-icon">✓</div>
-                            <span>Real Projects</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center">
+                                <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span class="text-sm text-gray-300">Real Projects</span>
                         </div>
-                        <div class="trust-item">
-                            <div class="trust-icon">✓</div>
-                            <span>AI Assisted Coding</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center">
+                                <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span class="text-sm text-gray-300">AI Assisted Coding</span>
                         </div>
-                        <div class="trust-item">
-                            <div class="trust-icon">✓</div>
-                            <span>Certificate Included</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center">
+                                <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span class="text-sm text-gray-300">Certificate Included</span>
                         </div>
                     </div>
                     
                     <!-- CTA Buttons -->
-                    <div class="hero-buttons">
-                        <a href="#pricing" class="btn-primary">
-                            <span class="btn-text">Enroll Now</span>
-                            <span class="btn-icon">→</span>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="payment.html?course=full-stack-ai" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg hover:opacity-90 transition-opacity" id="heroEnrollBtn">
+                            <span>Enroll Now</span>
+                            <span>→</span>
                         </a>
-                        <a href="#preview" class="btn-secondary">
+                        <a href="#preview" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white rounded-xl font-medium text-lg hover:bg-white/20 transition-colors">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
                             </svg>
@@ -171,98 +219,37 @@
                     </div>
                     
                     <!-- Social Proof -->
-                    <div class="social-proof">
-                        <div class="proof-text">
-                            <span class="proof-number">5,000+</span>
-                            <span class="proof-label">Students Enrolled</span>
+                    <div class="flex flex-col sm:flex-row gap-6 pt-4">
+                        <div>
+                            <span class="text-3xl font-bold text-white">5,000+</span>
+                            <span class="text-gray-400 ml-2">Students Enrolled</span>
                         </div>
-                        <div class="proof-rating">
-                            <span class="stars">⭐⭐⭐⭐⭐</span>
-                            <span class="rating-text">4.9/5 Rating</span>
+                        <div>
+                            <span class="text-yellow-400 text-xl">⭐⭐⭐⭐⭐</span>
+                            <span class="text-gray-400 ml-2">4.9/5 Rating</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Right Side - Premium Laptop Mockup -->
-                <div class="hero-right">
-                    <div class="laptop-mockup">
-                        <div class="laptop-screen">
-                            <div class="laptop-content">
+                <div class="relative">
+                    <div class="relative bg-gray-900 rounded-2xl p-2 shadow-2xl border border-white/10">
+                        <div class="bg-gray-800 rounded-xl overflow-hidden">
+                            <div class="bg-gray-900 p-4">
                                 <!-- VS Code Style Editor -->
-                                <div class="vscode-editor">
-                                    <div class="editor-sidebar">
-                                        <div class="sidebar-item active"></div>
-                                        <div class="sidebar-item"></div>
-                                        <div class="sidebar-item"></div>
+                                <div class="flex gap-4">
+                                    <div class="w-12 space-y-2">
+                                        <div class="w-8 h-8 bg-primary/30 rounded"></div>
+                                        <div class="w-8 h-8 bg-white/10 rounded"></div>
+                                        <div class="w-8 h-8 bg-white/10 rounded"></div>
                                     </div>
-                                    <div class="editor-main">
-                                        <div class="editor-tabs">
-                                            <div class="tab active">App.js</div>
-                                            <div class="tab">index.html</div>
-                                            <div class="tab">style.css</div>
-                                        </div>
-                                        <div class="editor-code">
-                                            <div class="code-line"><span class="line-number">1</span><span class="code"><span class="keyword">const</span> <span class="variable">buildWebApp</span> = <span class="keyword">async</span> () => {</span></div>
-                                            <div class="code-line"><span class="line-number">2</span><span class="code">  <span class="comment">// AI-Powered Development</span></span></div>
-                                            <div class="code-line"><span class="line-number">3</span><span class="code">  <span class="keyword">await</span> <span class="variable">master</span>(<span class="string">'Frontend'</span>);</span></div>
-                                            <div class="code-line"><span class="line-number">4</span><span class="code">  <span class="keyword">await</span> <span class="variable">master</span>(<span class="string">'Backend'</span>);</span></div>
-                                            <div class="code-line"><span class="line-number">5</span><span class="code">  <span class="keyword">await</span> <span class="variable">integrate</span>(<span class="string">'AI Tools'</span>);</span></div>
-                                            <div class="code-line"><span class="line-number">6</span><span class="code">  <span class="keyword">return</span> <span class="string">'Job Ready'</span>;</span></div>
-                                            <div class="code-line"><span class="line-number">7</span><span class="code">};</span></div>
-                                            <div class="code-line"><span class="line-number">8</span><span class="code"></span></div>
-                                            <div class="code-line"><span class="line-number">9</span><span class="code"><span class="variable">buildWebApp</span>();</span></div>
-                                        </div>
+                                    <div class="flex-1 space-y-2">
+                                        <div class="h-4 bg-blue-400/30 rounded w-3/4"></div>
+                                        <div class="h-3 bg-green-400/30 rounded w-1/2"></div>
+                                        <div class="h-3 bg-purple-400/30 rounded w-2/3"></div>
+                                        <div class="h-3 bg-yellow-400/30 rounded w-1/3"></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="laptop-base">
-                            <div class="base-notch"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- Floating Tech Icons with Glow -->
-                    <div class="floating-icons">
-                        <div class="float-icon html" style="--delay: 0s;">
-                            <div class="icon-glow"></div>
-                            <div class="icon-box">
-                                <span class="icon-emoji">📄</span>
-                                <span class="icon-text">HTML5</span>
-                            </div>
-                        </div>
-                        <div class="float-icon css" style="--delay: 0.5s;">
-                            <div class="icon-glow"></div>
-                            <div class="icon-box">
-                                <span class="icon-emoji">🎨</span>
-                                <span class="icon-text">CSS3</span>
-                            </div>
-                        </div>
-                        <div class="float-icon js" style="--delay: 1s;">
-                            <div class="icon-glow"></div>
-                            <div class="icon-box">
-                                <span class="icon-emoji">⚡</span>
-                                <span class="icon-text">JavaScript</span>
-                            </div>
-                        </div>
-                        <div class="float-icon node" style="--delay: 1.5s;">
-                            <div class="icon-glow"></div>
-                            <div class="icon-box">
-                                <span class="icon-emoji">🟢</span>
-                                <span class="icon-text">Node.js</span>
-                            </div>
-                        </div>
-                        <div class="float-icon mongo" style="--delay: 2s;">
-                            <div class="icon-glow"></div>
-                            <div class="icon-box">
-                                <span class="icon-emoji">🍃</span>
-                                <span class="icon-text">MongoDB</span>
-                            </div>
-                        </div>
-                        <div class="float-icon ai" style="--delay: 2.5s;">
-                            <div class="icon-glow"></div>
-                            <div class="icon-box">
-                                <span class="icon-emoji">🤖</span>
-                                <span class="icon-text">AI Tools</span>
                             </div>
                         </div>
                     </div>
@@ -272,83 +259,73 @@
     </section>
     
     <!-- ==================== CURRICULUM SECTION ==================== -->
-    <section class="curriculum-section" id="curriculum">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">📚 Course Curriculum</div>
-                <h2 class="section-title">What You'll Learn in 30 Days</h2>
-                <p class="section-subtitle">A structured path from beginner to job-ready developer</p>
+    <section class="py-20 px-4 md:px-6 lg:px-8 bg-darker" id="curriculum">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 bg-glass backdrop-blur-xl border border-white/10 rounded-full mb-4">
+                    <span class="text-sm font-medium text-white">📚 Course Curriculum</span>
+                </div>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-white mb-4">What You'll Learn in 30 Days</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">A structured path from beginner to job-ready developer</p>
             </div>
             
-            <div class="curriculum-timeline">
+            <div class="max-w-4xl mx-auto space-y-8">
                 <!-- Week 1 -->
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <span class="marker-number">01</span>
-                        <div class="marker-glow"></div>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="week-badge">Week 1</div>
-                        <h3 class="timeline-title">Frontend Mastery</h3>
-                        <p class="timeline-description">HTML5, CSS3, Responsive Design, Modern Layouts</p>
-                        <div class="timeline-topics">
-                            <span class="topic-tag">Semantic HTML</span>
-                            <span class="topic-tag">Flexbox & Grid</span>
-                            <span class="topic-tag">Animations</span>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-xl">01</div>
+                    <div class="flex-1 p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl">
+                        <div class="inline-block px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-semibold mb-3">Week 1</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Frontend Mastery</h3>
+                        <p class="text-gray-400 mb-4">HTML5, CSS3, Responsive Design, Modern Layouts</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Semantic HTML</span>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Flexbox & Grid</span>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Animations</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Week 2 -->
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <span class="marker-number">02</span>
-                        <div class="marker-glow"></div>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="week-badge">Week 2</div>
-                        <h3 class="timeline-title">JavaScript Deep Dive</h3>
-                        <p class="timeline-description">ES6+, DOM Manipulation, Async/Await, APIs</p>
-                        <div class="timeline-topics">
-                            <span class="topic-tag">Modern JS</span>
-                            <span class="topic-tag">Fetch API</span>
-                            <span class="topic-tag">Event Handling</span>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-secondary to-pink rounded-full flex items-center justify-center text-white font-bold text-xl">02</div>
+                    <div class="flex-1 p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl">
+                        <div class="inline-block px-3 py-1 bg-secondary/20 text-secondary rounded-full text-xs font-semibold mb-3">Week 2</div>
+                        <h3 class="text-xl font-bold text-white mb-2">JavaScript Deep Dive</h3>
+                        <p class="text-gray-400 mb-4">ES6+, DOM Manipulation, Async/Await, APIs</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Modern JS</span>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Fetch API</span>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Event Handling</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Week 3 -->
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <span class="marker-number">03</span>
-                        <div class="marker-glow"></div>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="week-badge">Week 3</div>
-                        <h3 class="timeline-title">Backend Development</h3>
-                        <p class="timeline-description">Node.js, Express.js, REST APIs, Database</p>
-                        <div class="timeline-topics">
-                            <span class="topic-tag">Node.js</span>
-                            <span class="topic-tag">Express</span>
-                            <span class="topic-tag">MongoDB</span>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-pink to-primary rounded-full flex items-center justify-center text-white font-bold text-xl">03</div>
+                    <div class="flex-1 p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl">
+                        <div class="inline-block px-3 py-1 bg-pink/20 text-pink rounded-full text-xs font-semibold mb-3">Week 3</div>
+                        <h3 class="text-xl font-bold text-white mb-2">Backend Development</h3>
+                        <p class="text-gray-400 mb-4">Node.js, Express.js, REST APIs, Database</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Node.js</span>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Express</span>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">MongoDB</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Week 4 -->
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <span class="marker-number">04</span>
-                        <div class="marker-glow"></div>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="week-badge">Week 4</div>
-                        <h3 class="timeline-title">AI Integration & Deployment</h3>
-                        <p class="timeline-description">AI Tools, Git, Deployment, Real Projects</p>
-                        <div class="timeline-topics">
-                            <span class="topic-tag">ChatGPT API</span>
-                            <span class="topic-tag">GitHub</span>
-                            <span class="topic-tag">Vercel</span>
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-xl">04</div>
+                    <div class="flex-1 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-xl border border-primary rounded-2xl">
+                        <div class="inline-block px-3 py-1 bg-primary/30 text-primary rounded-full text-xs font-semibold mb-3">Week 4</div>
+                        <h3 class="text-xl font-bold text-white mb-2">AI Integration & Deployment</h3>
+                        <p class="text-gray-400 mb-4">ChatGPT API, GitHub Copilot, CI/CD, Cloud Hosting</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">AI Tools</span>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">Deployment</span>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm">CI/CD</span>
                         </div>
                     </div>
                 </div>
@@ -357,627 +334,387 @@
     </section>
     
     <!-- ==================== TECH STACK SECTION ==================== -->
-    <section class="tech-stack-section" id="tech-stack">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">🛠️ Tech Stack</div>
-                <h2 class="section-title">Industry-Standard Technologies</h2>
-                <p class="section-subtitle">Master the tools used by top companies worldwide</p>
+    <section class="py-20 px-4 md:px-6 lg:px-8 bg-dark" id="tech-stack">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 bg-glass backdrop-blur-xl border border-white/10 rounded-full mb-4">
+                    <span class="text-sm font-medium text-white">🛠️ Tech Stack</span>
+                </div>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-white mb-4">Industry-Standard Technologies</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Master the tools used by top companies worldwide</p>
             </div>
             
-            <div class="tech-grid">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- HTML5 -->
-                <div class="tech-card">
-                    <div class="tech-icon-wrapper">
-                        <div class="tech-icon">📄</div>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>HTML5</h3>
-                    <p>Semantic markup & accessibility</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">📄</div>
+                    <h3 class="text-lg font-bold text-white mb-2">HTML5</h3>
+                    <p class="text-sm text-gray-400">Semantic markup & accessibility</p>
                 </div>
                 
                 <!-- CSS3 -->
-                <div class="tech-card">
-                    <div class="tech-icon-wrapper">
-                        <div class="tech-icon">🎨</div>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>CSS3</h3>
-                    <p>Modern styling & animations</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-lg font-bold text-white mb-2">CSS3</h3>
+                    <p class="text-sm text-gray-400">Modern styling & animations</p>
                 </div>
                 
                 <!-- JavaScript -->
-                <div class="tech-card">
-                    <div class="tech-icon-wrapper">
-                        <div class="tech-icon">⚡</div>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>JavaScript</h3>
-                    <p>ES6+ & modern frameworks</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h3 class="text-lg font-bold text-white mb-2">JavaScript</h3>
+                    <p class="text-sm text-gray-400">ES6+ & modern frameworks</p>
                 </div>
                 
                 <!-- Node.js -->
-                <div class="tech-card">
-                    <div class="tech-icon-wrapper">
-                        <div class="tech-icon">🟢</div>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Node.js</h3>
-                    <p>Server-side JavaScript</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🟢</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Node.js</h3>
+                    <p class="text-sm text-gray-400">Server-side JavaScript</p>
                 </div>
                 
                 <!-- MongoDB -->
-                <div class="tech-card">
-                    <div class="tech-icon-wrapper">
-                        <div class="tech-icon">🍃</div>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>MongoDB</h3>
-                    <p>NoSQL database design</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🍃</div>
+                    <h3 class="text-lg font-bold text-white mb-2">MongoDB</h3>
+                    <p class="text-sm text-gray-400">NoSQL database design</p>
                 </div>
                 
                 <!-- Express.js -->
-                <div class="tech-card">
-                    <div class="tech-icon-wrapper">
-                        <div class="tech-icon">🚂</div>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Express.js</h3>
-                    <p>Backend API framework</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🚂</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Express.js</h3>
+                    <p class="text-sm text-gray-400">Backend API framework</p>
                 </div>
                 
                 <!-- GitHub -->
-                <div class="tech-card">
-                    <div class="tech-icon-wrapper">
-                        <div class="tech-icon">🐙</div>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>GitHub</h3>
-                    <p>Version control & collaboration</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🐙</div>
+                    <h3 class="text-lg font-bold text-white mb-2">GitHub</h3>
+                    <p class="text-sm text-gray-400">Version control & collaboration</p>
                 </div>
                 
                 <!-- ChatGPT -->
-                <div class="tech-card">
-                    <div class="tech-icon-wrapper">
-                        <div class="tech-icon">🤖</div>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>AI Tools</h3>
-                    <p>ChatGPT & AI integration</p>
+                <div class="p-6 bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-xl border border-primary rounded-2xl hover:border-primary/50 transition-all duration-300">
+                    <div class="text-4xl mb-4">🤖</div>
+                    <h3 class="text-lg font-bold text-white mb-2">AI Tools</h3>
+                    <p class="text-sm text-gray-400">ChatGPT, Copilot & more</p>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- ==================== WHY JOIN SECTION ==================== -->
-    <section class="why-join-section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">✨ Why Choose Us</div>
-                <h2 class="section-title">What Makes SSSAM Academy Different</h2>
-                <p class="section-subtitle">Learn faster, better, and get job-ready with our unique approach</p>
+    <section class="py-20 px-4 md:px-6 lg:px-8 bg-darker">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 bg-glass backdrop-blur-xl border border-white/10 rounded-full mb-4">
+                    <span class="text-sm font-medium text-white">✨ Why Choose Us</span>
+                </div>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-white mb-4">What Makes SSSAM Academy Different</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Learn faster, better, and get job-ready with our unique approach</p>
             </div>
             
-            <div class="features-grid">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Real Projects -->
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">🚀</div>
-                        <div class="icon-pulse"></div>
-                    </div>
-                    <h3>Real Projects</h3>
-                    <p>Build 10+ portfolio-ready projects that showcase your skills to employers</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Real Projects</h3>
+                    <p class="text-sm text-gray-400">Build 10+ portfolio-ready projects that showcase your skills to employers</p>
                 </div>
                 
                 <!-- AI Coding -->
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">🤖</div>
-                        <div class="icon-pulse"></div>
-                    </div>
-                    <h3>AI Assisted Coding</h3>
-                    <p>Learn to leverage AI tools like ChatGPT to code faster and smarter</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🤖</div>
+                    <h3 class="text-lg font-bold text-white mb-2">AI Assisted Coding</h3>
+                    <p class="text-sm text-gray-400">Learn to leverage AI tools like ChatGPT to code faster and smarter</p>
                 </div>
                 
                 <!-- Internship Guidance -->
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">💼</div>
-                        <div class="icon-pulse"></div>
-                    </div>
-                    <h3>Internship Guidance</h3>
-                    <p>Get guidance on landing internships and entry-level developer jobs</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">💼</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Internship Guidance</h3>
+                    <p class="text-sm text-gray-400">Get guidance on landing internships and entry-level developer jobs</p>
                 </div>
                 
                 <!-- Freelancing Basics -->
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">💰</div>
-                        <div class="icon-pulse"></div>
-                    </div>
-                    <h3>Freelancing Basics</h3>
-                    <p>Learn how to start freelancing and earn as a developer</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">💰</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Freelancing Basics</h3>
+                    <p class="text-sm text-gray-400">Learn how to start freelancing and earn as a developer</p>
                 </div>
                 
                 <!-- Certificate -->
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">🎓</div>
-                        <div class="icon-pulse"></div>
-                    </div>
-                    <h3>Certificate</h3>
-                    <p>Receive an industry-recognized certificate upon course completion</p>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🎓</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Certificate</h3>
+                    <p class="text-sm text-gray-400">Receive an industry-recognized certificate upon course completion</p>
                 </div>
                 
                 <!-- Deployment Training -->
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <div class="feature-icon">🌐</div>
-                        <div class="icon-pulse"></div>
-                    </div>
-                    <h3>Deployment Training</h3>
-                    <p>Learn to deploy your projects to the cloud like a pro</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- ==================== TRAINERS SECTION ==================== -->
-    <section class="trainers-section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">👨‍🏫 Expert Mentors</div>
-                <h2 class="section-title">Learn from Industry Experts</h2>
-                <p class="section-subtitle">Our instructors have years of real-world experience</p>
-            </div>
-            
-            <div class="trainers-grid">
-                <!-- Trainer 1 -->
-                <div class="trainer-card">
-                    <div class="trainer-image">
-                        <div class="avatar-placeholder">👨‍💻</div>
-                        <div class="experience-badge">5+ Years</div>
-                    </div>
-                    <div class="trainer-info">
-                        <h3>Rahul Sharma</h3>
-                        <p class="trainer-role">Full Stack Developer</p>
-                        <p class="trainer-specialization">React, Node.js, Cloud Architecture</p>
-                        <div class="trainer-social">
-                            <a href="#" class="social-link">LinkedIn</a>
-                            <a href="#" class="social-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Trainer 2 -->
-                <div class="trainer-card">
-                    <div class="trainer-image">
-                        <div class="avatar-placeholder">👩‍💻</div>
-                        <div class="experience-badge">4+ Years</div>
-                    </div>
-                    <div class="trainer-info">
-                        <h3>Priya Patel</h3>
-                        <p class="trainer-role">AI/ML Engineer</p>
-                        <p class="trainer-specialization">Python, Machine Learning, NLP</p>
-                        <div class="trainer-social">
-                            <a href="#" class="social-link">LinkedIn</a>
-                            <a href="#" class="social-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Trainer 3 -->
-                <div class="trainer-card">
-                    <div class="trainer-image">
-                        <div class="avatar-placeholder">👨‍🔬</div>
-                        <div class="experience-badge">6+ Years</div>
-                    </div>
-                    <div class="trainer-info">
-                        <h3>Amit Kumar</h3>
-                        <p class="trainer-role">Senior Developer</p>
-                        <p class="trainer-specialization">System Design, Microservices</p>
-                        <div class="trainer-social">
-                            <a href="#" class="social-link">LinkedIn</a>
-                            <a href="#" class="social-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- ==================== COMPARISON SECTION ==================== -->
-    <section class="comparison-section" id="comparison">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">⚖️ Comparison</div>
-                <h2 class="section-title">Why SSSAM Academy Wins</h2>
-                <p class="section-subtitle">See how we compare to traditional institutes</p>
-            </div>
-            
-            <div class="comparison-container">
-                <div class="comparison-table">
-                    <div class="comparison-header">
-                        <div class="header-cell traditional">
-                            <h3>Traditional Institutes</h3>
-                        </div>
-                        <div class="header-cell sssam">
-                            <h3>SSSAM Academy</h3>
-                            <div class="recommended-badge">Recommended</div>
-                        </div>
-                    </div>
-                    
-                    <div class="comparison-body">
-                        <div class="comparison-row">
-                            <div class="row-cell traditional">
-                                <span class="feature-name">Teaching Method</span>
-                                <span class="feature-value traditional-value">❌ Old Theory-Based</span>
-                            </div>
-                            <div class="row-cell sssam">
-                                <span class="feature-name">Teaching Method</span>
-                                <span class="feature-value sssam-value">✅ Practical Projects</span>
-                            </div>
-                        </div>
-                        
-                        <div class="comparison-row">
-                            <div class="row-cell traditional">
-                                <span class="feature-name">AI Integration</span>
-                                <span class="feature-value traditional-value">❌ No AI Tools</span>
-                            </div>
-                            <div class="row-cell sssam">
-                                <span class="feature-name">AI Integration</span>
-                                <span class="feature-value sssam-value">✅ AI-Assisted Coding</span>
-                            </div>
-                        </div>
-                        
-                        <div class="comparison-row">
-                            <div class="row-cell traditional">
-                                <span class="feature-name">Learning Speed</span>
-                                <span class="feature-value traditional-value">❌ Slow (6-12 Months)</span>
-                            </div>
-                            <div class="row-cell sssam">
-                                <span class="feature-name">Learning Speed</span>
-                                <span class="feature-value sssam-value">✅ Fast (30 Days)</span>
-                            </div>
-                        </div>
-                        
-                        <div class="comparison-row">
-                            <div class="row-cell traditional">
-                                <span class="feature-name">Job Support</span>
-                                <span class="feature-value traditional-value">❌ Limited</span>
-                            </div>
-                            <div class="row-cell sssam">
-                                <span class="feature-name">Job Support</span>
-                                <span class="feature-value sssam-value">✅ Interview Prep & Job Referrals</span>
-                            </div>
-                        </div>
-                        
-                        <div class="comparison-row">
-                            <div class="row-cell traditional">
-                                <span class="feature-name">Price</span>
-                                <span class="feature-value traditional-value">❌ ₹15,000 - ₹50,000</span>
-                            </div>
-                            <div class="row-cell sssam">
-                                <span class="feature-name">Price</span>
-                                <span class="feature-value sssam-value">✅ ₹9 (99% Scholarship)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- ==================== COURSE PREVIEW SECTION ==================== -->
-    <section class="course-preview-section" id="preview">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">🎬 Preview</div>
-                <h2 class="section-title">See What You'll Learn</h2>
-                <p class="section-subtitle">Get a sneak peek into our premium course content</p>
-            </div>
-            
-            <div class="preview-container">
-                <!-- Video Preview -->
-                <div class="video-preview">
-                    <div class="video-thumbnail">
-                        <div class="thumbnail-overlay"></div>
-                        <div class="play-button-wrapper">
-                            <button class="play-button">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="video-info">
-                            <h3>Course Introduction</h3>
-                            <p>Watch the full course overview</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Course Modules Preview -->
-                <div class="modules-preview">
-                    <div class="modules-header">
-                        <h3>Course Modules</h3>
-                        <span class="modules-count">8 Modules</span>
-                    </div>
-                    <div class="modules-list">
-                        <div class="module-item completed">
-                            <div class="module-icon">✓</div>
-                            <div class="module-content">
-                                <h4>HTML5 Fundamentals</h4>
-                                <span>12 Lessons • 2h 30m</span>
-                            </div>
-                        </div>
-                        <div class="module-item completed">
-                            <div class="module-icon">✓</div>
-                            <div class="module-content">
-                                <h4>CSS3 Mastery</h4>
-                                <span>15 Lessons • 3h 45m</span>
-                            </div>
-                        </div>
-                        <div class="module-item current">
-                            <div class="module-icon">▶</div>
-                            <div class="module-content">
-                                <h4>JavaScript Deep Dive</h4>
-                                <span>20 Lessons • 5h 20m</span>
-                            </div>
-                        </div>
-                        <div class="module-item">
-                            <div class="module-icon">○</div>
-                            <div class="module-content">
-                                <h4>Node.js Backend</h4>
-                                <span>18 Lessons • 4h 15m</span>
-                            </div>
-                        </div>
-                        <div class="module-item">
-                            <div class="module-icon">○</div>
-                            <div class="module-content">
-                                <h4>MongoDB Database</h4>
-                                <span>12 Lessons • 3h 00m</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300">
+                    <div class="text-4xl mb-4">🌐</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Deployment Training</h3>
+                    <p class="text-sm text-gray-400">Learn to deploy your projects to the cloud like a pro</p>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- ==================== PRICING SECTION ==================== -->
-    <section class="pricing-section" id="pricing">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">💰 Pricing</div>
-                <h2 class="section-title">Start Learning Today</h2>
-                <p class="section-subtitle">Limited time scholarship offer - Don't miss out</p>
+    <section class="py-20 px-4 md:px-6 lg:px-8 bg-dark" id="pricing">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-4 py-2 bg-glass backdrop-blur-xl border border-white/10 rounded-full mb-4">
+                    <span class="text-sm font-medium text-white">💰 Pricing</span>
+                </div>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-white mb-4">Start Learning Today</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Get 99% scholarship and start your journey to becoming a full stack developer</p>
             </div>
             
-            <div class="pricing-container">
-                <div class="pricing-card premium">
-                    <div class="pricing-badge">🔥 Best Value</div>
-                    <div class="pricing-header">
-                        <h3>Full Stack + AI Course</h3>
-                        <p class="pricing-subtitle">Complete web development training</p>
-                        <div class="pricing-price">
-                            <span class="original-price">₹999</span>
-                            <span class="discount-price">₹9</span>
-                            <span class="discount-tag">99% OFF</span>
+            <div class="max-w-md mx-auto">
+                <div class="p-8 bg-gradient-to-br from-glass to-primary/10 backdrop-blur-xl border border-primary rounded-3xl">
+                    <div class="text-center mb-6">
+                        <div class="inline-block px-4 py-2 bg-gradient-to-r from-red-500 to-orange-400 rounded-full text-xs font-bold text-white mb-4">
+                            99% SCHOLARSHIP
                         </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Full Stack + AI Course</h3>
+                        <p class="text-gray-400 text-sm">Complete career-ready program</p>
                     </div>
                     
-                    <div class="pricing-body">
-                        <ul class="features-list">
-                            <li><span class="check-icon">✓</span>Lifetime Access</li>
-                            <li><span class="check-icon">✓</span>75+ Video Lessons</li>
-                            <li><span class="check-icon">✓</span>10+ Real Projects</li>
-                            <li><span class="check-icon">✓</span>AI Tools Integration</li>
-                            <li><span class="check-icon">✓</span>Certificate of Completion</li>
-                            <li><span class="check-icon">✓</span>Community Support</li>
-                            <li><span class="check-icon">✓</span>Job Interview Prep</li>
-                            <li><span class="check-icon">✓</span>Free Updates</li>
-                        </ul>
+                    <div class="text-center mb-8">
+                        <div class="flex items-center justify-center gap-3 mb-2">
+                            <span class="text-3xl text-gray-500 line-through">₹999</span>
+                            <span class="text-green-500 font-bold text-xl">→</span>
+                            <span class="text-5xl font-extrabold text-green-500">₹9</span>
+                        </div>
+                        <p class="text-sm text-gray-400">One-time payment</p>
                     </div>
                     
-                    <div class="pricing-footer">
-                        <a href="#" class="btn-buy" id="pricingBuyBtn">Buy Now for ₹9</a>
-                        <div class="trust-badges">
-                            <span class="trust-item">🔒 Secure Payment</span>
-                            <span class="trust-item">💯 Money Back Guarantee</span>
-                        </div>
-                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Lifetime Access</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>10+ Real Projects</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>AI Tools Training</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Certificate</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Placement Guidance</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="payment.html?course=full-stack-ai" class="block w-full py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg text-center hover:opacity-90 transition-opacity" id="pricingEnrollBtn">
+                        Enroll Now for ₹9
+                    </a>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- ==================== FOOTER SECTION ==================== -->
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <!-- Logo & Description -->
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <span class="logo-icon">🚀</span>
-                        <span class="logo-text">SSSAM Academy</span>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-12 px-4 md:px-6 lg:px-8 bg-darker border-t border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-2xl">⚡</span>
+                        <span class="font-heading font-bold text-xl text-white">SSSAM Academy</span>
                     </div>
-                    <p>Empowering the next generation of developers with practical skills and real-world AI-powered projects.</p>
-                    
-                    <!-- Community Section -->
-                    <div class="community-card">
-                        <h4>Join Our Student Community 🚀</h4>
-                        <div class="community-buttons">
-                            <a href="https://wa.me/919217031899" target="_blank" class="btn-community whatsapp">
-                                <i class="fab fa-whatsapp"></i>
-                                Join WhatsApp
-                            </a>
-                            <a href="https://www.youtube.com/@CodingWithSudhir" target="_blank" class="btn-community youtube">
-                                <i class="fab fa-youtube"></i>
-                                Subscribe YouTube
-                            </a>
-                        </div>
-                    </div>
+                    <p class="text-gray-400 text-sm">AI-powered full stack web development training for the future.</p>
                 </div>
                 
-                <!-- Quick Links -->
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#curriculum">Course</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors text-sm">Home</a></li>
+                        <li><a href="#curriculum" class="text-gray-400 hover:text-white transition-colors text-sm">Curriculum</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors text-sm">Pricing</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors text-sm">Contact</a></li>
                     </ul>
                 </div>
                 
-                <!-- Social Links -->
-                <div class="footer-social">
-                    <h4>Connect With Us</h4>
-                    <div class="social-links">
-                        <a href="https://instagram.com/sssamacademy" target="_blank" class="social-btn instagram">
-                            <i class="fab fa-instagram"></i>
-                            <span>Instagram</span>
-                        </a>
-                        <a href="https://www.youtube.com/@CodingWithSudhir" target="_blank" class="social-btn youtube">
-                            <i class="fab fa-youtube"></i>
-                            <span>YouTube</span>
-                        </a>
-                        <a href="https://linkedin.com/company/sssamacademy" target="_blank" class="social-btn linkedin">
-                            <i class="fab fa-linkedin"></i>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://wa.me/919217031899" target="_blank" class="social-btn whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>WhatsApp</span>
-                        </a>
-                    </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Community</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">FAQ</a></li>
+                    </ul>
                 </div>
                 
-                <!-- Contact Info -->
-                <div class="footer-contact">
-                    <h4>Contact Us</h4>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:sssamacademy@gmail.com">sssamacademy@gmail.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <a href="tel:+919217031899">+91 9217031899</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>M24 Ground Floor, Old DLF Colony, Sector 14, Gurugram, Haryana - 122001</span>
-                    </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400 text-sm">support@sssam.academy</li>
+                        <li class="text-gray-400 text-sm">+91 98765 43210</li>
+                    </ul>
                 </div>
             </div>
             
-            <!-- Trust Badges -->
-            <div class="footer-trust">
-                <div class="trust-item">
-                    <i class="fas fa-lock"></i>
-                    <span>Secure Payments</span>
-                </div>
-                <div class="trust-item">
-                    <i class="fas fa-robot"></i>
-                    <span>AI Powered Learning</span>
-                </div>
-                <div class="trust-item">
-                    <i class="fas fa-user-graduate"></i>
-                    <span>Beginner Friendly</span>
-                </div>
-            </div>
-            
-            <!-- Copyright -->
-            <div class="footer-bottom">
-                <p>&copy; 2026 SSSAM Academy. All Rights Reserved.</p>
-                <p class="made-in">Made with ❤️ in India</p>
+            <div class="pt-8 border-t border-white/10 text-center">
+                <p class="text-gray-400 text-sm">© 2024 SSSAM Academy. All rights reserved.</p>
             </div>
         </div>
     </footer>
     
-    <!-- ==================== LOGIN/SIGNUP MODAL ==================== -->
-    <div class="modal-overlay" id="authModal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 id="modalTitle">Login to Your Account</h2>
-                <button class="modal-close" id="closeModal">
+    <!-- ==================== MODALS ==================== -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div class="bg-darker border border-white/10 rounded-2xl p-8 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white">Login</h3>
+                <button class="text-gray-400 hover:text-white transition-colors" onclick="closeModalFunc('loginModal')">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </div>
-            
-            <div class="modal-body">
-                <!-- Login Form -->
-                <form id="loginForm" class="auth-form active">
-                    <div class="form-group">
-                        <label for="loginEmail">Email Address</label>
-                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                    </div>
-                    <div class="form-options">
-                        <label class="checkbox-label">
-                            <input type="checkbox">
-                            <span>Remember me</span>
-                        </label>
-                        <a href="#" class="forgot-link">Forgot Password?</a>
-                    </div>
-                    <button type="submit" class="btn-auth">Login</button>
-                </form>
-                
-                <!-- Signup Form -->
-                <form id="signupForm" class="auth-form">
-                    <div class="form-group">
-                        <label for="signupName">Full Name</label>
-                        <input type="text" id="signupName" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupEmail">Email Address</label>
-                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupPassword">Password</label>
-                        <input type="password" id="signupPassword" placeholder="Create a password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupConfirmPassword">Confirm Password</label>
-                        <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required>
-                    </div>
-                    <button type="submit" class="btn-auth">Create Account</button>
-                </form>
-            </div>
-            
-            <div class="modal-footer">
-                <p class="switch-auth">
-                    <span id="switchText">Don't have an account?</span>
-                    <a href="#" class="switch-link" id="switchAuth">Sign Up</a>
-                </p>
-            </div>
+            <form id="loginForm">
+                <div class="mb-4">
+                    <input type="email" id="loginEmail" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-primary transition-colors" placeholder="Email" required>
+                </div>
+                <div class="mb-6">
+                    <input type="password" id="loginPassword" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-primary transition-colors" placeholder="Password" required>
+                </div>
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Login</button>
+            </form>
+            <p class="text-center mt-4 text-gray-400 text-sm">Don't have an account? <a href="#" class="text-primary hover:underline" onclick="closeModalFunc('loginModal'); openModal('signupModal')">Sign up</a></p>
         </div>
     </div>
     
-    <!-- ==================== SUCCESS MODAL ==================== -->
-    <div class="success-modal-overlay" id="successModal">
-        <div class="success-modal-container">
-            <div class="success-icon">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
+    <!-- Signup Modal -->
+    <div id="signupModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div class="bg-darker border border-white/10 rounded-2xl p-8 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white">Sign Up</h3>
+                <button class="text-gray-400 hover:text-white transition-colors" onclick="closeModalFunc('signupModal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
-            <h2 class="success-modal-title" id="successModalTitle">Login Successful 🎉</h2>
-            <p class="success-modal-message" id="successModalMessage">Redirecting to your dashboard...</p>
-            <div class="success-modal-loader">
-                <div class="loader-bar"></div>
-            </div>
+            <form id="signupForm">
+                <div class="mb-4">
+                    <input type="text" id="signupName" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-primary transition-colors" placeholder="Full Name" required>
+                </div>
+                <div class="mb-4">
+                    <input type="email" id="signupEmail" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-primary transition-colors" placeholder="Email" required>
+                </div>
+                <div class="mb-6">
+                    <input type="password" id="signupPassword" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-primary transition-colors" placeholder="Password" required>
+                </div>
+                <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold hover:opacity-90 transition-opacity">Sign Up</button>
+            </form>
+            <p class="text-center mt-4 text-gray-400 text-sm">Already have an account? <a href="#" class="text-primary hover:underline" onclick="closeModalFunc('signupModal'); openModal('loginModal')">Login</a></p>
         </div>
     </div>
     
-    <!-- Custom JavaScript -->
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div class="bg-darker border border-white/10 rounded-2xl p-8 max-w-md w-full mx-4 text-center">
+            <div class="text-6xl mb-4">✅</div>
+            <h3 class="text-2xl font-bold text-white mb-2" id="successTitle">Success!</h3>
+            <p class="text-gray-400 mb-6" id="successMessage">Operation completed successfully.</p>
+            <button class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold hover:opacity-90 transition-opacity" onclick="closeModalFunc('successModal')">Close</button>
+        </div>
+    </div>
+    
+    <!-- Error Modal -->
+    <div id="errorModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div class="bg-darker border border-white/10 rounded-2xl p-8 max-w-md w-full mx-4 text-center">
+            <div class="text-6xl mb-4">❌</div>
+            <h3 class="text-2xl font-bold text-white mb-2" id="errorTitle">Error!</h3>
+            <p class="text-gray-400 mb-6" id="errorMessage">An error occurred.</p>
+            <button class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold hover:opacity-90 transition-opacity" onclick="closeModalFunc('errorModal')">Close</button>
+        </div>
+    </div>
+    
+    <!-- ==================== JAVASCRIPT ==================== -->
     <script src="script.js"></script>
+    
+    <!-- Dynamic Course Data Script -->
+    <script>
+        const API_BASE_URL = 'http://localhost:5000';
+        
+        async function fetchCourses() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/courses`);
+                if (!response.ok) throw new Error('Failed to fetch courses');
+                const courses = await response.json();
+                return courses;
+            } catch (error) {
+                console.error('Error fetching courses:', error);
+                return null;
+            }
+        }
+        
+        async function updatePricingSection() {
+            try {
+                const courses = await fetchCourses();
+                if (courses && courses.length > 0) {
+                    const course = courses[0];
+                    const pricingEnrollBtn = document.getElementById('pricingEnrollBtn');
+                    if (pricingEnrollBtn && course.slug) {
+                        pricingEnrollBtn.href = `payment.html?course=${course.slug}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating pricing section:', error);
+            }
+        }
+        
+        async function updateEnrollButtons() {
+            try {
+                const courses = await fetchCourses();
+                if (courses && courses.length > 0) {
+                    const course = courses[0];
+                    const heroEnrollBtn = document.getElementById('heroEnrollBtn');
+                    const btnEnroll = document.getElementById('btnEnroll');
+                    const btnEnrollMobile = document.getElementById('btnEnrollMobile');
+                    
+                    if (heroEnrollBtn && course.slug) {
+                        heroEnrollBtn.href = `payment.html?course=${course.slug}`;
+                    }
+                    if (btnEnroll && course.slug) {
+                        btnEnroll.href = `payment.html?course=${course.slug}`;
+                    }
+                    if (btnEnrollMobile && course.slug) {
+                        btnEnrollMobile.href = `payment.html?course=${course.slug}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating enroll buttons:', error);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePricingSection();
+            updateEnrollButtons();
+        });
+    </script>
 </body>
 </html>

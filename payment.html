@@ -10,6 +10,46 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#7c3aed',
+                        secondary: '#2563eb',
+                        pink: '#ec4899',
+                        dark: '#0b0f19',
+                        darker: '#111827',
+                        glass: 'rgba(17, 24, 39, 0.7)',
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'pulse-slow': 'pulse 2s ease-in-out infinite',
+                        'bounce-slow': 'bounce 1s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease backwards',
+                        'fade-in-down': 'fadeInDown 0.6s ease backwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                            '50%': { transform: 'translateY(-30px) scale(1.1)' },
+                        },
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(30px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeInDown: {
+                            'from': { opacity: '0', transform: 'translateY(-30px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     
@@ -56,142 +96,340 @@
         </div>
     </div>
     
-    <!-- ==================== CHECKOUT SECTION ==================== -->
-    <section class="checkout-section">
-        <div class="checkout-container">
+    <!-- ==================== PREMIUM CHECKOUT SECTION ==================== -->
+    <section class="relative min-h-screen py-32 px-6 overflow-hidden bg-dark">
+        <!-- Background Effects -->
+        <div class="absolute top-[-200px] left-[-100px] w-[500px] h-[500px] rounded-full bg-primary blur-[100px] opacity-30 animate-float pointer-events-none"></div>
+        <div class="absolute bottom-[-150px] right-[-100px] w-[400px] h-[400px] rounded-full bg-secondary blur-[100px] opacity-30 animate-float pointer-events-none" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-pink blur-[100px] opacity-30 animate-float pointer-events-none" style="animation-delay: 4s;"></div>
+        
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 items-start">
             
-            <!-- Left Column - Order Summary -->
-            <div class="order-summary">
-                <div class="summary-header">
-                    <h2>Order Summary</h2>
-                    <div class="course-badge">Full Stack + AI</div>
-                </div>
+            <!-- LEFT SECTION - Course Showcase -->
+            <div class="flex flex-col gap-10">
                 
-                <div class="course-preview-card">
-                    <div class="course-icon">📚</div>
-                    <div class="course-details">
-                        <h3>Complete Web Development with AI Integration</h3>
-                        <p>Master modern web development and AI technologies</p>
-                    </div>
-                </div>
-                
-                <div class="pricing-breakdown">
-                    <div class="price-row">
-                        <span class="label">Original Price</span>
-                        <span class="value original">₹1,999</span>
-                    </div>
-                    <div class="price-row discount">
-                        <span class="label">Launch Discount</span>
-                        <span class="value">-₹1,990</span>
-                    </div>
-                    <div class="price-row total">
-                        <span class="label">Total</span>
-                        <span class="value final">₹9</span>
+                <!-- Hero Section -->
+                <div class="text-center py-10">
+                    <div class="inline-block px-5 py-2 bg-gradient-to-r from-primary to-secondary rounded-full text-sm font-semibold mb-6 animate-fade-in-down">🚀 Career-Ready Program</div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold mb-5 bg-gradient-to-r from-white to-primary bg-clip-text text-transparent animate-fade-in-up" style="animation-delay: 0.1s;">AI Powered Full Stack Web Development</h1>
+                    <p class="text-lg text-gray-400 max-w-[700px] mx-auto mb-8 leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s;">Master modern web development with cutting-edge AI tools and build real-world applications that stand out in the job market.</p>
+                    
+                    <!-- Tech Stack Badges -->
+                    <div class="flex flex-wrap justify-center gap-3 animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <span class="px-4 py-2 bg-glass border border-white/10 rounded-lg text-sm font-medium text-gray-300 hover:bg-primary hover:border-primary hover:text-white transition-all duration-200 hover:-translate-y-0.5">HTML5</span>
+                        <span class="px-4 py-2 bg-glass border border-white/10 rounded-lg text-sm font-medium text-gray-300 hover:bg-primary hover:border-primary hover:text-white transition-all duration-200 hover:-translate-y-0.5">CSS3</span>
+                        <span class="px-4 py-2 bg-glass border border-white/10 rounded-lg text-sm font-medium text-gray-300 hover:bg-primary hover:border-primary hover:text-white transition-all duration-200 hover:-translate-y-0.5">JavaScript</span>
+                        <span class="px-4 py-2 bg-glass border border-white/10 rounded-lg text-sm font-medium text-gray-300 hover:bg-primary hover:border-primary hover:text-white transition-all duration-200 hover:-translate-y-0.5">React</span>
+                        <span class="px-4 py-2 bg-glass border border-white/10 rounded-lg text-sm font-medium text-gray-300 hover:bg-primary hover:border-primary hover:text-white transition-all duration-200 hover:-translate-y-0.5">Node.js</span>
+                        <span class="px-4 py-2 bg-glass border border-white/10 rounded-lg text-sm font-medium text-gray-300 hover:bg-primary hover:border-primary hover:text-white transition-all duration-200 hover:-translate-y-0.5">MongoDB</span>
+                        <span class="px-4 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg text-sm font-medium text-white">AI Tools</span>
                     </div>
                 </div>
                 
-                <div class="features-list">
-                    <h4>What's Included:</h4>
-                    <div class="feature-item">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Lifetime Access</span>
+                <!-- Trust Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                    <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="text-3xl mb-3">⭐</div>
+                        <div class="text-3xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">4.9</div>
+                        <div class="text-sm text-gray-400">Rating</div>
                     </div>
-                    <div class="feature-item">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>75+ Video Lessons</span>
+                    <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="text-3xl mb-3">👨‍🎓</div>
+                        <div class="text-3xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">1200+</div>
+                        <div class="text-sm text-gray-400">Students</div>
                     </div>
-                    <div class="feature-item">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>10+ Real Projects</span>
+                    <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="text-3xl mb-3">🚀</div>
+                        <div class="text-3xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">300+</div>
+                        <div class="text-sm text-gray-400">Projects</div>
                     </div>
-                    <div class="feature-item">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Certificate of Completion</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Community Support</span>
+                    <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="text-3xl mb-3">💼</div>
+                        <div class="text-3xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">100%</div>
+                        <div class="text-sm text-gray-400">Career Support</div>
                     </div>
                 </div>
                 
-                <div class="guarantee-badge">
-                    <div class="guarantee-icon">🛡️</div>
-                    <div class="guarantee-text">
-                        <strong>30-Day Money Back Guarantee</strong>
-                        <span>No questions asked refund policy</span>
+                <!-- Benefits Section -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-6 bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">What You'll Get</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
+                            <div class="text-4xl mb-4">♾️</div>
+                            <h3 class="text-lg font-semibold mb-3 text-white">Lifetime Access</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Learn at your own pace with unlimited course access</p>
+                        </div>
+                        <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+                            <div class="text-4xl mb-4">🎯</div>
+                            <h3 class="text-lg font-semibold mb-3 text-white">Real Projects</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Build portfolio-ready projects for job interviews</p>
+                        </div>
+                        <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.7s;">
+                            <div class="text-4xl mb-4">🎓</div>
+                            <h3 class="text-lg font-semibold mb-3 text-white">Certificate</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Industry-recognized certificate upon completion</p>
+                        </div>
+                        <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.8s;">
+                            <div class="text-4xl mb-4">🤖</div>
+                            <h3 class="text-lg font-semibold mb-3 text-white">AI Tools Training</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Master ChatGPT, GitHub Copilot & more</p>
+                        </div>
+                        <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.9s;">
+                            <div class="text-4xl mb-4">📄</div>
+                            <h3 class="text-lg font-semibold mb-3 text-white">Resume Building</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Professional resume review and optimization</p>
+                        </div>
+                        <div class="text-center p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 1s;">
+                            <div class="text-4xl mb-4">💼</div>
+                            <h3 class="text-lg font-semibold mb-3 text-white">Placement Guidance</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Interview prep and job placement support</p>
+                        </div>
                     </div>
                 </div>
+                
+                <!-- Course Preview -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-6 bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">Course Curriculum</h2>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-center gap-4 p-5 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
+                            <div class="text-2xl font-extrabold text-primary min-w-[40px]">01</div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold mb-1 text-white">Frontend Development</h3>
+                                <p class="text-sm text-gray-400">HTML, CSS, JavaScript, React.js</p>
+                            </div>
+                            <div class="text-xl">✓</div>
+                        </div>
+                        <div class="flex items-center gap-4 p-5 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+                            <div class="text-2xl font-extrabold text-primary min-w-[40px]">02</div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold mb-1 text-white">Backend APIs</h3>
+                                <p class="text-sm text-gray-400">REST APIs, Express.js, Node.js</p>
+                            </div>
+                            <div class="text-xl">✓</div>
+                        </div>
+                        <div class="flex items-center gap-4 p-5 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.7s;">
+                            <div class="text-2xl font-extrabold text-primary min-w-[40px]">03</div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold mb-1 text-white">MongoDB Database</h3>
+                                <p class="text-sm text-gray-400">Data modeling, queries, aggregation</p>
+                            </div>
+                            <div class="text-xl">✓</div>
+                        </div>
+                        <div class="flex items-center gap-4 p-5 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.8s;">
+                            <div class="text-2xl font-extrabold text-primary min-w-[40px]">04</div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold mb-1 text-white">Authentication & Security</h3>
+                                <p class="text-sm text-gray-400">JWT, OAuth, secure coding practices</p>
+                            </div>
+                            <div class="text-xl">✓</div>
+                        </div>
+                        <div class="flex items-center gap-4 p-5 bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-xl border border-primary rounded-2xl animate-fade-in-up" style="animation-delay: 0.9s;">
+                            <div class="text-2xl font-extrabold text-primary min-w-[40px]">05</div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold mb-1 text-white">AI Integration</h3>
+                                <p class="text-sm text-gray-400">ChatGPT API, AI-powered features</p>
+                            </div>
+                            <div class="text-xl">🤖</div>
+                        </div>
+                        <div class="flex items-center gap-4 p-5 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 1s;">
+                            <div class="text-2xl font-extrabold text-primary min-w-[40px]">06</div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold mb-1 text-white">Deployment</h3>
+                                <p class="text-sm text-gray-400">Cloud hosting, CI/CD pipelines</p>
+                            </div>
+                            <div class="text-xl">✓</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Showcase -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-6 bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">Projects You'll Build</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <div class="flex items-center gap-2 px-5 py-3 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
+                            <span class="text-xl">🎬</span>
+                            <span class="font-medium text-gray-300">Netflix Clone</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-5 py-3 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+                            <span class="text-xl">🤖</span>
+                            <span class="font-medium text-gray-300">AI Chatbot</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-5 py-3 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.7s;">
+                            <span class="text-xl">📊</span>
+                            <span class="font-medium text-gray-300">Admin Dashboard</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-5 py-3 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.8s;">
+                            <span class="text-xl">💻</span>
+                            <span class="font-medium text-gray-300">Portfolio Website</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-5 py-3 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.9s;">
+                            <span class="text-xl">🚀</span>
+                            <span class="font-medium text-gray-300">SaaS Application</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonials -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-6 bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">What Our Students Say</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="relative p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.1s;">
+                            <div class="absolute top-3 left-4 text-4xl text-primary opacity-30 leading-none">"</div>
+                            <p class="text-base leading-relaxed text-gray-300 mb-4 pl-5 italic">This course helped me start freelancing and build real projects. The AI integration section was a game-changer for my career!</p>
+                            <div class="flex items-center gap-3 pl-5">
+                                <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center font-bold text-sm">RS</div>
+                                <div>
+                                    <div class="font-semibold text-white text-sm">Rahul Sharma</div>
+                                    <div class="text-xs text-gray-400">Full Stack Developer</div>
+                                </div>
+                                <div class="ml-auto text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.2s;">
+                            <div class="absolute top-3 left-4 text-4xl text-primary opacity-30 leading-none">"</div>
+                            <p class="text-base leading-relaxed text-gray-300 mb-4 pl-5 italic">From zero to job-ready in 3 months! The curriculum is perfectly structured and the projects are industry-relevant.</p>
+                            <div class="flex items-center gap-3 pl-5">
+                                <div class="w-10 h-10 bg-gradient-to-r from-secondary to-pink rounded-full flex items-center justify-center font-bold text-sm">PK</div>
+                                <div>
+                                    <div class="font-semibold text-white text-sm">Priya Kumari</div>
+                                    <div class="text-xs text-gray-400">Frontend Developer @ Tech Startup</div>
+                                </div>
+                                <div class="ml-auto text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.3s;">
+                            <div class="absolute top-3 left-4 text-4xl text-primary opacity-30 leading-none">"</div>
+                            <p class="text-base leading-relaxed text-gray-300 mb-4 pl-5 italic">The AI tools section is incredible. Now I use ChatGPT and Copilot daily in my work. Best investment ever!</p>
+                            <div class="flex items-center gap-3 pl-5">
+                                <div class="w-10 h-10 bg-gradient-to-r from-pink to-primary rounded-full flex items-center justify-center font-bold text-sm">AV</div>
+                                <div>
+                                    <div class="font-semibold text-white text-sm">Amit Verma</div>
+                                    <div class="text-xs text-gray-400">Software Engineer @ MNC</div>
+                                </div>
+                                <div class="ml-auto text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl hover:border-primary/30 transition-all duration-300 animate-fade-in-up" style="animation-delay: 1.4s;">
+                            <div class="absolute top-3 left-4 text-4xl text-primary opacity-30 leading-none">"</div>
+                            <p class="text-base leading-relaxed text-gray-300 mb-4 pl-5 italic">Got placed within 2 months of completing the course. The resume building and interview prep sessions were super helpful!</p>
+                            <div class="flex items-center gap-3 pl-5">
+                                <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center font-bold text-sm">NS</div>
+                                <div>
+                                    <div class="font-semibold text-white text-sm">Neha Singh</div>
+                                    <div class="text-xs text-gray-400">Junior Developer @ Fintech</div>
+                                </div>
+                                <div class="ml-auto text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scholarship Banner -->
+                <div class="flex items-center gap-6 p-6 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl animate-pulse-slow animate-fade-in-up" style="animation-delay: 1.2s;">
+                    <div class="text-5xl animate-bounce-slow">🔥</div>
+                    <div class="flex-1">
+                        <div class="inline-block px-4 py-1.5 bg-gradient-to-r from-red-500 to-orange-400 rounded-full text-xs font-bold mb-3">99% SCHOLARSHIP ACTIVE</div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl text-gray-500 line-through">₹999</span>
+                            <span class="text-green-500 font-bold">→</span>
+                            <span class="text-3xl font-extrabold text-green-500">₹9 Only</span>
+                        </div>
+                        <div class="text-sm text-red-400 font-medium">Limited time offer</div>
+                    </div>
+                </div>
+                
             </div>
             
-            <!-- Right Column - Payment Form -->
-            <div class="payment-form-container" style="grid-column: 3;">
-                <div class="form-card">
-                    <div class="form-header">
-                        <h2>Complete Payment</h2>
-                        <p>Fill in your details to proceed</p>
+            <!-- RIGHT SECTION - Sticky Checkout Card -->
+            <div class="sticky top-24">
+                <div class="p-8 bg-glass backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                    
+                    <!-- Course Info -->
+                    <div class="text-center pb-6 border-b border-white/10 mb-6">
+                        <div class="inline-block px-4 py-1.5 bg-gradient-to-r from-primary to-secondary rounded-full text-xs font-semibold mb-4">Full Stack + AI</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">AI Powered Full Stack Web Development</h3>
+                        <p class="text-sm text-gray-400">Complete career-ready program</p>
                     </div>
                     
-                    <form id="paymentForm">
-                        <div class="form-section">
-                            <h3>Billing Details</h3>
-                            <div class="form-group">
-                                <label for="fullName">Full Name</label>
-                                <input type="text" id="fullName" placeholder="Enter your full name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" placeholder="Enter your email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" placeholder="Enter your phone number" required>
-                            </div>
+                    <!-- Order Summary -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center py-3 border-b border-white/10">
+                            <span class="text-sm text-gray-300">Original Price</span>
+                            <span class="text-base font-semibold text-white" id="checkoutOriginalPrice">₹999</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-white/10">
+                            <span class="text-sm text-gray-300">Scholarship</span>
+                            <span class="text-base font-semibold text-green-500" id="checkoutDiscount">-₹990</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-4 mt-2">
+                            <span class="text-sm text-gray-300">You Pay</span>
+                            <span class="text-2xl font-extrabold text-green-500" id="checkoutFinalPrice">₹9</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Features -->
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2.5 py-2.5 text-sm text-gray-300">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>⚡ Instant Dashboard Access</span>
+                        </div>
+                        <div class="flex items-center gap-2.5 py-2.5 text-sm text-gray-300">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>🔒 Secured by Razorpay</span>
+                        </div>
+                        <div class="flex items-center gap-2.5 py-2.5 text-sm text-gray-300">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>🛡️ 30-Day Money Back Guarantee</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Form -->
+                    <form id="paymentForm" class="mb-6">
+                        <div class="mb-4">
+                            <input type="text" id="fullName" class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/10 transition-all duration-200 placeholder-gray-500" placeholder="Full Name" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" id="email" class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/10 transition-all duration-200 placeholder-gray-500" placeholder="Email Address" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="tel" id="phone" class="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/10 transition-all duration-200 placeholder-gray-500" placeholder="Phone Number" required>
                         </div>
                         
-                        <div class="form-section">
-                            <h3>Payment Method</h3>
-                            <div class="payment-methods">
-                                <label class="payment-method active">
-                                    <input type="radio" name="payment" value="razorpay" checked>
-                                    <div class="method-content">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-                                            <line x1="2" y1="10" x2="22" y2="10"></line>
-                                        </svg>
-                                        <span>Razorpay</span>
-                                    </div>
-                                    <div class="check-indicator"></div>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="secure-payment">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button type="submit" class="checkout-pay-btn w-full px-6 py-4 bg-gradient-to-r from-primary to-secondary rounded-xl text-white text-lg font-bold cursor-pointer flex items-center justify-center gap-2.5 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed" id="proceedBtn">
+                            <span class="pay-text">Pay ₹9</span>
+                            <span class="pay-arrow transition-transform duration-300 group-hover:translate-x-1">→</span>
+                        </button>
+                    </form>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="flex gap-5 pt-5 border-t border-white/10">
+                        <div class="flex items-center gap-2 text-xs text-gray-400">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                             </svg>
-                            <span>100% Secure Payment</span>
+                            <span>SSL Encrypted</span>
                         </div>
-                        
-                        <button type="submit" class="btn-pay">
-                            Pay ₹9
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="9 18 15 12 9 6"></polyline>
+                        <div class="flex items-center gap-2 text-xs text-gray-400">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                             </svg>
-                        </button>
-                    </form>
+                            <span>Safe & Secure</span>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
+            
         </div>
     </section>
     
@@ -213,6 +451,88 @@
     
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
-    <script src="payment.js"></script>
+    <script>
+        // ==================== PAYMENT PAGE JAVASCRIPT ====================
+        
+        const API_BASE_URL = 'http://localhost:5000';
+        
+        // Fetch course data by slug
+        async function fetchCourseData(courseSlug) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/courses/${courseSlug}`);
+                const data = await response.json();
+                
+                if (data.success && data.data) {
+                    return data.data;
+                } else {
+                    throw new Error('Course not found');
+                }
+            } catch (error) {
+                console.error('Error fetching course data:', error);
+                return null;
+            }
+        }
+        
+        // Update payment page with course data
+        function updatePaymentPage(course) {
+            if (!course) {
+                console.error('Course data not available');
+                return;
+            }
+            
+            // Update pricing (IDs work with Tailwind HTML)
+            const checkoutOriginalPrice = document.getElementById('checkoutOriginalPrice');
+            const checkoutDiscount = document.getElementById('checkoutDiscount');
+            const checkoutFinalPrice = document.getElementById('checkoutFinalPrice');
+            const payButton = document.querySelector('.checkout-pay-btn .pay-text');
+            
+            if (checkoutOriginalPrice) {
+                checkoutOriginalPrice.textContent = `₹${course.price || 999}`;
+            }
+            
+            if (checkoutDiscount) {
+                const discount = (course.price || 999) - (course.discountedPrice || 9);
+                checkoutDiscount.textContent = `-₹${discount}`;
+            }
+            
+            if (checkoutFinalPrice) {
+                checkoutFinalPrice.textContent = `₹${course.discountedPrice || 9}`;
+            }
+            
+            if (payButton) {
+                payButton.textContent = `Pay ₹${course.discountedPrice || 9}`;
+            }
+        }
+        
+        // Initialize payment page
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Get course slug from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseSlug = urlParams.get('course') || 'full-stack-ai';
+            
+            console.log('Payment: Loading course data for:', courseSlug);
+            
+            // Fetch course data
+            const course = await fetchCourseData(courseSlug);
+            
+            if (course) {
+                console.log('Payment: Course data loaded:', course);
+                updatePaymentPage(course);
+            } else {
+                console.error('Payment: Failed to load course data');
+                // Use default data if course not found
+                updatePaymentPage({
+                    title: 'Complete Web Development with AI Integration',
+                    description: 'Master modern web development and AI technologies',
+                    category: 'Full Stack + AI',
+                    price: 1999,
+                    discountedPrice: 9,
+                    lessons: 75,
+                    projects: 10
+                });
+            }
+        });
+    </script>
+    <script src="cart.js"></script>
 </body>
 </html>

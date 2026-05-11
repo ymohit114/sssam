@@ -192,19 +192,21 @@ function initRazorpay(orderData) {
     console.log('Cart: Window Razorpay:', window.Razorpay);
     
     const user = JSON.parse(localStorage.getItem('user'));
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseSlug = urlParams.get('course') || 'full-stack-ai';
     
     const options = {
         key: RAZORPAY_KEY_ID,
         amount: orderData.order.amount,
         currency: orderData.order.currency,
         name: 'SSSAM Academy',
-        description: 'AI Powered Full Stack Web Development Training',
+        description: orderData.courseName || 'AI Powered Full Stack Web Development Training',
         order_id: orderData.order.id,
         image: '', // Add logo URL if available
         handler: async function (response) {
             console.log('Cart: Razorpay payment success:', response);
             // Payment successful - verify with backend
-            await verifyPayment(response);
+            await verifyPayment(response, courseSlug);
         },
         prefill: {
             name: user.name || '',
@@ -212,7 +214,8 @@ function initRazorpay(orderData) {
             contact: ''
         },
         notes: {
-            userId: user._id || ''
+            userId: user._id || '',
+            courseSlug: courseSlug
         },
         theme: {
             color: '#7c3aed',
@@ -251,8 +254,8 @@ function initRazorpay(orderData) {
 }
 
 // Verify payment with backend
-async function verifyPayment(paymentResponse) {
-    console.log('Cart: Verifying payment with backend...');
+async function verifyPayment(paymentResponse, courseSlug) {
+    console.log('Cart: Verifying payment with backend for course:', courseSlug);
     
     try {
         const response = await apiRequest('/api/payment/verify-payment', {
@@ -261,6 +264,7 @@ async function verifyPayment(paymentResponse) {
                 razorpay_order_id: paymentResponse.razorpay_order_id,
                 razorpay_payment_id: paymentResponse.razorpay_payment_id,
                 razorpay_signature: paymentResponse.razorpay_signature,
+                courseSlug: courseSlug,
             }),
         });
         
@@ -269,7 +273,7 @@ async function verifyPayment(paymentResponse) {
         if (response.success) {
             console.log('Cart: Payment verified successfully');
             // Payment verified successfully
-            showSuccessModal('Payment Successful! 🎉', 'Redirecting to success page...', 'success.html');
+            showSuccessModal('Payment Successful! 🎉', 'Redirecting to dashboard...', 'dashboard.html');
         } else {
             throw new Error('Payment verification failed');
         }
@@ -281,15 +285,14 @@ async function verifyPayment(paymentResponse) {
 }
 
 // Create order with backend
-async function createOrder() {
-    console.log('Cart: Creating Razorpay order with backend...');
+async function createOrder(courseSlug) {
+    console.log('Cart: Creating Razorpay order with backend for course:', courseSlug);
     
     try {
         const response = await apiRequest('/api/payment/create-order', {
             method: 'POST',
             body: JSON.stringify({
-                amount: 900, // ₹9 in paise
-                currency: 'INR',
+                courseSlug: courseSlug,
             }),
         });
         
@@ -389,9 +392,15 @@ function initProceedButton() {
             
             console.log('Cart: Token:', auth.token.substring(0, 10) + '...');
             
+            // Get course slug from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseSlug = urlParams.get('course') || 'full-stack-ai'; // Default course
+            
+            console.log('Cart: Course slug:', courseSlug);
+            
             // Create order with backend
             console.log('Cart: Creating order...');
-            const orderData = await createOrder();
+            const orderData = await createOrder(courseSlug);
             console.log('Cart: Order data received:', orderData);
             
             // Initialize Razorpay payment
